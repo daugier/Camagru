@@ -1,0 +1,126 @@
+html
+{
+	height: 100%;
+}
+body
+{
+	padding : 0;
+	margin : 0;
+}
+canvas
+{
+	display: none;
+}
+video, img, #startbutton
+{
+	display: block;
+	float: left;
+	border: 10px solid #fff;
+	border-radius: 10px;
+}
+.connexion
+{
+	display: block;
+	margin: 0 auto;
+	width: 500px;
+	background-color: white;
+	padding: 30px;
+	border-radius: 10px;
+	border: 2px solid #ddd;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.code
+{
+	display: block;
+	margin: 0 auto;
+	width: 500px;
+	background-color: white;
+	padding: 30px;
+	border-radius: 10px;
+	border: 2px solid #ddd;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.inscription
+{
+	display: block;
+	margin: 0 auto;
+	width: 500px;
+	background-color: white;
+	padding: 30px;
+	border-radius: 10px;
+	border: 2px solid #ddd;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.shadow
+{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+	z-index: 2;
+}
+#register:target
+{
+	visibility:visible;
+	 opacity: 1;
+}
+#login:target
+{
+	visibility:visible;
+	 opacity: 1;
+}
+#code:target
+{
+	visibility:visible;
+	 opacity: 1;
+}
+#startbutton
+{
+	background: green;
+	border: none;
+	color: #fff;
+	margin: 100px 20px 20px 20px;
+	padding: 10px 20px;
+	font-size: 20px;
+}
+#container
+{
+	overflow: hidden;
+	width: 880px;
+	margin: 20px auto;
+}
+.menu
+{
+	padding-top: 70px;
+	height : 150px;
+	background-color: grey;
+}
+.menu li
+{
+	display : inline;
+}
+.menu a:hover
+{
+	color : orange;
+}
+.menu a
+{
+	font-size: 25px;
+	color : white;
+	text-decoration: none;
+	margin : 20;
+}
