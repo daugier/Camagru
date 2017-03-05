@@ -1,5 +1,18 @@
-<?php session_start(); ?>
-<html>
+<?php
+	session_start();
+	require 'connect_db.php';
+
+	$mail = $_GET['mail'];
+	$code = $_GET['code'];
+	$query = $db->prepare("SELECT id FROM user WHERE mail=:mail AND code=:code");
+	$query->execute(array(':mail' => $mail, ':code' => $code));
+	$res = $query->fetch();
+	if ($res)
+		header('location:http://localhost:8080/camagru/index.php#accueil');
+	else
+		header('location:http://localhost:8080/camagru/index.php');
+?>
+	<html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Camagru</title>
@@ -79,3 +92,4 @@
 		</center>
 	</body>
 </html>
+?>
