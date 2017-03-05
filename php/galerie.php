@@ -35,7 +35,7 @@
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
-							<a href="forget_password.php">Mot de passe oublie ?</a>
+							<a href="#code">Mot de passe oublie ?</a>
               				<a href="#" class="quit">Fermer</a>
 						</div>
 					</form>
@@ -51,6 +51,19 @@
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
+              				<a href="#" class="quit">Fermer</a>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div id="code" class="shadow">
+				<div class="form">
+					<form class="code" action="forget_password.php" method="post" target="_self">
+						<h3>Mot de passe oublie ?</h3>
+						<div>
+							<label>Adresse Mail</label>
+							<input type="text" placeholder="Entrez votre mail" name="mail" required>
+							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
               				<a href="#" class="quit">Fermer</a>
 						</div>
 					</form>

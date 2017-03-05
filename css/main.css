@@ -18,6 +18,21 @@ video, img, #startbutton
 	border : 10px solid #fff;
 	border-radius : 10px;
 }
+#startbutton
+{
+	background : green;
+	border : none;
+	color : #fff;
+	margin : 100px 20px 20px 20px;
+	padding : 10px 20px;
+	font-size : 20px;
+}
+#container
+{
+	overflow : hidden;
+	width : 880px;
+	margin : 20px auto;
+}
 .connexion
 {
 	display : block;
@@ -46,7 +61,7 @@ video, img, #startbutton
 	left : 50%;
 	transform : translate(-50%, -50%);
 }
-.inscription
+.reset_pass
 {
 	display : block;
 	margin : 0 auto;
@@ -60,7 +75,7 @@ video, img, #startbutton
 	left : 50%;
 	transform : translate(-50%, -50%);
 }
-.code
+.inscription
 {
 	display : block;
 	margin : 0 auto;
@@ -87,6 +102,10 @@ video, img, #startbutton
 	opacity : 0;
 	z-index : 2;
 }
+.nodisplay
+{
+    display : none;
+}
 #register:target
 {
 	visibility : visible;
@@ -102,26 +121,7 @@ video, img, #startbutton
 	visibility : visible;
 	opacity : 1;
 }
-#accueil:target
-{
-	visibility : visible;
-	opacity : 1;
-}
-#startbutton
-{
-	background : green;
-	border : none;
-	color : #fff;
-	margin : 100px 20px 20px 20px;
-	padding : 10px 20px;
-	font-size : 20px;
-}
-#container
-{
-	overflow : hidden;
-	width : 880px;
-	margin : 20px auto;
-}
+
 .menu
 {
 	padding-top : 70px;
