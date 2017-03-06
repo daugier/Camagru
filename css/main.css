@@ -13,25 +13,43 @@ canvas
 }
 video, img, #startbutton
 {
-	display : block;
-	float : left;
 	border : 10px solid #fff;
 	border-radius : 10px;
 }
-#startbutton
-{
-	background : green;
-	border : none;
-	color : #fff;
-	margin : 100px 20px 20px 20px;
-	padding : 10px 20px;
-	font-size : 20px;
-}
-#container
+.all
 {
 	overflow : hidden;
-	width : 880px;
-	margin : 20px auto;
+}
+#container video, img
+{
+	width : 40%;
+}
+.image_montage img
+{
+	width : 150px;
+}
+.montage
+{
+	margin-top: 50px;
+	padding : 20px;
+	float : right;
+	width : 20%;
+}
+.image_montage
+{
+	margin-top: 50px;
+	width : 20%;
+	float: left;
+	padding : 20px;
+}
+#startbutton
+{
+	background : orange;
+	border : none;
+	color : grey;
+	margin : 30px;
+	padding : 10px;
+	font-size : 20px;
 }
 .connexion
 {
@@ -46,6 +64,11 @@ video, img, #startbutton
 	top : 50%;
 	left : 50%;
 	transform : translate(-50%, -50%);
+}
+#container
+{
+	width : 50%;
+	margin-top: 50px;
 }
 .code
 {

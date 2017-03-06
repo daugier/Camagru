@@ -62,7 +62,7 @@
 			</div>
 			<div id="register" class="shadow">
 				<div class="form">
-					<form class="Inscription" action="register.php" method="get" target="_self">
+					<form class="Inscription" action="register.php" method="post" target="_self">
 						<h3>Inscription</h3>
 						<div>
 							<label>Identidiant</label>

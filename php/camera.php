@@ -25,20 +25,28 @@
 					<li><a href="galerie.php">Galerie</a></li>
 				</ul>
 			</div>
-					<div id="container">
-			<div id="buttons">
-			  <button id="hd">active cam</button>
-			</div>
-				  <p id="dimensions"></p>
-				  <button id="startbutton">Prendre une photo</button>
-				  <canvas id="canvas"></canvas>
-				  <img id="photo" alt="photo">
-				  <video autoplay></video>
+			<div class="all">
+				<div class="image_montage">
+					<img src="../img/1.jpeg">
+					<br/><button>Utiliser</button>
+					<br/><img src="../img/2.jpeg">
+					<br/><button>Utiliser</button>
+				</div>
+				<div class="montage">
+					<img src="../img/1.jpeg">
+					<br/><img src="../img/2.jpeg">
+				</div>
+				<div id="container">
+					  <br/><video autoplay></video>
+					  <br/><button id="startbutton" name="photo" value="ok">Prendre une photo</button>
+					  <br/><canvas id="canvas"></canvas>
+					  <br/><img id="photo" alt="photo">
+				</div>
 			</div>
 			<script src="../js/cam.js"></script>
 			<div id="login" class="shadow">
 				<div class="form">
-					<form class="connexion" action="register.php" method="get" target="_self">
+					<form class="connexion" action="register.php" method="post" target="_self">
 						<h3>Connexion</h3>
 						<div>
 							<label>Identidiant</label>
@@ -53,7 +61,7 @@
 			</div>
 			<div id="register" class="shadow">
 				<div class="form">
-					<form class="Inscription" action="register.php" method="get" target="_self">
+					<form class="Inscription" action="register.php" method="post" target="_self">
 						<h3>Inscription</h3>
 						<div>
 							<label>Identidiant</label>
@@ -68,7 +76,7 @@
 			</div>
 			<div id="code" class="shadow">
 				<div class="form">
-					<form class="connexion" action="register.php" method="get" target="_self">
+					<form class="connexion" action="register.php" method="post" target="_self">
 						<h3>code</h3>
 						<div>
 							<label>Mon code</label>
