@@ -49,7 +49,7 @@ try
 	$sql = "CREATE TABLE IF NOT EXISTS image
 		(
 			id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-			img VARCHAR(255),
+			img TEXT,
 			user VARCHAR(255),
 			likes INT(255)
 		)";

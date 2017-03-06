@@ -13,7 +13,7 @@ if ($user && $password)
 	$res = $query->fetch();
 	if ($res)
 	{
-		$_SESSION['logged_on_user'] = 1;
+		$_SESSION['logged_on_user'] = $res['id'];
 	}
 }
 header('Location:http://localhost:8080/camagru/index.php');

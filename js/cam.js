@@ -6,7 +6,6 @@
 	var startbutton  = document.querySelector('#startbutton');
 	var width = 400;
 	var height = 300;
-	var url_photo = 0;
 		 
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;	
 	function successCallback(stream)
@@ -40,23 +39,68 @@
 		}
 		navigator.getUserMedia(Constraints, successCallback, errorCallback);
 	}
+	function getXMLHttpRequest()
+	{
+        var xhr = null;
+  
+        if(window.XMLHttpRequest || window.ActiveXObject)
+        {
+            if(window.ActiveXObject)
+            {
+            	try
+            	{
+                    xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch(e)
+                {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            }
+            else
+                xhr = new XMLHttpRequest();
+        }
+        else
+        {
+            alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+            return null;
+        }
+        return xhr;
+	}
 	function takepicture()
 	{
 	    canvas.width = width;
 	    canvas.height = height;
 	    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
 	    var data = canvas.toDataURL('image/png');
-	    photo.setAttribute('src', data);
-	    /*ajax = new XMLHttpRequest();
-	    ajax.open("POST",'stock_photo.php?data='+data, true);
-	    ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    ajax.send(data);
-	    redirect();*/
+
+		/* requete ajax*/
+
+		var xhr = getXMLHttpRequest();
+ 
+		xhr.onreadystatechange = function()
+		{
+			if(xhr.readyState == 4 && xhr.status == 200)
+			{
+			}
+		}
+		xhr.open("POST", "stock_photo.php", true); // true pour asynchrone
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		////////////////////////////
+    	var res = data.replace('data:image/png;base64,', '');
+    	while (res.indexOf(' '))
+    	{
+    		document.getElementById('placehere').innerHTML += '<div id="idChild"> </div>';
+    		data = res.replace(' ', '+');
+    	}
+		////////////////////////////
+	    xhr.send('data='+res);
+	    /* fin requete ajax */
 	}
 	startbutton.addEventListener('click', function(ev)
 	{
 		takepicture();
 		ev.preventDefault();
+		document.getElementById('placehere').innerHTML += '<div id="idChild"> content  html </div>';
 	}, false);
 	getMedia(hconstraints);
 })();

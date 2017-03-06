@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php
+	session_start(); 
+	
+	if (!$_SESSION['logged_on_user'])
+		header('location:http://localhost:8080/camagru/index.php');
+?>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -27,20 +32,17 @@
 			</div>
 			<div class="all">
 				<div class="image_montage">
-					<img src="../img/1.jpeg">
+					<img src="../img/1.png">
 					<br/><button>Utiliser</button>
 					<br/><img src="../img/2.jpeg">
 					<br/><button>Utiliser</button>
 				</div>
-				<div class="montage">
-					<img src="../img/1.jpeg">
-					<br/><img src="../img/2.jpeg">
+				<div class="montage" id="placehere">
 				</div>
 				<div id="container">
-					  <br/><video autoplay></video>
-					  <br/><button id="startbutton" name="photo" value="ok">Prendre une photo</button>
-					  <br/><canvas id="canvas"></canvas>
-					  <br/><img id="photo" alt="photo">
+					<br/><video  autoplay ></video>
+					<br/><button href="javascript:ajax();" id="startbutton" name="photo" value="ok">Prendre une photo</button>
+					<br/><canvas id="canvas"></canvas>
 				</div>
 			</div>
 			<script src="../js/cam.js"></script>
