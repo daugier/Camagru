@@ -5,14 +5,14 @@ session_start();
 extract($_POST);
 $id = $_SESSION['logged_on_user'];
 $img = $_POST["data"];
-//$img = str_replace('data:image/png;base64,', '', $img);
-//$img = str_replace(' ', '+', $img);
+$name = $_POST['name'];
+$img = str_replace('data:image/png;base64,', '', $img);
+$img = str_replace(' ', '+', $img);
 $img = base64_decode($img);
 if ($img)
 {
 	if (!file_exists('../montage'))
 		mkdir('../montage');
-	$name = '../montage/'.uniqid().'.png';
 	$handle = fopen($name, 'x');
 	fwrite($handle, $img);
 	fclose($handle);
@@ -53,6 +53,5 @@ if ($img)
 		$user = $res['user'];
 	$query= $db->prepare('INSERT INTO image (img, user) VALUES(:img, :user)');
 	$query->execute(array(':img' => $name, ':user' => $user));
-	
 }
 ?>

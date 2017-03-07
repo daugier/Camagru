@@ -6,6 +6,7 @@
 	var startbutton  = document.querySelector('#startbutton');
 	var width = 400;
 	var height = 300;
+	var name;
 		 
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;	
 	function successCallback(stream)
@@ -85,22 +86,48 @@
 		}
 		xhr.open("POST", "stock_photo.php", true); // true pour asynchrone
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		////////////////////////////
-    	var res = data.replace('data:image/png;base64,', '');
-    	while (res.indexOf(' '))
-    	{
-    		document.getElementById('placehere').innerHTML += '<div id="idChild"> </div>';
-    		data = res.replace(' ', '+');
-    	}
-		////////////////////////////
-	    xhr.send('data='+res);
+		
+		/* creation url image */
+   		var uniqid = function()
+   		{
+			return (new Date().getTime() + Math.floor((Math.random()*10000)+1)).toString(16);
+		};
+   		name = '../montage/'+uniqid()+'.png';
+
+	    xhr.send('data='+data+'&name='+name);
+
 	    /* fin requete ajax */
 	}
 	startbutton.addEventListener('click', function(ev)
 	{
 		takepicture();
 		ev.preventDefault();
-		document.getElementById('placehere').innerHTML += '<div id="idChild"> content  html </div>';
+		function sleep(seconds)
+		{
+    		var waitUntil = new Date().getTime() + seconds*1000;
+    		while(new Date().getTime() < waitUntil) true;
+		}
+		 /* pause le temps de la requete ajax, sinon erreur */
+
+		sleep(0.1);
+
+		/* si 10 photo sont deja afficher, j'efface la derniere */
+
+		var length = document.getElementById('placehere').childNodes.length;
+		if (length > 10)
+		{
+			var list = document.getElementById('placehere');
+			var item = list.lastElementChild;
+  			list.removeChild(item);
+		}
+
+		/* j'ajoute la derniere photo prise */
+		
+		var list = document.getElementById('placehere');
+		var new_img = document.createElement("img");
+		new_img.setAttribute("src", name);
+		list.insertBefore(new_img, list.firstChild);
+
 	}, false);
 	getMedia(hconstraints);
 })();

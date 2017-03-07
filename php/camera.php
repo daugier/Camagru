@@ -38,6 +38,21 @@
 					<br/><button>Utiliser</button>
 				</div>
 				<div class="montage" id="placehere">
+				<?php 
+					require 'connect_db.php';
+
+					$id = $_SESSION['logged_on_user'];
+					$query= $db->prepare('SELECT user FROM user WHERE id=:id');
+					$query->execute(array(':id' => $id));
+					if ($res = $query->fetch())
+						$user = $res['user'];
+					$query= $db->prepare('SELECT img FROM image WHERE user=:user');
+					$query->execute(array(':user' => $user));
+					$res = $query->fetchall();
+					$i = -1;
+					while ($res[++$i]['img'] && $i < 10)
+						echo '<img src="'.$res[$i]['img'].'">';
+				?>
 				</div>
 				<div id="container">
 					<br/><video  autoplay ></video>
