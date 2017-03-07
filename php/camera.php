@@ -49,8 +49,13 @@
 					$query= $db->prepare('SELECT img FROM image WHERE user=:user');
 					$query->execute(array(':user' => $user));
 					$res = $query->fetchall();
-					$i = -1;
-					while ($res[++$i]['img'] && $i < 10)
+					$i = 0;
+					while ($res[$i]['img'])
+					{
+						$i++;
+					}
+					$j = 0;
+					while ($res[--$i]['img'] && $j++ < 10)
 						echo '<img src="'.$res[$i]['img'].'">';
 				?>
 				</div>
