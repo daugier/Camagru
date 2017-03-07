@@ -51,7 +51,8 @@ try
 			id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 			img TEXT,
 			user VARCHAR(255),
-			likes INT(255)
+			likes INT(255),
+			comment TEXT
 		)";
 	$pdo->exec($sql);
 	$sql = "TRUNCATE TABLE image";

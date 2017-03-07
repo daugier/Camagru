@@ -72,10 +72,11 @@
 						<h3>Connexion</h3>
 						<div>
 							<label>Identidiant</label>
-							<input type="text" placeholder="Entrez identifiant" name="login" required>
+							<input type="text" placeholder="Entrez identifiant" name="user" required>
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
+							<a href="#code">Mot de passe oublie ?</a>
               				<a href="#" class="quit">Fermer</a>
 						</div>
 					</form>
@@ -87,7 +88,7 @@
 						<h3>Inscription</h3>
 						<div>
 							<label>Identidiant</label>
-							<input type="text" placeholder="Entrez identifiant" name="login" required>
+							<input type="text" placeholder="Entrez identifiant" name="user" required>
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
@@ -98,11 +99,12 @@
 			</div>
 			<div id="code" class="shadow">
 				<div class="form">
-					<form class="connexion" action="register.php" method="post" target="_self">
-						<h3>code</h3>
+					<form class="code" action="forget_password.php" method="post" target="_self">
+						<h3>Mot de passe oublie ?</h3>
 						<div>
-							<label>Mon code</label>
-							<input type="text" placeholder="Entrez identifiant" name="login" required>
+							<label>Adresse Mail</label>
+							<input type="text" placeholder="Entrez votre mail" name="mail" required>
+							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
               				<a href="#" class="quit">Fermer</a>
 						</div>
 					</form>

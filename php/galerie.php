@@ -25,6 +25,43 @@
 					<li><a href="#">Galerie</a></li>
 				</ul>
 			</div>
+			<div class="galerie" id="galerie" href="javascript:ajax();">
+				<?php
+					require 'connect_db.php';
+
+					$id = $_SESSION['logged_on_user'];
+					$query= $db->prepare('SELECT user FROM user WHERE id=:id');
+					$query->execute(array(':id' => $id));
+					if ($res = $query->fetch())
+						$user = $res['user'];
+					$query= $db->prepare('SELECT img FROM image');
+					$query->execute();
+					$res = $query->fetchall();
+					$i = 0;
+					if ($res)
+					{
+						while ($res[$i]['img'])
+							$i++;
+						while ($res[--$i]['img'])
+						{
+							echo '<div class="ensemble_photo">
+									<img src="'.$res[$i]['img'].'">
+									<br/>
+									<button class="like" type="submit" value="like">like</button>
+									<div class="commentaire">
+										<textarea type="text" id="texte" name="texte"></textarea>
+										<input type="submit" id="comment" name="comment" />
+										<input style="display:none;" id="user" value="'.$user.'"/>
+										<input style="display:none;" id="img" value="'.$res[$i]['img'].'"/>
+										<div id="new_comment">
+										</div>
+									</div>
+								</div>';
+						}
+					}
+				?>
+			<script src="../js/commentary.js"></script>
+			</div>
 			<div id="login" class="shadow">
 				<div class="form">
 					<form class="connexion" action="login.php" method="post" target="_self">
