@@ -109,7 +109,7 @@
 		}
 		 /* pause le temps de la requete ajax, sinon erreur */
 
-		sleep(0.1);
+		sleep(0.4);
 
 		/* si 10 photo sont deja afficher, j'efface la derniere */
 
