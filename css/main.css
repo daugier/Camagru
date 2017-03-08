@@ -48,7 +48,6 @@ canvas
 	position : relative;
 	overflow : hidden;
 	text-align: center;
-	background-color: red;
 }
 .galerie
 {
@@ -61,7 +60,14 @@ canvas
 	border : none;
 	border-radius : 5px;
 	width : 50px;
-	background-color: lightgreen
+	background-color: lightgreen;
+}
+.dislike
+{
+	border : none;
+	border-radius : 5px;
+	width : 50px;
+	background-color: red;
 }
 textarea
 {

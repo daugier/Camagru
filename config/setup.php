@@ -52,6 +52,7 @@ try
 			img TEXT,
 			user VARCHAR(255),
 			likes INT(255),
+			user_likes TEXT,
 			comment TEXT
 		)";
 	$pdo->exec($sql);

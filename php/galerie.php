@@ -49,6 +49,10 @@
 							$likes = $query->fetch();
 							$likes = $likes['likes'];
 							$img = $res[$i]['img'];
+							$query= $db->prepare('SELECT user_likes FROM image WHERE img=:img');
+							$query->execute(array(':img' => $img));
+							$user_likes = $query->fetch();
+							$user_likes = $user_likes['user_likes'];
 							$query= $db->prepare('SELECT id FROM image WHERE img=:img');
 							$query->execute(array(':img' => $img));
 							$id = $query->fetch();
@@ -57,8 +61,8 @@
 									<img src="'.$img.'">
 									<br/>
 									<div class="commentaire">
-										<input class="like" type="submit" onclick="add_like('.$id.', '.$i.')" value="like"/>
-										<input class="like" type="submit" onclick="sub_like('.$id.', '.$i.')" value="dislike"/>
+										<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\' )" value="like"/>
+										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\' )" value="dislike"/>
 										<div id="like'.$i.'">'.$likes.'</div>
 										<textarea type="text" id="texte'.$i.'" name="texte"></textarea>
 										<input type="submit" onclick="add_comment('.$i.')"/>

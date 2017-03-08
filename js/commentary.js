@@ -65,7 +65,7 @@ function add_comment(nbr)
 			list.insertBefore(z, list.firstChild);
 		}
 }
-function add_like(id, nbr)
+function add_like(id, nbr, user, user_likes)
 {
 	var xhr = getXMLHttpRequest();
 	xhr.onreadystatechange = function()
@@ -76,14 +76,20 @@ function add_like(id, nbr)
 	}
 	xhr.open("POST", "stock_like.php", true); // true pour asynchrone
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send('id='+id);
-	sleep(0.3);
 	var like = parseInt(document.getElementById('like'+nbr).innerHTML);
-	console.log(like);
 	like += 1;
-	document.getElementById('like'+nbr).innerHTML = like;
+	var position = user_likes.indexOf(user);
+	if (position <=  0)
+	{
+		var add = 1;
+		console.log(position);
+		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
+		sleep(0.3);
+		document.getElementById('like'+nbr).innerHTML = like;
+		window.location.reload();
+	}
 }
-function sub_like(id, nbr)
+function sub_like(id, nbr, user, user_likes)
 {
 	var xhr = getXMLHttpRequest();
 	xhr.onreadystatechange = function()
@@ -96,10 +102,14 @@ function sub_like(id, nbr)
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	var like = parseInt(document.getElementById('like'+nbr).innerHTML);
 	like -= 1;
-	if (like >= 0)
+	var position = user_likes.indexOf(user);
+	console.log(position);
+	if (position > 0)
 	{
-		xhr.send('id='+id+'&like='+like);
-		sleep(0.3);
+		var add = -1;
+		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
+		sleep(0.4);
 		document.getElementById('like'+nbr).innerHTML = like;
+		window.location.reload();
 	}
 }
