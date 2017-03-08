@@ -33,9 +33,15 @@
 			<div class="all">
 				<div class="image_montage">
 					<img src="../img/1.png">
-					<br/><button>Utiliser</button>
-					<br/><img src="../img/2.jpeg">
-					<br/><button>Utiliser</button>
+					<br/><button id="img1">Utiliser</button>
+					<br/><img src="../img/arbre.png">
+					<br/><button id="img2">Utiliser</button>
+					<br/><img src="../img/lune.png">
+					<br/><button id="img3">Utiliser</button>
+					<br/><img src="../img/biere.png">
+					<br/><button id="img4">Utiliser</button>
+					<br/><img src="../img/fuck.png">
+					<br/><button id="img5">Utiliser</button>
 				</div>
 				<div class="montage" id="placehere">
 				<?php 
@@ -60,12 +66,14 @@
 				?>
 				</div>
 				<div id="container">
+					<div id="wrong">
+					</div>
 					<br/><video  autoplay ></video>
 					<br/><button href="javascript:ajax();" id="startbutton" name="photo" value="ok">Prendre une photo</button>
 					<br/><canvas id="canvas"></canvas>
 				</div>
+				<script src="../js/cam.js"></script>
 			</div>
-			<script src="../js/cam.js"></script>
 			<div id="login" class="shadow">
 				<div class="form">
 					<form class="connexion" action="register.php" method="post" target="_self">

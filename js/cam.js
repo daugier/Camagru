@@ -7,7 +7,30 @@
 	var width = 400;
 	var height = 300;
 	var name;
+	var source;
 		 
+	
+	img1.addEventListener('click', function()
+	{
+		source = "../img/1.png";
+
+	},false);
+	img2.addEventListener('click', function()
+	{
+		source = "../img/arbre.png";
+	},false);
+	img3.addEventListener('click', function()
+	{
+		source = "../img/lune.png";
+	},false);
+	img4.addEventListener('click', function()
+	{
+		source = "../img/biere.png";
+	},false);
+	img5.addEventListener('click', function()
+	{
+		source = "../img/fuck.png";
+	},false);
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;	
 	function successCallback(stream)
 	{
@@ -94,40 +117,64 @@
 		};
    		name = '../montage/'+uniqid()+'.png';
 
-	    xhr.send('data='+data+'&name='+name);
+	    xhr.send('data='+data+'&name='+name+'&source='+source);
 
 	    /* fin requete ajax */
 	}
 	startbutton.addEventListener('click', function(ev)
-	{
-		takepicture();
-		ev.preventDefault();
-		function sleep(seconds)
+	{	
+		if (source)
 		{
-    		var waitUntil = new Date().getTime() + seconds*1000;
-    		while(new Date().getTime() < waitUntil) true;
-		}
-		 /* pause le temps de la requete ajax, sinon erreur */
+			takepicture();
+			ev.preventDefault();
+			function sleep(seconds)
+			{
+	    		var waitUntil = new Date().getTime() + seconds*1000;
+	    		while(new Date().getTime() < waitUntil) true;
+			}
+			 /* pause le temps de la requete ajax, sinon erreur */
 
-		sleep(0.4);
+			sleep(0.4);
 
-		/* si 10 photo sont deja afficher, j'efface la derniere */
+			/* si 10 photo sont deja afficher, j'efface la derniere */
 
-		var length = document.getElementById('placehere').childNodes.length;
-		if (length > 10)
-		{
+			var length = document.getElementById('placehere').childNodes.length;
+			if (length > 10)
+			{
+				var list = document.getElementById('placehere');
+				var item = list.lastElementChild;
+	  			list.removeChild(item);
+			}
+
+			/* j'ajoute la derniere photo prise */
+			var length = document.getElementById('wrong').childNodes.length;
+			
+			if (length > 1)
+			{
+				var list = document.getElementById('wrong');
+				var item = list.firstElementChild;
+	  			list.removeChild(item);
+			}
 			var list = document.getElementById('placehere');
-			var item = list.lastElementChild;
-  			list.removeChild(item);
+			var new_img = document.createElement("img");
+			new_img.setAttribute("src", name);
+			list.insertBefore(new_img, list.firstChild);
 		}
-
-		/* j'ajoute la derniere photo prise */
-		
-		var list = document.getElementById('placehere');
-		var new_img = document.createElement("img");
-		new_img.setAttribute("src", name);
-		list.insertBefore(new_img, list.firstChild);
-
+		else
+		{
+			var length = document.getElementById('wrong').childNodes.length;
+			if (length > 1)
+			{
+				var list = document.getElementById('wrong');
+				var item = list.firstElementChild;
+	  			list.removeChild(item);
+			}
+			var z = document.createElement('div');
+			var list = document.getElementById('wrong');
+			z.innerHTML = "Selectionnez d'abord une image";
+			list.appendChild(z);
+			list.insertBefore(z, list.firstChild);
+		}
 	}, false);
 	getMedia(hconstraints);
 })();

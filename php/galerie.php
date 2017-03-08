@@ -25,7 +25,7 @@
 					<li><a href="#">Galerie</a></li>
 				</ul>
 			</div>
-			<div class="galerie" id="galerie" href="javascript:ajax();">
+			<div class="galerie" id="galerie">
 				<?php
 					require 'connect_db.php';
 
@@ -44,24 +44,48 @@
 							$i++;
 						while ($res[--$i]['img'])
 						{
-							echo '<div class="ensemble_photo">
-									<img src="'.$res[$i]['img'].'">
+							$query= $db->prepare('SELECT likes FROM image WHERE img=:img');
+							$query->execute(array(':img' => $res[$i]['img']));
+							$likes = $query->fetch();
+							$likes = $likes['likes'];
+							$img = $res[$i]['img'];
+							$query= $db->prepare('SELECT id FROM image WHERE img=:img');
+							$query->execute(array(':img' => $img));
+							$id = $query->fetch();
+							$id = $id['id'];
+							echo '<div class="ensemble_photo"  href="javascript:ajax();">
+									<img src="'.$img.'">
 									<br/>
-									<button class="like" type="submit" value="like">like</button>
 									<div class="commentaire">
-										<textarea type="text" id="texte" name="texte"></textarea>
-										<input type="submit" id="comment" name="comment" />
-										<input style="display:none;" id="user" value="'.$user.'"/>
-										<input style="display:none;" id="img" value="'.$res[$i]['img'].'"/>
-										<div id="new_comment">
-										</div>
+										<input class="like" type="submit" onclick="add_like('.$id.', '.$i.')" value="like"/>
+										<input class="like" type="submit" onclick="sub_like('.$id.', '.$i.')" value="dislike"/>
+										<div id="like'.$i.'">'.$likes.'</div>
+										<textarea type="text" id="texte'.$i.'" name="texte"></textarea>
+										<input type="submit" onclick="add_comment('.$i.')"/>
+										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
+										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>
+										<div id="comment'.$i.'" >';
+							$query= $db->prepare('SELECT comment FROM image WHERE img=:img');
+							$query->execute(array('img' => $img));
+							$j = -1;
+							if ($com = $query->fetch())
+							{
+								$comment = $com['comment'];
+								preg_match_all("/user=(.*?)&/", $comment, $person);
+								preg_match_all("/text=(.*?)\/\//", $comment, $text);
+								while ($person[1][++$j] && $j < 2)
+								{
+									echo '<div>'.$person[1][$j].' : ',$text[1][$j].'</div>';
+								}
+							}
+							echo '			</div>
 									</div>
 								</div>';
 						}
 					}
 				?>
-			<script src="../js/commentary.js"></script>
 			</div>
+			<script src="../js/commentary.js"></script>
 			<div id="login" class="shadow">
 				<div class="form">
 					<form class="connexion" action="login.php" method="post" target="_self">
