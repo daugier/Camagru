@@ -7,13 +7,27 @@ body
 	padding : 0;
 	margin : 0;
 }
+#superpose
+{
+	position : absolute;
+	z-index : 2;
+	bottom : 0px;
+}
 canvas
 {
 	display : none;
 }
+#photo
+{
+	height : 300px;
+}
 #wrong
 {
 	color : red;
+}
+.container 
+{
+	overflow : hidden;
 }
 .all
 {
@@ -23,9 +37,10 @@ canvas
 {
 	text-align : left;
 }
-#container video, img
+#container video, img,
 {
 	width : 40%;
+	z-index : 1;
 }
 .galerie img
 {
@@ -52,6 +67,8 @@ canvas
 .galerie
 {
 	padding-left: 50px;
+	margin : 0;
+	padding : 0;
 	overflow : hidden;
 	width : 100%;
 }
@@ -111,6 +128,15 @@ textarea
 	float: left;
 	padding : 20px;
 }
+.cheat
+{
+	top : 50%;
+	left : 35%;
+	position : absolute;
+	background-color: red;
+	width : 450px;
+	overflow: hidden;
+}
 #startbutton
 {
 	background : orange;
@@ -134,6 +160,10 @@ textarea
 	left : 50%;
 	transform : translate(-50%, -50%);
 }
+#imgg
+{
+	width : 50px;
+}
 #container
 {
 	width : 50%;
@@ -155,17 +185,12 @@ textarea
 }
 .reset_pass
 {
-	display : block;
 	margin : 0 auto;
 	width : 500px;
 	background-color : white;
 	padding : 30px;
 	border-radius : 10px;
 	border : 2px solid #ddd;
-	position : absolute;
-	top : 50%;
-	left : 50%;
-	transform : translate(-50%, -50%);
 }
 .inscription
 {

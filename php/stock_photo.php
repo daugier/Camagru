@@ -10,6 +10,7 @@ $img = str_replace('data:image/png;base64,', '', $img);
 $img = str_replace(' ', '+', $img);
 $img = base64_decode($img);
 $source = $_POST['source'];
+$valide = $_POST['value'];
 if ($img)
 {
 	if (!file_exists('../montage'))
@@ -48,12 +49,19 @@ if ($img)
 	imagedestroy($destination);
 
 	/////////////////////////fin ajout//////////////////
-	$likes = 0;
-	$query= $db->prepare('SELECT user FROM user WHERE id=:id');
-	$query->execute(array(':id' => $id));
-	if ($res = $query->fetch())
-		$user = $res['user'];
-	$query= $db->prepare('INSERT INTO image (img, user, likes) VALUES(:img, :user, :likes)');
-	$query->execute(array(':img' => $name, ':user' => $user, ':likes' => $likes));
+	if ($valide == '1')
+	{
+		$likes = 0;
+		$query= $db->prepare('SELECT user FROM user WHERE id=:id');
+		$query->execute(array(':id' => $id));
+		if ($res = $query->fetch())
+			$user = $res['user'];
+		$query= $db->prepare('INSERT INTO image (img, user, likes) VALUES(:img, :user, 	:likes)');
+		$query->execute(array(':img' => $name, ':user' => $user, ':likes' => $likes));
+	}
+	if ($valide == '3')
+	{
+		unlink($name);
+	}
 }
 ?>

@@ -40,7 +40,7 @@
 					<br/><button id="img3">Utiliser</button>
 					<br/><img src="../img/biere.png">
 					<br/><button id="img4">Utiliser</button>
-					<br/><img src="../img/fuck.png">
+					<br/><img src="../img/fuck.png" id="imgg">
 					<br/><button id="img5">Utiliser</button>
 				</div>
 				<div class="montage" id="placehere">
@@ -65,12 +65,20 @@
 						echo '<img src="'.$res[$i]['img'].'">';
 				?>
 				</div>
-				<div id="container">
+				<div id="container" class="container">
 					<div id="wrong">
 					</div>
-					<br/><video  autoplay ></video>
-					<br/><button href="javascript:ajax();" id="startbutton" name="photo" value="ok">Prendre une photo</button>
-					<br/><canvas id="canvas"></canvas>
+					<div class="cheat">
+						<img id="superpose">
+						<video  autoplay ></video>
+					</div>
+					<div classe="valide_photo">
+						<br><br><br><br/><canvas id="canvas"></canvas>
+						<br/><button href="javascript:ajax();" id="startbutton" name="photo" value="ok">Prendre une photo</button>
+						<br><img id="photo" alt="photo">
+						<br><button id="valide" >Valider</button>
+						<button id="annule" >Supprimer</button>
+					</div>
 				</div>
 				<script src="../js/cam.js"></script>
 			</div>

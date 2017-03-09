@@ -12,11 +12,11 @@ if ($id)
 {
 	if ($add > 0)
 	{
-		$user_likes = $user_likes.'/'.$user;
+		$user_likes = $user_likes.';'.$user;
 	}
 	else if ($add < 0)
 	{
-		$user_likes = str_replace($user, '', $user_likes);
+		$user_likes = str_replace(';'.$user, '', $user_likes);
 	}
 	$query= $db->prepare('UPDATE image set likes=:likes WHERE id=:id');
 	$query->execute(array(':likes' => $likes, ':id' => $id));

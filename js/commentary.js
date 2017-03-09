@@ -63,6 +63,7 @@ function add_comment(nbr)
 			z.innerHTML = user+' : '+texte;
 			list.appendChild(z);
 			list.insertBefore(z, list.firstChild);
+			document.getElementById('texte'+nbr).value = "";
 		}
 }
 function add_like(id, nbr, user, user_likes)
@@ -82,9 +83,8 @@ function add_like(id, nbr, user, user_likes)
 	if (position <=  0)
 	{
 		var add = 1;
-		console.log(position);
 		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-		sleep(0.3);
+		sleep(0.1);
 		document.getElementById('like'+nbr).innerHTML = like;
 		window.location.reload();
 	}
@@ -103,12 +103,11 @@ function sub_like(id, nbr, user, user_likes)
 	var like = parseInt(document.getElementById('like'+nbr).innerHTML);
 	like -= 1;
 	var position = user_likes.indexOf(user);
-	console.log(position);
 	if (position > 0)
 	{
 		var add = -1;
 		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-		sleep(0.4);
+		sleep(0.1);
 		document.getElementById('like'+nbr).innerHTML = like;
 		window.location.reload();
 	}

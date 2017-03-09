@@ -64,7 +64,7 @@
 										<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\' )" value="like"/>
 										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\' )" value="dislike"/>
 										<div id="like'.$i.'">'.$likes.'</div>
-										<textarea type="text" id="texte'.$i.'" name="texte"></textarea>
+										<textarea maxlength="15" type="text" id="texte'.$i.'" name="texte"></textarea>
 										<input type="submit" onclick="add_comment('.$i.')"/>
 										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
 										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>

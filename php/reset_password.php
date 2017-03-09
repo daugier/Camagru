@@ -31,7 +31,7 @@
 						<h3>Reinitialiser mon mot de passe</h3>
 						<div>
 							<label>Mot de passe</label>
-							<input type="password" placeholder="Entrez identifiant" name="password" required>
+							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<label>Repetez mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password2" required>
 							<?php 
