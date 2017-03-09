@@ -6,8 +6,8 @@
 	var startbutton  = document.querySelector('#startbutton');
 	var photo        = document.querySelector('#photo');
 	var superpose = document.getElementById('superpose');
-	var width = 400;
-	var height = 300;
+	var width = 800;
+	var height = 600;
 	var name = 0;
 	var source = 0;
 	var data = 0;
@@ -108,7 +108,7 @@
 			xhr.send('data='+data+'&name='+name+'&source='+source+'&value=1');
 			sleep(0.7);
 			var length = document.getElementById('placehere').childNodes.length;
-			if (length > 10)
+			if (length > 4)
 			{
 				var list = document.getElementById('placehere');
 				var item = list.lastElementChild;

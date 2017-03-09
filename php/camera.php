@@ -32,55 +32,67 @@
 			</div>
 			<div class="all">
 				<div class="image_montage">
-					<img src="../img/1.png">
-					<br/><button id="img1">Utiliser</button>
-					<br/><img src="../img/arbre.png">
-					<br/><button id="img2">Utiliser</button>
-					<br/><img src="../img/lune.png">
-					<br/><button id="img3">Utiliser</button>
-					<br/><img src="../img/biere.png">
-					<br/><button id="img4">Utiliser</button>
-					<br/><img src="../img/fuck.png" id="imgg">
-					<br/><button id="img5">Utiliser</button>
+					<div class="photo_bouton">
+						<img src="../img/1.png">
+						<br/><button id="img1">Utiliser</button>
+					</div>
+					<div class="photo_bouton">
+						<img src="../img/arbre.png">
+						<br/><button id="img2">Utiliser</button>
+					</div>
+					<div class="photo_bouton">
+						<img src="../img/lune.png">
+						<br/><button id="img3">Utiliser</button>
+					</div>
+					<div class="photo_bouton">
+						<img src="../img/biere.png">
+						<br/><button id="img4">Utiliser</button>
+					</div>
+					<div class="photo_bouton">
+						<img src="../img/fuck.png">
+						<br/><button id="img5">Utiliser</button>
+					</div>
 				</div>
-				<div class="montage" id="placehere">
-				<?php 
-					require 'connect_db.php';
+				<div class="cametphoto">
+					<div class="montage" id="placehere">
+					<?php 
+						require 'connect_db.php';
 
-					$id = $_SESSION['logged_on_user'];
-					$query= $db->prepare('SELECT user FROM user WHERE id=:id');
-					$query->execute(array(':id' => $id));
-					if ($res = $query->fetch())
-						$user = $res['user'];
-					$query= $db->prepare('SELECT img FROM image WHERE user=:user');
-					$query->execute(array(':user' => $user));
-					$res = $query->fetchall();
-					$i = 0;
-					while ($res[$i]['img'])
-					{
-						$i++;
-					}
-					$j = 0;
-					while ($res[--$i]['img'] && $j++ < 10)
-						echo '<img src="'.$res[$i]['img'].'">';
-				?>
+						$id = $_SESSION['logged_on_user'];
+						$query= $db->prepare('SELECT user FROM user WHERE id=:id');
+						$query->execute(array(':id' => $id));
+						if ($res = $query->fetch())
+							$user = $res['user'];
+						$query= $db->prepare('SELECT img FROM image WHERE user=:user');
+						$query->execute(array(':user' => $user));
+						$res = $query->fetchall();
+						$i = 0;
+						while ($res[$i]['img'])
+						{
+							$i++;
+						}
+						$j = 0;
+						while ($res[--$i]['img'] && $j++ < 4)
+							echo '<img src="'.$res[$i]['img'].'">';
+					?>
+					</div>
+					<div id="container" class="container">
+						<div id="wrong">
+						</div>
+						<div class="cheat">
+							<img id="superpose">
+							<video  autoplay ></video>
+						</div>
+						<div class="valide_photo">
+							<canvas id="canvas"></canvas>
+							<br/><button href="javascript:ajax();" id="startbutton" name="photo" value="ok">Prendre une photo</button>
+							<br><img id="photo">
+							<br><button id="valide" >Valider</button>
+							<br><button id="annule" >Supprimer</button>
+						</div>
+					</div>
+					<script src="../js/cam.js"></script>
 				</div>
-				<div id="container" class="container">
-					<div id="wrong">
-					</div>
-					<div class="cheat">
-						<img id="superpose">
-						<video  autoplay ></video>
-					</div>
-					<div classe="valide_photo">
-						<br><br><br><br/><canvas id="canvas"></canvas>
-						<br/><button href="javascript:ajax();" id="startbutton" name="photo" value="ok">Prendre une photo</button>
-						<br><img id="photo" alt="photo">
-						<br><button id="valide" >Valider</button>
-						<button id="annule" >Supprimer</button>
-					</div>
-				</div>
-				<script src="../js/cam.js"></script>
 			</div>
 			<div id="login" class="shadow">
 				<div class="form">
