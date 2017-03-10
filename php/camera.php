@@ -76,6 +76,7 @@
 							echo '<img src="'.$res[$i]['img'].'">';
 					?>
 					</div>
+					<!-- s'il y a une camera -->
 					<div id="container" class="container">
 						<div id="wrong">
 						</div>
@@ -85,14 +86,40 @@
 						</div>
 						<div class="valide_photo">
 							<canvas id="canvas"></canvas>
-							<br/><button href="javascript:ajax();" id="startbutton" name="photo" value="ok">Prendre une photo</button>
+							<br/><button id="startbutton" name="photo" value="ok">Prendre une photo</button>
 							<br><img id="photo">
 							<br><button id="valide" >Valider</button>
-							<br><button id="annule" >Supprimer</button>
 						</div>
 					</div>
-					<script src="../js/cam.js"></script>
+					<!-- s'il n'y a pas de camera -->
+					<div id="pas_de_cam">
+						<div id="wrong2"></div>
+						<div class="cheat">
+							<img id="superpose">
+							<img id="photo"></video>
+						</div>
+						<div class="valide_photo2">
+							<canvas id="canvas2"></canvas>
+							<br/><button id="startbutton2" name="photo" value="ok">Prendre une photo</button>
+							<br><button id="upload_photo">Telecharger une image</button>
+							<br><img id="photo">
+							<br><button id="valide2" >Valider</button>
+						</div>
+						<div id="up_form" class="shadow">
+							<div class="form">
+								<form method="POST" action="upload.php" enctype="multipart/form-data" class="up_form" name="form_nocam">	
+									<h3>telecharger une image</h3>
+							  		<input type="file" name="up_photo">
+							   		<input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+							   		<button type="submit" id="send_photo" name="envoyer">Envoyer l'image</button>
+							   		<a href="" class="quit">Fermer</a>
+								</form> 
+							</div>
+						</div>
+					</div>
 				</div>
+				<script src="../js/no_cam.js"></script>
+				<script src="../js/cam.js"></script>
 			</div>
 			<div id="login" class="shadow">
 				<div class="form">

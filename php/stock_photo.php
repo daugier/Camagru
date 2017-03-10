@@ -4,15 +4,15 @@ require 'connect_db.php';
 session_start();
 extract($_POST);
 $id = $_SESSION['logged_on_user'];
-$img = $_POST["data"];
-$name = $_POST['name'];
-$img = str_replace('data:image/png;base64,', '', $img);
-$img = str_replace(' ', '+', $img);
-$img = base64_decode($img);
-$source = $_POST['source'];
-$valide = $_POST['value'];
-if ($img)
+if(isset($_POST['data']) && isset($_POST['name']) && isset($_POST['source']) && isset($_POST['value']))
 {
+	$img = $_POST["data"];
+	$name = $_POST['name'];
+	$img = str_replace('data:image/png;base64,', '', $img);
+	$img = str_replace(' ', '+', $img);
+	$img = base64_decode($img);
+	$source = $_POST['source'];
+	$valide = $_POST['value'];
 	if (!file_exists('../montage'))
 		mkdir('../montage');
 	$handle = fopen($name, 'x');

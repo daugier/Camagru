@@ -15,6 +15,10 @@ body
 	width : 100px;
 	left : 45px;
 }
+#valide
+{
+	background-color: red;
+}
 canvas
 {
 	display : none;
@@ -147,9 +151,9 @@ textarea
 }
 #startbutton
 {
-	background : orange;
+	background : lightgreen;
 	border : none;
-	color : grey;
+	color : white;
 	margin : 30px;
 	padding : 10px;
 	font-size : 20px;
@@ -168,7 +172,37 @@ textarea
 	left : 50%;
 	transform : translate(-50%, -50%);
 }
+#wrong2
+{
+	color : red;
+}
+.up_form
+{
+	display : block;
+	margin : 0 auto;
+	width : 500px;
+	background-color : white;
+	padding : 30px;
+	border-radius : 10px;
+	border : 2px solid #ddd;
+	position : absolute;
+	top : 50%;
+	left : 50%;
+	transform : translate(-50%, -50%);
+}
 #container
+{
+	overflow : hidden;
+	padding-top: 30px;
+	margin-left: 5%;
+	float : left;
+	width : 50%;
+	min-width : 450px;
+	margin-top: 50px;
+	border : 1px solid black;
+	border-radius : 20px;
+}
+#pas_de_cam
 {
 	overflow : hidden;
 	padding-top: 30px;
@@ -209,6 +243,10 @@ img
 	top : 50%;
 	left : 50%;
 	transform : translate(-50%, -50%);
+}
+.form
+{
+	overflow : hidden;
 }
 .reset_pass
 {
@@ -265,7 +303,6 @@ img
 	visibility : visible;
 	opacity : 1;
 }
-
 .menu
 {
 	padding-top : 70px;

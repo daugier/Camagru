@@ -6,12 +6,14 @@
 	var startbutton  = document.querySelector('#startbutton');
 	var photo        = document.querySelector('#photo');
 	var superpose = document.getElementById('superpose');
+	var valide = document.getElementById('valide');
+	var contain = document.getElementById('container');
+	var no_cam = document.getElementById('pas_de_cam');
 	var width = 800;
 	var height = 600;
 	var name = 0;
 	var source = 0;
 	var data = 0;
-	var accept = 1;
 	
 	///////////////////////////////////////////
 
@@ -24,9 +26,7 @@
 			var item = list.firstElementChild;
 	  		list.removeChild(item);
 		}
-
 	}
-
 	///////////////////////////////////////////
 	img1.addEventListener('click', function()
 	{
@@ -35,7 +35,6 @@
 		superpose.setAttribute('src', source);
 
 	},false);
-
 	img2.addEventListener('click', function()
 	{
 		delete_wrong();
@@ -71,30 +70,6 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-	function sleep(seconds)
-	{
-		var waitUntil = new Date().getTime() + seconds*1000;
-		while(new Date().getTime() < waitUntil) true;
-
-	}
-
-///////////////////////////////////////////////////////////////////////
-
-	annule.addEventListener('click', function()
-	{
-		var xhr = getXMLHttpRequest();
-		xhr.open("POST", "stock_photo.php", true); // true pour asynchrone
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		/* creation url image */
-		xhr.send('data='+data+'&name='+name+'&source='+source+'&value=3');
-		photo.setAttribute('src', "");
-		data = 0;
-		accept = 1;
-
-	},false);
-
-/////////////////////////////////////////////////////////////////////
-
 	valide.addEventListener('click', function()
 	{
 		/* requete ajax*/
@@ -106,7 +81,6 @@
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			/* creation url image */
 			xhr.send('data='+data+'&name='+name+'&source='+source+'&value=1');
-			sleep(0.7);
 			var length = document.getElementById('placehere').childNodes.length;
 			if (length > 4)
 			{
@@ -121,7 +95,6 @@
 			list.insertBefore(new_img, list.firstChild);
 			photo.setAttribute('src', "");
 			data = 0;
-			accept = 1;
 		}
 	},false);
 
@@ -134,6 +107,8 @@
 	function successCallback(stream)
 	{
 		window.stream = stream;
+		contain.style.display = 'display';
+		no_cam.style.display = "none";
 		video.src = window.URL.createObjectURL(stream);
 	}
 	
@@ -141,7 +116,9 @@
 
 	function errorCallback(error)
 	{
-		document.getElementById('startbutton').innerHTML = 'uploader une image';
+		console.log("pas d'acces a votre camera");
+		contain.style.display = "none";
+		no_cam.style.display = "display";
 	}
 
 	/////////////////////////////////////////////////////////
@@ -212,6 +189,24 @@
 		canvas.getContext('2d').drawImage(video, 0, 0, width, height);
 		data = canvas.toDataURL('image/png');
 		var xhr = getXMLHttpRequest();
+		xhr.onreadystatechange = function()
+		{
+			if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+			{
+				photo.setAttribute('src', name);
+				startbutton.disabled = false;
+				valide.disabled = false;
+				startbutton.style.background = 'lightgreen';
+				valide.style.background = 'lightgreen';
+			}
+			else
+			{
+				valide.disabled = true;
+				startbutton.disabled = true;
+				startbutton.style.background = 'red';
+				valide.style.background = 'red';
+			}
+		} 
 		xhr.open("POST", "stock_photo.php", true); // true pour asynchrone
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		
@@ -222,9 +217,6 @@
 		};
 	   	name = '../montage/'+uniqid()+'.png';
 		xhr.send('data='+data+'&name='+name+'&source='+source+'&value=0');
-		sleep(0.4);
-		photo.setAttribute('src', name);
-
 	    /* fin requete ajax */
 	}
 
@@ -232,10 +224,16 @@
 
 	startbutton.addEventListener('click', function(ev)
 	{	
-		if (source && accept != 0)
+		if (source)
 		{
+			if (data != 0)
+			{
+				var xhr = getXMLHttpRequest();
+				xhr.open("POST", "stock_photo.php", true); // true pour asynchrone
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send('data='+data+'&name='+name+'&source='+source+'&value=3');
+			}
 			takepicture();
-			accept = 0;
 			ev.preventDefault();
 		}
 		else if (!source)
