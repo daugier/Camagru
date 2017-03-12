@@ -42,6 +42,9 @@
 					{
 						while ($res[$i]['img'])
 							$i++;
+						$total = $i;
+						$messagesParPage=5;
+						$nombreDePages=ceil($total/$messagesParPage);
 						while ($res[--$i]['img'])
 						{
 							$query= $db->prepare('SELECT likes FROM image WHERE img=:img');
@@ -57,14 +60,23 @@
 							$query->execute(array(':img' => $img));
 							$id = $query->fetch();
 							$id = $id['id'];
-							echo '<div class="ensemble_photo"  href="javascript:ajax();">
-									<img src="'.$img.'">
+							$query= $db->prepare('SELECT user FROM image WHERE img=:img');
+							$query->execute(array(':img' => $img));
+							$user_img = $query->fetch();
+							$user_img = $user_img['user'];
+							echo '<div class="ensemble_photo'.$i.'">';
+							if ($user == $user_img)
+							{
+								echo '<button type="submit" onclick="sub_img(\''.$img.'\', '.$i.')">supprimer</button>';
+							}
+									echo '<br><img src="'.$img.'">
 									<br/>
 									<div class="commentaire">
-										<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\' )" value="like"/>
+									
+									<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\' )" value="like"/>
 										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\' )" value="dislike"/>
 										<div id="like'.$i.'">'.$likes.'</div>
-										<textarea maxlength="15" type="text" id="texte'.$i.'" name="texte"></textarea>
+										<textarea maxlength="35" type="text" id="texte'.$i.'" name="texte"></textarea>
 										<input type="submit" onclick="add_comment('.$i.')"/>
 										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
 										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>

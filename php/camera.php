@@ -3,6 +3,7 @@
 	
 	if (!$_SESSION['logged_on_user'])
 		header('location:http://localhost:8080/camagru/index.php');
+
 ?>
 <html>
 	<head>
@@ -48,10 +49,6 @@
 						<img src="../img/biere.png">
 						<br/><button id="img4">Utiliser</button>
 					</div>
-					<div class="photo_bouton">
-						<img src="../img/fuck.png">
-						<br/><button id="img5">Utiliser</button>
-					</div>
 				</div>
 				<div class="cametphoto">
 					<div class="montage" id="placehere">
@@ -94,15 +91,24 @@
 					<!-- s'il n'y a pas de camera -->
 					<div id="pas_de_cam">
 						<div id="wrong2"></div>
-						<div class="cheat">
-							<img id="superpose">
-							<img id="photo"></video>
+						<div class="cheat2">
+							<?php
+								if ($_GET['fichier'])
+								{
+									$file = $_GET['fichier'];
+									echo '<img id="photo_up" src="../upload/'.$file.'">';
+									chmod('../upload/'.$file, 0755); 
+								}
+								else
+									echo '<img id="photo_up">';
+							?>
+							<img id="superpose2">
 						</div>
 						<div class="valide_photo2">
 							<canvas id="canvas2"></canvas>
 							<br/><button id="startbutton2" name="photo" value="ok">Prendre une photo</button>
 							<br><button id="upload_photo">Telecharger une image</button>
-							<br><img id="photo">
+							<br><img id="photo2">
 							<br><button id="valide2" >Valider</button>
 						</div>
 						<div id="up_form" class="shadow">

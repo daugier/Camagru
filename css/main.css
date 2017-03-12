@@ -15,6 +15,14 @@ body
 	width : 100px;
 	left : 45px;
 }
+#superpose2
+{
+	position : absolute;
+	z-index : 2;
+	top : 70px;
+	width : 100px;
+	left : 45px;
+}
 #valide
 {
 	background-color: red;
@@ -24,6 +32,13 @@ canvas
 	display : none;
 }
 #photo
+{
+	border : 2px solid orange;
+	width : 100%;
+	height : 300px;
+	max-width: 400px;
+}
+#photo2
 {
 	border : 2px solid orange;
 	width : 100%;
@@ -50,6 +65,14 @@ canvas
 	z-index : 1;
 	width: 400px;
 	height :  auto;
+	border-radius: 10%;
+}
+#photo_up
+{
+	border : 2px solid orange;
+	z-index : 1;
+	width : 400px;
+	height : 300px;
 	border-radius: 10%;
 }
 .galerie img
@@ -138,10 +161,18 @@ textarea
 	border : 1px solid black;
 	overflow: hidden;
 	margin-top: 50px;
-	width : 660px;
+	width : 560px;
 	height : 150px;
 }
 .cheat
+{
+	width : 90%;
+	max-width: 400px;
+	max-height: 600px;
+	min-height: 200px;
+	position : relative;
+}
+.cheat2
 {
 	width : 90%;
 	max-width: 400px;

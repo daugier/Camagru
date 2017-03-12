@@ -9,8 +9,8 @@
 	var valide = document.getElementById('valide');
 	var contain = document.getElementById('container');
 	var no_cam = document.getElementById('pas_de_cam');
-	var width = 800;
-	var height = 600;
+	var width = 400;
+	var height = 300;
 	var name = 0;
 	var source = 0;
 	var data = 0;
@@ -56,14 +56,6 @@
 		delete_wrong();
 
 		source = "../img/biere.png";
-		superpose.setAttribute('src', source);
-
-	},false);
-
-	img5.addEventListener('click', function()
-	{
-		delete_wrong();
-		source = "../img/fuck.png";
 		superpose.setAttribute('src', source);
 
 	},false);
@@ -193,6 +185,7 @@
 		{
 			if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
 			{
+				name = xhr.responseText;
 				photo.setAttribute('src', name);
 				startbutton.disabled = false;
 				valide.disabled = false;
@@ -211,12 +204,7 @@
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		
 		/* creation url image */
-	   	var uniqid = function()
-	   	{
-			return (new Date().getTime() + Math.floor((Math.random()*10000)+1)).toString(16);
-		};
-	   	name = '../montage/'+uniqid()+'.png';
-		xhr.send('data='+data+'&name='+name+'&source='+source+'&value=0');
+		xhr.send('data='+data+'&source='+source+'&value=0&name=1');
 	    /* fin requete ajax */
 	}
 
@@ -231,7 +219,7 @@
 				var xhr = getXMLHttpRequest();
 				xhr.open("POST", "stock_photo.php", true); // true pour asynchrone
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.send('data='+data+'&name='+name+'&source='+source+'&value=3');
+				xhr.send('data='+data+'&source='+source+'&value=3&name=1');
 			}
 			takepicture();
 			ev.preventDefault();

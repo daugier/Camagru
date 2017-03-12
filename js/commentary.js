@@ -25,6 +25,14 @@
     }
     return xhr;
 }
+function sub_img(img, nbr)
+{
+	var xhr = getXMLHttpRequest();
+	xhr.open("POST", "delete_img.php", true); // true pour asynchrone
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send('img='+img);
+	window.location.reload();
+}
 function add_comment(nbr)
 {
 	var texte = document.getElementById('texte'+nbr).value;
