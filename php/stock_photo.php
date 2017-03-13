@@ -27,7 +27,7 @@ if(isset($_POST['data']) && isset($_POST['source']) && isset($_POST['value']) &&
 	}
 	else
 		write_png_to_photo($source, $url_img);
-	if ($valide == '3')
+	if ($valide == '3' && $data == 1)
 		unlink($url_img);
 	echo $url_img;
 }

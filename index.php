@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+$url = $_SERVER[REQUEST_URI];
+?>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -37,6 +39,9 @@
 							<button class="btn" type="submit" value="OK">Go</button>
 							<a href="#code">Mot de passe oublie ?</a>
               				<a href="#" class="quit">Fermer</a>
+              				<?php
+              				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
+              				?>
 						</div>
 					</form>
 				</div>
@@ -54,6 +59,9 @@
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
               				<a href="#" class="quit">Fermer</a>
+              				<?php
+              				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
+              				?>
 						</div>
 					</form>
 				</div>
@@ -67,6 +75,9 @@
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
               				<a href="#" class="quit">Fermer</a>
+              				<?php
+              				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
+              				?>
 						</div>
 					</form>
 				</div>

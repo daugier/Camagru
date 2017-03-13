@@ -6,6 +6,7 @@ require 'connect_db.php';
 $user = $_POST["user"];
 $password = hash('whirlpool', $_POST["password"]);
 $_SESSION['logged_on_user'] = 0;
+$url = $_POST['url'];
 if ($user && $password)
 {
 	$query = $db->prepare("SELECT id FROM user WHERE user=:user AND password=:password AND ok=:ok");
@@ -16,5 +17,5 @@ if ($user && $password)
 		$_SESSION['logged_on_user'] = $res['id'];
 	}
 }
-header('Location:http://localhost:8080/camagru/index.php');
+header('location:'.$url);
 ?>

@@ -148,6 +148,8 @@
 					<form class="Inscription" action="register.php" method="post" target="_self">
 						<h3>Inscription</h3>
 						<div>
+							<label>Adresse Mail</label>
+							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<label>Identidiant</label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
 							<label>Mot de passe</label>

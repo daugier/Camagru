@@ -87,6 +87,7 @@
 			list.insertBefore(new_img, list.firstChild);
 			photo.setAttribute('src', "");
 			data = 0;
+			window.scrollTo(200,100);
 		}
 	},false);
 
@@ -205,6 +206,7 @@
 		
 		/* creation url image */
 		xhr.send('data='+data+'&source='+source+'&value=0&name=1');
+		data  = 1;
 	    /* fin requete ajax */
 	}
 
@@ -214,12 +216,12 @@
 	{	
 		if (source)
 		{
-			if (data != 0)
+			if (data == 1)
 			{
 				var xhr = getXMLHttpRequest();
 				xhr.open("POST", "stock_photo.php", true); // true pour asynchrone
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.send('data='+data+'&source='+source+'&value=3&name=1');
+				xhr.send('data='+data+'&source='+source+'&value=3&name='+name);
 			}
 			takepicture();
 			ev.preventDefault();

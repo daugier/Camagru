@@ -9,6 +9,7 @@ $user = $_POST["user"];
 $password = $_POST["password"];
 $mail = $_POST['mail'];
 $_SESSION['error'] = 0;
+$url = $_POST['url'];
 if ($user && $password && $mail)
 {
 	if (wrong_pass($password) && wrong_user($user) && wrong_mail($mail))
@@ -19,8 +20,9 @@ if ($user && $password && $mail)
 		$query->execute(array(':user' => $user, ':mail' => $mail, ':password' => $password, ':code' => $code, ':ok' => 0));
 		$lien = 'http://localhost:8080/camagru/php/activation.php?code='.$code.'&user='.$user;
 		$message = 'Bonjour, veuillez cliquez sur ce lien ci-dessous pour activer votre compte '.PHP_EOL.$lien.PHP_EOL.'    Cordialement Camagru_staff.';
-		send_mail($mail, $code, $user, $message);
+		$subject = "activation compte camagru";
+		send_mail($mail, $message, $subject);
 	}
 }
-header('Location:http://localhost:8080/camagru/index.php');
+header('location:'.$url);
 ?>

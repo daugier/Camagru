@@ -67,44 +67,41 @@
 	img1.addEventListener('click', function()
 	{
 		delete_wrong();
-		source = "../img/1.png";
-		if (!name)
-			add_wrong();
-		else
+		if (name)
+		{
+			source = "../img/1.png";
 			superpose2.setAttribute('src', source);
+		}
 
 	},false);
 	img2.addEventListener('click', function()
 	{
 		delete_wrong();
-		source = "../img/arbre.png";
-		if (!name)
-			add_wrong();
-		else
+		if (name)
+		{
+			source = "../img/arbre.png";
 			superpose2.setAttribute('src', source);
-
+		}
 	},false);
 
 	img3.addEventListener('click', function()
 	{
 		delete_wrong();
-		source = "../img/lune.png";
-		if (!name)
-			add_wrong();
-		else
+		if (name)
+		{
+			source = "../img/lune.png";
 			superpose2.setAttribute('src', source);
-
+		}
 	},false);
 
 	img4.addEventListener('click', function()
 	{
 		delete_wrong();
-		source = "../img/biere.png";
-		if (!name)
-			add_wrong();
-		else
+		if (name)
+		{
+			source = "../img/biere.png";
 			superpose2.setAttribute('src', source);
-
+		}
 	},false);
 
 	/////////////////////////////////////////////
@@ -191,7 +188,9 @@
 			takepicture();
 			ev.preventDefault();
 		}
-		else if (!source)
+		else if (!name)
+			add_wrong();
+		else
 		{
 			var length = document.getElementById('wrong2').childNodes.length;
 			if (length > 0)

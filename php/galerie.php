@@ -1,4 +1,7 @@
-<?php session_start()?>
+<?php 
+session_start();
+$url = $_SERVER[REQUEST_URI];
+?>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -26,45 +29,63 @@
 				</ul>
 			</div>
 			<div class="galerie" id="galerie">
+				<div id="need_connect"></div>
 				<?php
-					require 'connect_db.php';
+					include '../function/image.php';
+					include '../function/user.php';
 
 					$id = $_SESSION['logged_on_user'];
-					$query= $db->prepare('SELECT user FROM user WHERE id=:id');
-					$query->execute(array(':id' => $id));
-					if ($res = $query->fetch())
-						$user = $res['user'];
-					$query= $db->prepare('SELECT img FROM image');
-					$query->execute();
-					$res = $query->fetchall();
+					$user = get_user_by_id($id);
+					$res = list_image();
 					$i = 0;
 					if ($res)
 					{
 						while ($res[$i]['img'])
 							$i++;
 						$total = $i;
-						$messagesParPage=5;
-						$nombreDePages=ceil($total/$messagesParPage);
-						while ($res[--$i]['img'])
+						$messagesParPage = 3;
+						$nombreDePages = ceil($total / $messagesParPage);
+						if(isset($_GET['page']))
 						{
-							$query= $db->prepare('SELECT likes FROM image WHERE img=:img');
-							$query->execute(array(':img' => $res[$i]['img']));
-							$likes = $query->fetch();
-							$likes = $likes['likes'];
+						     $pageActuelle = intval($_GET['page']);
+						 
+						     if($pageActuelle > $nombreDePages)
+						     {
+						          $pageActuelle = $nombreDePages;
+						     }
+						}
+						else
+						{
+						     $pageActuelle = 1; 
+						}
+						$premiereEntree = ($pageActuelle - 1) * $messagesParPage;
+						$nbr = 0;
+						if ($_GET['i'])
+						{
+							$i = $_GET['i'];
+							if ($i > $total - 1 || $i < 0)
+								$i = $total;
+						}
+						echo '<p align="center">Page : ';
+						for($l=1; $l<=$nombreDePages; $l++)
+						{
+						     if($l == $pageActuelle)
+						         echo ' [ '.$l.' ] '; 
+						     else
+						     {
+						    	$tmp_i = $total - (3 * ($l - 1));
+						        echo ' <a href="galerie.php?page='.$l.'&i='.($tmp_i).'">'.$l.'</a> ';
+						     }
+						}
+						echo '</p>';
+						while ($res[--$i]['img'] && $nbr++ < $messagesParPage)
+						{
 							$img = $res[$i]['img'];
-							$query= $db->prepare('SELECT user_likes FROM image WHERE img=:img');
-							$query->execute(array(':img' => $img));
-							$user_likes = $query->fetch();
-							$user_likes = $user_likes['user_likes'];
-							$query= $db->prepare('SELECT id FROM image WHERE img=:img');
-							$query->execute(array(':img' => $img));
-							$id = $query->fetch();
-							$id = $id['id'];
-							$query= $db->prepare('SELECT user FROM image WHERE img=:img');
-							$query->execute(array(':img' => $img));
-							$user_img = $query->fetch();
-							$user_img = $user_img['user'];
-							echo '<div class="ensemble_photo'.$i.'">';
+							$likes = get_likes_by_img($img);
+							$user_likes = get_user_likes_by_img($img);
+							$id = get_id_img_by_img($img);
+							$user_img = get_user_by_img($img);
+							echo '<div class="ensemble_photo" id="ensemble_photo'.$i.'">';
 							if ($user == $user_img)
 							{
 								echo '<button type="submit" onclick="sub_img(\''.$img.'\', '.$i.')">supprimer</button>';
@@ -76,28 +97,39 @@
 									<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\' )" value="like"/>
 										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\' )" value="dislike"/>
 										<div id="like'.$i.'">'.$likes.'</div>
-										<textarea maxlength="35" type="text" id="texte'.$i.'" name="texte"></textarea>
-										<input type="submit" onclick="add_comment('.$i.')"/>
+										<textarea maxlength="45" type="text" id="texte'.$i.'" name="texte"></textarea>
+										<br><input type="submit" onclick="add_comment('.$i.',\''.$user.'\')" id="add_comment"/>
 										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
 										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>
 										<div id="comment'.$i.'" >';
-							$query= $db->prepare('SELECT comment FROM image WHERE img=:img');
-							$query->execute(array('img' => $img));
 							$j = -1;
-							if ($com = $query->fetch())
+							$com = get_comment_by_img($img);
+							if ($com)
 							{
 								$comment = $com['comment'];
 								preg_match_all("/user=(.*?)&/", $comment, $person);
 								preg_match_all("/text=(.*?)\/\//", $comment, $text);
-								while ($person[1][++$j] && $j < 2)
+								while ($person[1][++$j] && $j < 6)
 								{
-									echo '<div>'.$person[1][$j].' : ',$text[1][$j].'</div>';
+									echo '<div id="comentaire_photo">'.$person[1][$j].' : ',$text[1][$j].'</div>';
 								}
 							}
 							echo '			</div>
 									</div>
 								</div>';
 						}
+						echo '<p align="center">Page : ';
+						for($l=1; $l<=$nombreDePages; $l++)
+						{
+						     if($l == $pageActuelle)
+						         echo ' [ '.$l.' ] '; 
+						     else
+						     {
+						    	$tmp_i = $total - (3 * ($l - 1));
+						        echo ' <a href="galerie.php?page='.$l.'&i='.($tmp_i).'">'.$l.'</a> ';
+						     }
+						}
+						echo '</p>';
 					}
 				?>
 			</div>
@@ -108,27 +140,35 @@
 						<h3>Connexion</h3>
 						<div>
 							<label>Identidiant</label>
-							<input type="text" placeholder="Entrez identifiant" name="login" required>
+							<input type="text" placeholder="Entrez identifiant" name="user" required>
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
 							<a href="#code">Mot de passe oublie ?</a>
               				<a href="#" class="quit">Fermer</a>
+              				<?php
+              				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
+              				?>
 						</div>
 					</form>
 				</div>
 			</div>
 			<div id="register" class="shadow">
 				<div class="form">
-					<form class="Inscription" action="register.php" method="get" target="_self">
+					<form class="Inscription" action="register.php" method="post" target="_self">
 						<h3>Inscription</h3>
 						<div>
+							<label>Adresse Mail</label>
+							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<label>Identidiant</label>
-							<input type="text" placeholder="Entrez identifiant" name="login" required>
+							<input type="text" placeholder="Entrez identifiant" name="user" required>
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
               				<a href="#" class="quit">Fermer</a>
+              				<?php
+              				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
+              				?>
 						</div>
 					</form>
 				</div>
@@ -142,6 +182,9 @@
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
               				<a href="#" class="quit">Fermer</a>
+              				<?php
+              				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
+              				?>
 						</div>
 					</form>
 				</div>

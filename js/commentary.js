@@ -25,6 +25,10 @@
     }
     return xhr;
 }
+function need_connect()
+{
+	document.getElementById('need_connect').innerHTML = "Vous devez etre connecte pour liker et commenter les photos <br><a href='#login'>Me connecter</a>";
+}
 function sub_img(img, nbr)
 {
 	var xhr = getXMLHttpRequest();
@@ -33,61 +37,80 @@ function sub_img(img, nbr)
 	xhr.send('img='+img);
 	window.location.reload();
 }
-function add_comment(nbr)
+function add_comment(nbr, user)
 {
-	var texte = document.getElementById('texte'+nbr).value;
-	var user = document.getElementById('user'+nbr).value;
-	var img = document.getElementById('img'+nbr).value;
-	var xhr = getXMLHttpRequest();
-	xhr.open("POST", "stock_commentary.php", true); // true pour asynchrone
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send('user='+user+'&texte='+texte+'&img='+img);
-	if (texte)
+	if (user != ' ' && user != '' && user)
 	{
-		var length = document.getElementById('comment'+nbr).childNodes.length;
-		if (length > 2)
+		var texte = document.getElementById('texte'+nbr).value;
+		var user = document.getElementById('user'+nbr).value;
+		var img = document.getElementById('img'+nbr).value;
+		if (texte)
 		{
-			var list = document.getElementById('comment'+nbr);
-			var item = list.lastElementChild;
-			list.removeChild(item);
+			var xhr = getXMLHttpRequest();
+			xhr.onreadystatechange = function()
+			{
+				if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+				{
+					window.location.reload();
+				}
+			}
+			xhr.open("POST", "stock_commentary.php", true); // true pour asynchrone
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send('user='+user+'&texte='+texte+'&img='+img);
+			document.getElementById('texte'+nbr).value = "";
 		}
-		var list = document.getElementById('comment'+nbr);
-		var z = document.createElement('div');
-		z.innerHTML = user+' : '+texte;
-		list.appendChild(z);
-		list.insertBefore(z, list.firstChild);
-		document.getElementById('texte'+nbr).value = "";
+	}
+	else
+	{
+		window.scrollTo(0,0);
+		need_connect();
 	}
 }
 function add_like(id, nbr, user, user_likes)
 {
-	var xhr = getXMLHttpRequest();
-	xhr.open("POST", "stock_like.php", true); // true pour asynchrone
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	var like = parseInt(document.getElementById('like'+nbr).innerHTML);
-	like += 1;
-	var position = user_likes.indexOf(user);
-	if (position <=  0)
+	if (user != ' ' && user != '' && user)
 	{
-		var add = 1;
-		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-		document.getElementById('like'+nbr).innerHTML = like;
-		window.location.reload();
+		var xhr = getXMLHttpRequest();
+		xhr.open("POST", "stock_like.php", true); // true pour asynchrone
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		var like = parseInt(document.getElementById('like'+nbr).innerHTML);
+		like += 1;
+		var position = user_likes.indexOf(user);
+		if (position <=  0)
+		{
+			var add = 1;
+			xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
+			document.getElementById('like'+nbr).innerHTML = like;
+			window.location.reload();
+		}
+	}
+	else
+	{
+		window.scrollTo(0,0);
+		need_connect();
 	}
 }
 function sub_like(id, nbr, user, user_likes)
 {
-	var xhr = getXMLHttpRequest();
-	xhr.open("POST", "stock_like.php", true); // true pour asynchrone
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	var like = parseInt(document.getElementById('like'+nbr).innerHTML);
-	like -= 1;
-	var position = user_likes.indexOf(user);
-	if (position > 0)
+	if (user != ' ' && user != '' && user)
 	{
-		var add = -1;
-		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-		document.getElementById('like'+nbr).innerHTML = like;
-		window.location.reload();
+		var xhr = getXMLHttpRequest();
+		xhr.open("POST", "stock_like.php", true); // true pour asynchrone
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		var like = parseInt(document.getElementById('like'+nbr).innerHTML);
+		like -= 1;
+		var position = user_likes.indexOf(user);
+		if (position > 0)
+		{
+			var add = -1;
+			xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
+			document.getElementById('like'+nbr).innerHTML = like;
+			window.location.reload();
+		}
+	}
+	else
+	{
+		window.scrollTo(0,0);
+		need_connect();
 	}
 }

@@ -64,7 +64,6 @@
 			imagejpeg($destination, $photo);
 		if ($type == ".gif")
 			imagegif($destination, $photo);
-		imagepng($destination, $photo);
 		imagedestroy($source);
 		imagedestroy($destination);
 	}
@@ -79,7 +78,7 @@
 		{
 			if ($size['mime']=='image/jpeg' )
 			{
-				$img_big = imagecreatefromjpeg($file); # On ouvre l'image d'origine
+				$img_big = imagecreatefromjpeg($file);
 				$img_new = imagecreate($x, $y);
 				$img_mini = imagecreatetruecolor($x, $y)
 				or $img_mini = imagecreate($x, $y);
@@ -88,7 +87,7 @@
 			}
 			elseif ($size['mime']=='image/png' )
 			{
-				$img_big = imagecreatefrompng($file); # On ouvre l'image d'origine
+				$img_big = imagecreatefrompng($file);
 				$img_new = imagecreate($x, $y);
 				$img_mini = imagecreatetruecolor($x, $y)
 				or $img_mini = imagecreate($x, $y);
@@ -97,7 +96,7 @@
 			}
 			elseif ($size['mime']=='image/gif' )
 			{
-				$img_big = imagecreatefromgif($file); # On ouvre l'image d'origine
+				$img_big = imagecreatefromgif($file);
 				$img_new = imagecreate($x, $y);
 				$img_mini = imagecreatetruecolor($x, $y)
 				or $img_mini = imagecreate($x, $y);
