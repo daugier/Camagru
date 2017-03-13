@@ -66,7 +66,7 @@ $url = $_SERVER[REQUEST_URI];
 							if ($i > $total - 1 || $i < 0)
 								$i = $total;
 						}
-						echo '<p align="center">Page : ';
+						echo '<p id="page" align="center">Page : ';
 						for($l=1; $l<=$nombreDePages; $l++)
 						{
 						     if($l == $pageActuelle)
@@ -118,8 +118,8 @@ $url = $_SERVER[REQUEST_URI];
 									</div>
 								</div>';
 						}
-						echo '<p align="center">Page : ';
-						for($l=1; $l<=$nombreDePages; $l++)
+						echo '<p id="page" align="center">Page : ';
+						for($l = 1; $l<= $nombreDePages; $l++)
 						{
 						     if($l == $pageActuelle)
 						         echo ' [ '.$l.' ] '; 

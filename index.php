@@ -1,5 +1,12 @@
-<?php session_start(); 
-$url = $_SERVER[REQUEST_URI];
+<?php 
+	session_start(); 
+	if (file_exists('config/first_connection'))
+	{
+		include("config/setup.php");
+		unlink('config/first_connection');
+		header('location:localhost:8080/camagru/index.php');
+	}
+	$url = $_SERVER[REQUEST_URI];
 ?>
 <html>
 	<head>

@@ -100,14 +100,14 @@
 									chmod('../upload/'.$file, 0755); 
 								}
 								else
-									echo '<img id="photo_up">';
+									echo '<img id="photo_up" alt="votre photo">';
 							?>
 							<img id="superpose2">
 						</div>
 						<div class="valide_photo2">
 							<canvas id="canvas2"></canvas>
 							<br/><button id="startbutton2" name="photo" value="ok">Prendre une photo</button>
-							<br><button id="upload_photo">Telecharger une image</button>
+							<button id="upload_photo">Telecharger une image</button>
 							<br><img id="photo2">
 							<br><button id="valide2" >Valider</button>
 						</div>

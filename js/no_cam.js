@@ -46,11 +46,19 @@
 ////////////////////////////////////////////
 	function add_wrong()
 	{
+		var length = document.getElementById('wrong2').childNodes.length;
+		if (length > 0)
+		{
+			var list = document.getElementById('wrong2');
+			var item = list.firstElementChild;
+	  		list.removeChild(item);
+		}
 		var z = document.createElement('div');
 		var list = document.getElementById('wrong2');
 		z.innerHTML = "telechargez une image";
 		list.appendChild(z);
 		list.insertBefore(z, list.firstChild);
+
 	}
 	function delete_wrong()
 	{
@@ -72,6 +80,8 @@
 			source = "../img/1.png";
 			superpose2.setAttribute('src', source);
 		}
+		else
+			add_wrong();
 
 	},false);
 	img2.addEventListener('click', function()
@@ -82,6 +92,8 @@
 			source = "../img/arbre.png";
 			superpose2.setAttribute('src', source);
 		}
+		else
+			add_wrong();
 	},false);
 
 	img3.addEventListener('click', function()
@@ -92,6 +104,8 @@
 			source = "../img/lune.png";
 			superpose2.setAttribute('src', source);
 		}
+		else
+			add_wrong();
 	},false);
 
 	img4.addEventListener('click', function()
@@ -102,14 +116,14 @@
 			source = "../img/biere.png";
 			superpose2.setAttribute('src', source);
 		}
+		else
+			add_wrong();
 	},false);
 
 	/////////////////////////////////////////////
 
 	valide2.addEventListener('click', function()
 	{
-		/* requete ajax*/
-		 /* pause le temps de la requete ajax, sinon erreur */
 		if (source && name)
 		{
 			var xhr = getXMLHttpRequest();
@@ -129,7 +143,7 @@
 			var new_img = document.createElement("img");
 			new_img.setAttribute("src", name);
 			list.insertBefore(new_img, list.firstChild);
-			photo.setAttribute('src', "");
+			photo2.setAttribute('src', "");
 		}
 	},false);
 
