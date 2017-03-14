@@ -75,7 +75,8 @@ $sql = 'CREATE TABLE image
 			user VARCHAR(255),
 			likes INT(255),
 			user_likes TEXT,
-			comment TEXT)';
+			comment TEXT,
+			img_date TEXT)';
 try
 {
 	$pdo->exec($sql);

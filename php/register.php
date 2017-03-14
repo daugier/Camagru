@@ -9,10 +9,11 @@ $user = $_POST["user"];
 $password = $_POST["password"];
 $mail = $_POST['mail'];
 $_SESSION['error'] = 0;
+$_SESSION['valid'] = 0;
 $url = $_POST['url'];
 if ($user && $password && $mail)
 {
-	if (wrong_pass($password) && wrong_user($user) && wrong_mail($mail))
+	if (wrong_mail($mail) && wrong_user($user) && wrong_pass($password))
 	{
 		$password = hash('whirlpool', $_POST['password']);
 		$query= $db->prepare("INSERT INTO user (user, mail, password, code, ok) VALUES (:user, :mail, :password, :code, :ok)");
@@ -22,7 +23,12 @@ if ($user && $password && $mail)
 		$message = 'Bonjour, veuillez cliquez sur ce lien ci-dessous pour activer votre compte '.PHP_EOL.$lien.PHP_EOL.'    Cordialement Camagru_staff.';
 		$subject = "activation compte camagru";
 		send_mail($mail, $message, $subject);
+		$_SESSION['valid'] = 1;
+		header('location:'.$url);
 	}
+	else
+		header('location:'.$url.'#register');
 }
-header('location:'.$url);
+else
+	header('location:'.$url.'#register');
 ?>

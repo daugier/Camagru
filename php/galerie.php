@@ -28,6 +28,13 @@ $url = $_SERVER[REQUEST_URI];
 					<li><a href="#">Galerie</a></li>
 				</ul>
 			</div>
+			<?php
+				if ($_SESSION['valid'] == 1)
+					echo '<div id="connec_ok">inscription enregistrer !<br> Allez voir vos mails pour confirmer l\'inscription</div>';
+				if ($_SESSION['valid'] == 2)
+					echo '<div id="connec_ok">connexion reussi !</div>';
+				$_SESSION['valid'] = 0;
+			?>
 			<div class="galerie" id="galerie">
 				<div id="need_connect"></div>
 				<?php
@@ -86,6 +93,8 @@ $url = $_SERVER[REQUEST_URI];
 							$id = get_id_img_by_img($img);
 							$user_img = get_user_by_img($img);
 							echo '<div class="ensemble_photo" id="ensemble_photo'.$i.'">';
+							$date['img_date'] = get_date_by_img($img);
+							echo '<p>'.$date['img_date'][0].'</p>';
 							if ($user == $user_img)
 							{
 								echo '<button type="submit" onclick="sub_img(\''.$img.'\', '.$i.')">supprimer</button>';
@@ -151,18 +160,23 @@ $url = $_SERVER[REQUEST_URI];
 				?>
 			</div>
 			<script src="../js/commentary.js"></script>
+
 			<div id="login" class="shadow">
 				<div class="form">
 					<form class="connexion" action="login.php" method="post" target="_self">
 						<h3>Connexion</h3>
 						<div>
+							<?php
+								if ($_SESSION['error'] == 5)
+									echo '<label id="wrong_login">Mauvais mot de passe ou identifiant</label><br>';
+							?>
 							<label>Identidiant</label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
 							<a href="#code">Mot de passe oublie ?</a>
-              				<a href="#" class="quit">Fermer</a>
+              				<a href="galerie.php" class="quit">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>
@@ -175,6 +189,17 @@ $url = $_SERVER[REQUEST_URI];
 					<form class="Inscription" action="register.php" method="post" target="_self">
 						<h3>Inscription</h3>
 						<div>
+						<?php
+							if ($_SESSION['error'] == 1)
+								echo '<label id="wrong_login">Mot de passe trop court</label><br>';
+							if ($_SESSION['error'] == 2)
+								echo '<label id="wrong_login">identifiant deja utilise</label><br>';
+							if ($_SESSION['error'] == 3)
+								echo '<label id="wrong_login">Mail deja existant</label><br>';
+							if ($_SESSION['error'] == 4)
+								echo '<label id="wrong_login">Mail invalide</label><br>';
+							$_SESSION['error'] = 0;
+						?>
 							<label>Adresse Mail</label>
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<label>Identidiant</label>
@@ -182,7 +207,7 @@ $url = $_SERVER[REQUEST_URI];
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
-              				<a href="#" class="quit">Fermer</a>
+              				<a href="galerie.php" class="quit">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>
@@ -198,7 +223,7 @@ $url = $_SERVER[REQUEST_URI];
 							<label>Adresse Mail</label>
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
-              				<a href="#" class="quit">Fermer</a>
+              				<a href="galerie.php" class="quit">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>

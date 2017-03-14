@@ -7,6 +7,8 @@ $user = $_POST["user"];
 $password = hash('whirlpool', $_POST["password"]);
 $_SESSION['logged_on_user'] = 0;
 $url = $_POST['url'];
+$_SESSION['error'] = 0;
+$_SESSION['valid'] = 0;
 if ($user && $password)
 {
 	$query = $db->prepare("SELECT id FROM user WHERE user=:user AND password=:password AND ok=:ok");
@@ -15,7 +17,15 @@ if ($user && $password)
 	if ($res)
 	{
 		$_SESSION['logged_on_user'] = $res['id'];
+		$_SESSION['valid'] = 2;
+		header('location:'.$url);
+	}
+	else
+	{
+		$_SESSION['error'] = 5;
+		header('location:'.$url.'#login');
 	}
 }
-header('location:'.$url);
+else
+	header('location:'.$url.'#login');
 ?>

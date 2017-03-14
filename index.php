@@ -15,6 +15,7 @@
 			<link type="text/css" href="css/main.css" media="all" rel="stylesheet"/>
 	</head>
 	<body>
+		<body onload="document.getElementById('login').focus()"> 
 		<center>
 			<div class="menu">
 				<ul>
@@ -39,13 +40,17 @@
 					<form class="connexion" action="php/login.php" method="post" target="_self">
 						<h3>Connexion</h3>
 						<div>
+						<?php
+							if ($_SESSION['error'] == 5)
+								echo '<label id="wrong_login">Mauvais mot de passe ou identifiant</label><br>';
+						?>
 							<label>Identidiant</label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
 							<a href="#code">Mot de passe oublie ?</a>
-              				<a href="#" class="quit">Fermer</a>
+              				<a href="index.php" class="quit">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>
@@ -53,11 +58,39 @@
 					</form>
 				</div>
 			</div>
+			<?php
+				if ($_SESSION['valid'] == 1)
+					echo '<div id="connec_ok">inscription enregistrer !<br> Allez voir vos mails pour confirmer l\'inscription</div>';
+				if ($_SESSION['valid'] == 2)
+					echo '<div id="connec_ok">connexion reussi !</div>';
+				if ($_SESSION['valid'] == 9)
+					echo '<div id="connec_ok">Compte Camagru confirmer, felicitation !</div>';
+				$_SESSION['valid'] = 0;
+			?>
+			<div id="contenu">
+				<h1>Bienvenue sur CAMAGRU</h1>
+				<p>Camagru est une application web qui permet de faire des montages photos directement de votre webcam</p>
+				<p>Si vous n'avez pas de webcam, vous pouvez uploader les photos que vous souhaitez</p>
+				<b>Pour avoir acces au photomaton, commenter et liker les photos vous devez etre connecter</b>
+				<p>L'inscription a l'application est finalisee par un mail de validation</p>
+				<p>Rejoignez nous pour faire de beaux montages photos !</p>
+			</div>
 			<div id="register" class="shadow">
 				<div class="form">
 					<form class="Inscription" action="php/register.php" method="post" target="_self">
 						<h3>Inscription</h3>
 						<div>
+						<?php
+							if ($_SESSION['error'] == 1)
+								echo '<label id="wrong_login">Mot de passe trop court</label><br>';
+							if ($_SESSION['error'] == 2)
+								echo '<label id="wrong_login">identifiant deja utilise</label><br>';
+							if ($_SESSION['error'] == 3)
+								echo '<label id="wrong_login">Mail deja existant</label><br>';
+							if ($_SESSION['error'] == 4)
+								echo '<label id="wrong_login">Mail invalide</label><br>';
+							$_SESSION['error'] = 0;
+						?>
 							<label>Adresse Mail</label>
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<label>Identidiant</label>
@@ -65,7 +98,7 @@
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<button class="btn" type="submit" value="OK">Go</button>
-              				<a href="#" class="quit">Fermer</a>
+              				<a href="index.php" class="quit">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>
@@ -81,7 +114,7 @@
 							<label>Adresse Mail</label>
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
-              				<a href="#" class="quit">Fermer</a>
+              				<a href="index.php" class="quit">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>

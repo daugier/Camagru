@@ -14,5 +14,6 @@
 		$query= $db->prepare('UPDATE user set code=:code WHERE user=:user');
 		$query->execute(array(':code' => NULL, ':user' => $user));
 	}
+	$_SESSION['valid'] = 9;
 	header('Location:http://localhost:8080/camagru/index.php');
 ?>

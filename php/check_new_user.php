@@ -37,9 +37,14 @@ function wrong_mail($mail)
 	$query= $db->prepare("SELECT id FROM user WHERE mail=:mail");
 	$query->execute(array(':mail' => $mail));
 	$res = $query->fetch();
-	if ($res || !validate_email($mail))
+	if ($res)
 	{
 		$_SESSION['error'] = 3;
+		return false;
+	}
+	if  (!validate_email($mail))
+	{
+		$_SESSION['error'] = 4;
 		return false;
 	}
 	return true;

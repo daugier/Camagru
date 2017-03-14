@@ -4,8 +4,9 @@
 		require 'connect_db.php';
 
 		$likes = 0;
-		$query= $db->prepare('INSERT INTO image (img, user, likes) VALUES(:img, :user, 	:likes)');
-		$query->execute(array(':img' => $image, ':user' => $user, ':likes' => $likes));
+		$date = date("Y-m-d H:i:s");
+		$query= $db->prepare('INSERT INTO image (img, user, likes, img_date) VALUES(:img, :user, :likes, :img_date)');
+		$query->execute(array(':img' => $image, ':user' => $user, ':likes' => $likes, ':img_date' => $date));
 	}
 	function sub_img($img)
 	{
@@ -71,6 +72,15 @@
 		$query= $db->prepare('SELECT img FROM image');
 		$query->execute();
 		$res = $query->fetchall();
+		return ($res);
+	}
+	function get_date_by_img($img)
+	{
+		require 'connect_db.php';
+
+		$query= $db->prepare('SELECT img_date FROM image WHERE img=:img');
+		$query->execute(array(':img' => $img));
+		$res = $query->fetch();
 		return ($res);
 	}
 ?>
