@@ -94,24 +94,41 @@ $url = $_SERVER[REQUEST_URI];
 									<br/>
 									<div class="commentaire">
 									
-									<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\' )" value="like"/>
-										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\' )" value="dislike"/>
-										<div id="like'.$i.'">'.$likes.'</div>
+									<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\' )" value="j\'aime"/>
+										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\' )" value="j\'aime plus"/>
+										<div id="like'.$i.'">'.$likes.' likes</div>
 										<textarea maxlength="45" type="text" id="texte'.$i.'" name="texte"></textarea>
-										<br><input type="submit" onclick="add_comment('.$i.',\''.$user.'\')" id="add_comment"/>
+										<br><input type="submit" onclick="add_comment('.$i.',\''.$user.'\')" id="add_comment" value="commenter"/>
 										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
 										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>
 										<div id="comment'.$i.'" >';
 							$j = -1;
 							$com = get_comment_by_img($img);
+							$nbr_com = 6;
 							if ($com)
 							{
 								$comment = $com['comment'];
 								preg_match_all("/user=(.*?)&/", $comment, $person);
 								preg_match_all("/text=(.*?)\/\//", $comment, $text);
-								while ($person[1][++$j] && $j < 6)
+								while ($person[1][++$j] && $j < $nbr_com)
 								{
-									echo '<div id="comentaire_photo">'.$person[1][$j].' : ',$text[1][$j].'</div>';
+									echo '<div id="comentaire_photo"><b>'.$person[1][$j].' :</b> ',$text[1][$j].'</div>';
+								}
+								if ($person[1][$j])
+								{
+									echo '<input style="display:none;" id="user_com'.$i.'" value=""/>
+										<input style="display:none;" id="text_com'.$i.'" value=""/>';
+									?>
+									<script>
+										var i = <?php echo json_encode($i);?>;
+										var text = <?php echo json_encode($text[1]);?>;
+										document.getElementById('text_com'+i).value = text;
+										var user = <?php echo json_encode($person[1]);?>;
+										document.getElementById('user_com'+i).value = user;
+									</script>
+									<?php
+									echo '<div id="comentaire_photo'.$i.'"><a onclick="plus_de_com('.$i.',\' '.$img.'\')">plus de commentaires</a></div>';
+
 								}
 							}
 							echo '			</div>

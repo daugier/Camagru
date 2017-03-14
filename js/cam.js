@@ -31,14 +31,14 @@
 	img1.addEventListener('click', function()
 	{
 		delete_wrong();
-		source = "../img/1.png";
+		source = "../img/lapin.png";
 		superpose.setAttribute('src', source);
 
 	},false);
 	img2.addEventListener('click', function()
 	{
 		delete_wrong();
-		source = "../img/arbre.png";
+		source = "../img/pomme.png";
 		superpose.setAttribute('src', source);
 
 	},false);
@@ -46,7 +46,7 @@
 	img3.addEventListener('click', function()
 	{
 		delete_wrong();
-		source = "../img/lune.png";
+		source = "../img/chat.png";
 		superpose.setAttribute('src', source);
 
 	},false);
@@ -55,7 +55,23 @@
 	{
 		delete_wrong();
 
-		source = "../img/biere.png";
+		source = "../img/singe.png";
+		superpose.setAttribute('src', source);
+
+	},false);
+	img5.addEventListener('click', function()
+	{
+		delete_wrong();
+
+		source = "../img/soleil.png";
+		superpose.setAttribute('src', source);
+
+	},false);
+	img6.addEventListener('click', function()
+	{
+		delete_wrong();
+
+		source = "../img/kangourou.png";
 		superpose.setAttribute('src', source);
 
 	},false);
@@ -87,7 +103,7 @@
 			list.insertBefore(new_img, list.firstChild);
 			photo.setAttribute('src', "");
 			data = 0;
-			window.scrollTo(200,100);
+			window.scrollTo(0,425);
 		}
 	},false);
 

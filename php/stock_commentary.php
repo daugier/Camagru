@@ -11,6 +11,8 @@ if(isset($_POST['img']) && isset($_POST['user']) && isset($_POST['texte']))
 	$texte  = $_POST['texte'];
 	$id = $_SESSION['logged_on_user'];
 	$texte = str_replace(chr(10), '<br/>', $texte); 
+	while (preg_match('/<br\/><br\/>/', $texte))
+		$texte = str_replace('<br/><br/>', '<br/>', $texte);
 	if ($texte)
 	{
 		$query= $db->prepare('SELECT comment FROM image WHERE img=:img');

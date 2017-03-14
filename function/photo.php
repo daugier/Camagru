@@ -55,7 +55,7 @@
 			$destination = imagecreatefromgif($photo);
 		$largeur_destination = imagesx($destination);
 		$hauteur_destination = imagesy($destination);
-		$destination_x = ($largeur_destination - $largeur_source) / 8;
+		$destination_x = ($largeur_destination - $largeur_source) / 10;
 		$destination_y =  ($hauteur_destination - $hauteur_source) / 3;
 		imagecopy($destination, $source, $destination_x, $destination_y, 0, 0, $largeur_source, $hauteur_source);
 		if ($type == ".png")

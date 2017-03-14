@@ -34,20 +34,28 @@
 			<div class="all">
 				<div class="image_montage">
 					<div class="photo_bouton">
-						<img src="../img/1.png">
+						<img src="../img/lapin.png">
 						<br/><button id="img1">Utiliser</button>
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/arbre.png">
+						<img src="../img/pomme.png">
 						<br/><button id="img2">Utiliser</button>
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/lune.png">
+						<img src="../img/chat.png">
 						<br/><button id="img3">Utiliser</button>
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/biere.png">
+						<img src="../img/singe.png">
 						<br/><button id="img4">Utiliser</button>
+					</div>
+					<div class="photo_bouton">
+						<img src="../img/soleil.png">
+						<br/><button id="img5">Utiliser</button>
+					</div>
+					<div class="photo_bouton">
+						<img src="../img/kangourou.png">
+						<br/><button id="img6">Utiliser</button>
 					</div>
 				</div>
 				<div class="cametphoto">
@@ -85,7 +93,7 @@
 							<canvas id="canvas"></canvas>
 							<br/><button id="startbutton" name="photo" value="ok">Prendre une photo</button>
 							<br><img id="photo">
-							<br><button id="valide" >Valider</button>
+							<br><button id="valide" >Publier</button>
 						</div>
 					</div>
 					<!-- s'il n'y a pas de camera -->
@@ -109,7 +117,7 @@
 							<br/><button id="startbutton2" name="photo" value="ok">Prendre une photo</button>
 							<button id="upload_photo">Telecharger une image</button>
 							<br><img id="photo2">
-							<br><button id="valide2" >Valider</button>
+							<br><button id="valide2" >Publier</button>
 						</div>
 						<div id="up_form" class="shadow">
 							<div class="form">

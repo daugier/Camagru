@@ -25,6 +25,43 @@
     }
     return xhr;
 }
+function moins_de_com(nbr, img)
+{
+	var pdc = document.getElementById('comentaire_photo'+nbr);
+	pdc.innerHTML = '<a onclick="plus_de_com('+nbr+', '+img+')">plus de commentaires</a>';
+	window.location.reload();
+}
+function plus_de_com(nbr, img)
+{
+	function insertAfter(newNode, referenceNode)
+	{
+    	referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+	}
+	var length = document.getElementById('comment'+nbr).childNodes.length;
+	var text = document.getElementById('text_com'+nbr).value;
+	var user = document.getElementById('user_com'+nbr).value;
+	var pdc = document.getElementById('comentaire_photo'+nbr);
+	var j = length - 8;
+	var i = -1;
+	user = user.split(',');
+	text = text.split(',');
+	while (++i < 3)
+	{
+		if (user[j] && text[j])
+		{	
+			var list = document.getElementById('comment'+nbr);
+			var new_div = document.createElement('div');
+			new_div.setAttribute('id', 'comentaire_photo');
+			new_div.innerHTML = '<b>'+user[j]+' :</b> '+text[j];
+			list.insertBefore(new_div, pdc);
+			j++;
+		}
+		else
+		{
+			pdc.innerHTML = '<a onclick="moins_de_com('+nbr+', \' '+img+'\')">moins de commentaires</a>';
+		}
+	}
+}
 function need_connect()
 {
 	document.getElementById('need_connect').innerHTML = "Vous devez etre connecte pour liker et commenter les photos <br><a href='#login'>Me connecter</a>";
@@ -80,7 +117,6 @@ function add_like(id, nbr, user, user_likes)
 		{
 			var add = 1;
 			xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-			document.getElementById('like'+nbr).innerHTML = like;
 			window.location.reload();
 		}
 	}
@@ -104,7 +140,6 @@ function sub_like(id, nbr, user, user_likes)
 		{
 			var add = -1;
 			xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-			document.getElementById('like'+nbr).innerHTML = like;
 			window.location.reload();
 		}
 	}

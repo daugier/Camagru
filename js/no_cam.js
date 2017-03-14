@@ -4,9 +4,14 @@
 	var photo2        = document.querySelector('#photo2');
 	var superpose2 = document.getElementById('superpose2');
 	var valide2 = document.getElementById('valide2');
-	var name = 0;
 	var source = 0;
-	
+	var name;
+
+	function get_name()
+	{
+		name = document.getElementById('photo_up').src;
+		name = name.replace('http://localhost:8080/camagru/','');
+	}
 	///////////////////////////////////////////
 
 	function getXMLHttpRequest()
@@ -75,9 +80,10 @@
 	img1.addEventListener('click', function()
 	{
 		delete_wrong();
+		get_name();
 		if (name)
 		{
-			source = "../img/1.png";
+			source = "../img/lapin.png";
 			superpose2.setAttribute('src', source);
 		}
 		else
@@ -87,9 +93,10 @@
 	img2.addEventListener('click', function()
 	{
 		delete_wrong();
+		get_name();
 		if (name)
 		{
-			source = "../img/arbre.png";
+			source = "../img/pomme.png";
 			superpose2.setAttribute('src', source);
 		}
 		else
@@ -99,9 +106,10 @@
 	img3.addEventListener('click', function()
 	{
 		delete_wrong();
+		get_name();
 		if (name)
 		{
-			source = "../img/lune.png";
+			source = "../img/chat.png";
 			superpose2.setAttribute('src', source);
 		}
 		else
@@ -111,9 +119,34 @@
 	img4.addEventListener('click', function()
 	{
 		delete_wrong();
+		get_name();
 		if (name)
 		{
-			source = "../img/biere.png";
+			source = "../img/singe.png";
+			superpose2.setAttribute('src', source);
+		}
+		else
+			add_wrong();
+	},false);
+	img5.addEventListener('click', function()
+	{
+		delete_wrong();
+		get_name();
+		if (name)
+		{
+			source = "../img/soleil.png";
+			superpose2.setAttribute('src', source);
+		}
+		else
+			add_wrong();
+	},false);
+	img6.addEventListener('click', function()
+	{
+		delete_wrong();
+		get_name();
+		if (name)
+		{
+			source = "../img/kangourou.png";
 			superpose2.setAttribute('src', source);
 		}
 		else
@@ -189,8 +222,7 @@
 
 	startbutton2.addEventListener('click', function(ev)
 	{	
-		name = document.getElementById('photo_up').src;
-		name = name.replace('http://localhost:8080/camagru/','')
+		
 		if (name)
 			name = '../'+name;
 		if (source && name)
