@@ -76,8 +76,7 @@
 						{
 							$i++;
 						}
-						$j = 0;
-						while ($res[--$i]['img'] && $j++ < 4)
+						while ($res[--$i]['img'])
 							echo '<img src="'.$res[$i]['img'].'">';
 					?>
 					</div>

@@ -4,7 +4,7 @@ $url = $_SERVER[REQUEST_URI];
 ?>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8" http-equiv="refresh" content="600" />
 		<title>Camagru</title>
 			<link type="text/css" href="../css/main.css" media="all" rel="stylesheet"/>
 	</head>
@@ -44,55 +44,27 @@ $url = $_SERVER[REQUEST_URI];
 					$id = $_SESSION['logged_on_user'];
 					$user = get_user_by_id($id);
 					$res = list_image();
+					$pdf = 0;
 					$i = 0;
 					if ($res)
 					{
 						while ($res[$i]['img'])
 							$i++;
-						$total = $i;
-						$messagesParPage = 3;
-						$nombreDePages = ceil($total / $messagesParPage);
-						if(isset($_GET['page']))
-						{
-						     $pageActuelle = intval($_GET['page']);
-						 
-						     if($pageActuelle > $nombreDePages)
-						     {
-						          $pageActuelle = $nombreDePages;
-						     }
-						}
-						else
-						{
-						     $pageActuelle = 1; 
-						}
-						$premiereEntree = ($pageActuelle - 1) * $messagesParPage;
 						$nbr = 0;
-						if ($_GET['i'])
-						{
-							$i = $_GET['i'];
-							if ($i > $total - 1 || $i < 0)
-								$i = $total;
-						}
-						echo '<p id="page" align="center">Page : ';
-						for($l=1; $l<=$nombreDePages; $l++)
-						{
-						     if($l == $pageActuelle)
-						         echo ' [ '.$l.' ] '; 
-						     else
-						     {
-						    	$tmp_i = $total - (3 * ($l - 1));
-						        echo ' <a href="galerie.php?page='.$l.'&i='.($tmp_i).'">'.$l.'</a> ';
-						     }
-						}
-						echo '</p>';
-						while ($res[--$i]['img'] && $nbr++ < $messagesParPage)
+						while ($res[--$i]['img'] && ++$nbr)
 						{
 							$img = $res[$i]['img'];
 							$likes = get_likes_by_img($img);
 							$user_likes = get_user_likes_by_img($img);
 							$id = get_id_img_by_img($img);
 							$user_img = get_user_by_img($img);
-							echo '<div class="ensemble_photo" id="ensemble_photo'.$i.'">';
+							if ($nbr > 2)
+							{
+								$pdf = 1;
+								echo '<div class="shadow" id="ensemble_photo'.$i.'">';
+							}
+							else
+								echo '<div class="ensemble_photo" id="ensemble_photo'.$i.'">';
 							$date['img_date'] = get_date_by_img($img);
 							echo '<p>'.$date['img_date'][0].'</p>';
 							if ($user == $user_img)
@@ -103,8 +75,8 @@ $url = $_SERVER[REQUEST_URI];
 									<br/>
 									<div class="commentaire">
 									
-									<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\' )" value="j\'aime"/>
-										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\' )" value="j\'aime plus"/>
+									<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\', '.$likes.' )" value="j\'aime"/>
+										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\', '.$likes.' )" value="j\'aime plus"/>
 										<div id="like'.$i.'">'.$likes.' likes</div>
 										<textarea maxlength="45" type="text" id="texte'.$i.'" name="texte"></textarea>
 										<br><input type="submit" onclick="add_comment('.$i.',\''.$user.'\')" id="add_comment" value="commenter"/>
@@ -121,7 +93,7 @@ $url = $_SERVER[REQUEST_URI];
 								preg_match_all("/text=(.*?)\/\//", $comment, $text);
 								while ($person[1][++$j] && $j < $nbr_com)
 								{
-									echo '<div id="comentaire_photo"><b>'.$person[1][$j].' :</b> ',$text[1][$j].'</div>';
+									echo '<div class="comentaire_photo" id="comentaire_photo'.$i.'"><b>'.$person[1][$j].' :</b> ',$text[1][$j].'</div>';
 								}
 								if ($person[1][$j])
 								{
@@ -136,26 +108,18 @@ $url = $_SERVER[REQUEST_URI];
 										document.getElementById('user_com'+i).value = user;
 									</script>
 									<?php
-									echo '<div id="comentaire_photo'.$i.'"><a onclick="plus_de_com('.$i.',\' '.$img.'\')">plus de commentaires</a></div>';
+									echo '<div class="comentaire_photo" id="comentaire_photo_plus'.$i.'"><a onclick="plus_de_com('.$i.',\' '.$img.'\')">plus de commentaires</a></div>';
 
 								}
 							}
-							echo '			</div>
+							echo '			</div></div>
 									</div>
 								</div>';
 						}
-						echo '<p id="page" align="center">Page : ';
-						for($l = 1; $l<= $nombreDePages; $l++)
+						if ($pdf == 1)
 						{
-						     if($l == $pageActuelle)
-						         echo ' [ '.$l.' ] '; 
-						     else
-						     {
-						    	$tmp_i = $total - (3 * ($l - 1));
-						        echo ' <a href="galerie.php?page='.$l.'&i='.($tmp_i).'">'.$l.'</a> ';
-						     }
+							echo '<a id="plus_de_photos" onclick="plus_de_photos(\' '.$img.'\')">Plus de photos</a>';
 						}
-						echo '</p>';
 					}
 				?>
 			</div>
