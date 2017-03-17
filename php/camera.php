@@ -13,22 +13,22 @@
 	</head>
 	<body>
 		<center>
-			<div class="menu">
+			<div class="menu" draggable="false">
 				<ul>
-					<li><a href="../index.php">Accueil</a></li>
+					<li><a  draggable="false" href="../index.php">Accueil</a></li>
 					<?php
 						if ($_SESSION["logged_on_user"])
 						{
-							echo '<li><a href="disconnect.php">Deconnexion</a></li>';
-							echo '<li><a href="">Photomaton</a></li>';
+							echo '<li><a  draggable="false" href="disconnect.php">Deconnexion</a></li>';
+							echo '<li><a  draggable="false" href="">Photomaton</a></li>';
 						}
 						else
 						{
-							echo '<li><a href="#login">Connexion</a></li>';
-							echo '<li><a href="#register">Inscription</a></li>';
+							echo '<li><a  draggable="false" href="#login">Connexion</a></li>';
+							echo '<li><a  draggable="false" href="#register">Inscription</a></li>';
 						}
 					?>
-					<li><a href="galerie.php">Galerie</a></li>
+					<li><a  draggable="false" href="galerie.php">Galerie</a></li>
 				</ul>
 			</div>
 			<div class="all">
@@ -52,7 +52,6 @@
 						<img src="../img/kangourou.png" id="../img/kangourou.png" draggable="true" ondragstart="drag(event)">
 					</div>
 				</div>
-
 				<div class="cametphoto">
 					<div class="montage" id="placehere">
 					<?php 
@@ -72,7 +71,7 @@
 							$i++;
 						}
 						while ($res[--$i]['img'])
-							echo '<img src="'.$res[$i]['img'].'">';
+							echo '<img draggable="false" src="'.$res[$i]['img'].'">';
 					?>
 					</div>
 					<!-- s'il y a une camera -->

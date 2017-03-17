@@ -86,6 +86,7 @@
 			var list = document.getElementById('placehere');
 			var new_img = document.createElement("img");
 			new_img.setAttribute("src", name);
+			new_img.setAttribute('draggable', false);
 			list.insertBefore(new_img, list.firstChild);
 			photo.setAttribute('src', "");
 			data = 0;
@@ -190,6 +191,7 @@
 			{
 				name = xhr.responseText;
 				photo.setAttribute('src', name);
+				photo.setAttribute('draggable', false);
 				startbutton.disabled = false;
 				valide.disabled = false;
 				startbutton.style.background = 'lightgreen';

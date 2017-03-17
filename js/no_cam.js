@@ -135,6 +135,7 @@
 			var list = document.getElementById('placehere');
 			var new_img = document.createElement("img");
 			new_img.setAttribute("src", name);
+			new_img.setAttribute('draggable', false);
 			list.insertBefore(new_img, list.firstChild);
 			photo2.setAttribute('src', "");
 		}
@@ -152,6 +153,7 @@
 				{
 					name = xhr.responseText;
 					photo2.setAttribute('src', name);
+					photo2.setAttribute('draggable', false);
 					startbutton2.disabled = false;
 					valide2.disabled = false;
 					startbutton2.style.background = 'lightgreen';
