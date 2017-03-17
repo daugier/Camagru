@@ -40,17 +40,17 @@
 					<form class="connexion" action="php/login.php" method="post" target="_self">
 						<h3>Connexion</h3>
 						<div>
-						<?php
-							if ($_SESSION['error'] == 5)
-								echo '<label id="wrong_login">Mauvais mot de passe ou identifiant</label><br>';
-						?>
+							<?php
+								if ($_SESSION['error'] == 5)
+									echo '<label id="wrong_login">Mauvais mot de passe ou identifiant</label><br>';
+							?>
 							<label>Identidiant</label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
-							<button class="btn" type="submit" value="OK">Go</button>
-							<a href="#code">Mot de passe oublie ?</a>
-              				<a href="index.php" class="quit">Fermer</a>
+							<br><br><button class="btn" type="submit" value="OK">Me connecter</button>
+							<br><br><a href="#code">Mot de passe oublie ?</a>
+							<br><a href="" class="quit" align="right">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>
@@ -95,10 +95,10 @@
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<label>Identidiant</label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<label>Mot de passe</label>
+							<br><br><label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
-							<button class="btn" type="submit" value="OK">Go</button>
-              				<a href="index.php" class="quit">Fermer</a>
+							<br><button class="btn" type="submit" value="OK">m'inscrire</button>
+              				<br><a href="" class="quit">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>

@@ -34,30 +34,25 @@
 			<div class="all">
 				<div class="image_montage">
 					<div class="photo_bouton">
-						<img src="../img/lapin.png">
-						<br/><button id="img1">Utiliser</button>
+						<img src="../img/lapin.png" id="../img/lapin.png" draggable="true" ondragstart="drag(event)">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/pomme.png">
-						<br/><button id="img2">Utiliser</button>
+						<img src="../img/pomme.png" id="../img/pomme.png" draggable="true" ondragstart="drag(event)">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/chat.png">
-						<br/><button id="img3">Utiliser</button>
+						<img src="../img/chat.png" id="../img/chat.png" draggable="true" ondragstart="drag(event)">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/singe.png">
-						<br/><button id="img4">Utiliser</button>
+						<img src="../img/singe.png" id="../img/singe.png" draggable="true" ondragstart="drag(event)">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/soleil.png">
-						<br/><button id="img5">Utiliser</button>
+						<img src="../img/soleil.png" id="../img/soleil.png" draggable="true" ondragstart="drag(event)">
 					</div>
-					<div class="photo_bouton">
-						<img src="../img/kangourou.png">
-						<br/><button id="img6">Utiliser</button>
+					<div class="photo_bouton" >
+						<img src="../img/kangourou.png" id="../img/kangourou.png" draggable="true" ondragstart="drag(event)">
 					</div>
 				</div>
+
 				<div class="cametphoto">
 					<div class="montage" id="placehere">
 					<?php 
@@ -84,8 +79,10 @@
 					<div id="container" class="container">
 						<div id="wrong">
 						</div>
-						<div class="cheat">
-							<img id="superpose">
+						<div class="cheat" id='cheat' ondrop="drop(event)" ondragover="allowDrop(event)">
+							<div id="superpose">
+								<img id="sup_img" class="sup_img_cur" draggable="true" ondragstart="drag(event)">
+							</div>
 							<video  autoplay ></video>
 						</div>
 						<div class="valide_photo">
@@ -98,18 +95,25 @@
 					<!-- s'il n'y a pas de camera -->
 					<div id="pas_de_cam">
 						<div id="wrong2"></div>
-						<div class="cheat2">
+						<div class="cheat2" id="cheat2" ondrop="drop2(event)" ondragover="allowDrop2(event)">
+							<div id="superpose">
+								<img class="sup_img_cur" id="sup_img_2"  draggable="true" ondragstart="drag2(event)">
+							</div>
 							<?php
 								if ($_GET['fichier'])
 								{
 									$file = $_GET['fichier'];
-									echo '<img id="photo_up" src="../upload/'.$file.'">';
-									chmod('../upload/'.$file, 0755); 
+									if (file_exists('../upload/'.$file))
+									{
+										echo '<img id="photo_up" src="../upload/'.$file.'">';
+										chmod('../upload/'.$file, 0755);
+									}
+									else 
+									echo '<img id="photo_up" alt="votre photo">';
 								}
 								else
 									echo '<img id="photo_up" alt="votre photo">';
 							?>
-							<img id="superpose2">
 						</div>
 						<div class="valide_photo2">
 							<canvas id="canvas2"></canvas>

@@ -11,6 +11,8 @@ if(isset($_POST['source']) && isset($_POST['value']) && isset($_POST['name']))
 	$source = $_POST['source'];
 	$valide = $_POST['value'];
 	$url_img = $_POST['name'];
+	$x = $_POST['x'];
+	$y = $_POST['y'];
 
 	if ($valide == '3')
 		unlink($url_img_tmp);
@@ -25,7 +27,7 @@ if(isset($_POST['source']) && isset($_POST['value']) && isset($_POST['name']))
 		add_image($user, $url_img_tmp);
 	}
 	else
-		write_png_to_photo($source, $url_img_tmp);
+		write_png_to_photo($source, $url_img_tmp, $x, $y);
 	echo $url_img_tmp;
 }
 ?>

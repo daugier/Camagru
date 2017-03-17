@@ -1,6 +1,13 @@
 var sub = 0;
-var length = document.getElementById('galerie').childNodes.length;
-var nbr = length + 3;
+var length = 0;
+var nbr2 = 0;
+var index = 0;
+function set_nbr(nbr)
+{
+	length = nbr;
+	nbr2 = length - (3 + (index * 2));
+	index++;
+}
  function getXMLHttpRequest()
 {
     var xhr = null;
@@ -28,27 +35,30 @@ var nbr = length + 3;
     }
     return xhr;
 }
-function plus_de_photos()
+function plus_de_photos(i)
 {
-	console.log(length);
-	console.log(nbr);
+	set_nbr(i);
 	var i = -1;
-	while (++i < 2 && nbr >= 0)
+	console.log('length = '+length);
+	console.log('i = '+i);
+	console.log('nbr2 = '+nbr2);
+	while (++i < 2 && nbr2 >= 0)
 	{
-		var pdc = document.getElementById('ensemble_photo'+nbr).className = 'ensemble_photo';
-		nbr--;
+		var pdc = document.getElementById('ensemble_photo'+nbr2).className = 'ensemble_photo';
+		nbr2--;
 	}
-	if (nbr == -1)
+	console.log('i = '+i+'\n\n');
+	if (nbr2 == -1)
 		document.getElementById('plus_de_photos').innerHTML = null;
 
 }
 function plus_de_com(nbr, img)
 {
-	var length = document.getElementById('comment'+nbr).childNodes.length;
+	var length2 = document.getElementById('comment'+nbr).childNodes.length;
 	var text = document.getElementById('text_com'+nbr).value;
 	var user = document.getElementById('user_com'+nbr).value;
 	var pdc = document.getElementById('comentaire_photo_plus'+nbr);
-	var j = length - 8;
+	var j = length2 - 8;
 	var i = -1;
 	user = user.split(',');
 	text = text.split(',');
@@ -66,7 +76,7 @@ function plus_de_com(nbr, img)
 		}
 	}
 	if (!user[j] && !text[j])
-		pdc.innerHTML = '';
+		pdc.className = 'shadow';
 }
 function need_connect()
 {

@@ -51,6 +51,7 @@ $url = $_SERVER[REQUEST_URI];
 						while ($res[$i]['img'])
 							$i++;
 						$nbr = 0;
+						$tmp = $i;
 						while ($res[--$i]['img'] && ++$nbr)
 						{
 							$img = $res[$i]['img'];
@@ -79,7 +80,7 @@ $url = $_SERVER[REQUEST_URI];
 										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\', '.$likes.' )" value="j\'aime plus"/>
 										<div id="like'.$i.'">'.$likes.' likes</div>
 										<textarea maxlength="45" type="text" id="texte'.$i.'" name="texte"></textarea>
-										<br><input type="submit" onclick="add_comment('.$i.',\''.$user.'\')" id="add_comment" value="commenter"/>
+										<br><input class="commenter" type="submit" onclick="add_comment('.$i.',\''.$user.'\')" id="add_comment" value="commenter"/>
 										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
 										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>
 										<div id="comment'.$i.'" >';
@@ -108,7 +109,7 @@ $url = $_SERVER[REQUEST_URI];
 										document.getElementById('user_com'+i).value = user;
 									</script>
 									<?php
-									echo '<div class="comentaire_photo" id="comentaire_photo_plus'.$i.'"><a onclick="plus_de_com('.$i.',\' '.$img.'\')">plus de commentaires</a></div>';
+									echo '<div class="comentaire_photo_2" id="comentaire_photo_plus'.$i.'"><a onclick="plus_de_com('.$i.',\' '.$img.'\')">plus de commentaires</a></div>';
 
 								}
 							}
@@ -118,7 +119,7 @@ $url = $_SERVER[REQUEST_URI];
 						}
 						if ($pdf == 1)
 						{
-							echo '<a id="plus_de_photos" onclick="plus_de_photos(\' '.$img.'\')">Plus de photos</a>';
+							echo '<a class="pdp" id="plus_de_photos" onclick="plus_de_photos('.$tmp.')">Plus de photos</a>';
 						}
 					}
 				?>
@@ -128,6 +129,7 @@ $url = $_SERVER[REQUEST_URI];
 			<div id="login" class="shadow">
 				<div class="form">
 					<form class="connexion" action="login.php" method="post" target="_self">
+					
 						<h3>Connexion</h3>
 						<div>
 							<?php
@@ -138,9 +140,9 @@ $url = $_SERVER[REQUEST_URI];
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
 							<label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
-							<button class="btn" type="submit" value="OK">Go</button>
-							<a href="#code">Mot de passe oublie ?</a>
-              				<a href="galerie.php" class="quit">Fermer</a>
+							<br><br><button class="btn" type="submit" value="OK">Me connecter</button>
+							<br><br><a href="#code">Mot de passe oublie ?</a>
+							<br><a href="galerie.php" class="quit" align="right">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>
@@ -168,10 +170,10 @@ $url = $_SERVER[REQUEST_URI];
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<label>Identidiant</label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<label>Mot de passe</label>
+							<br><br><label>Mot de passe</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
-							<button class="btn" type="submit" value="OK">Go</button>
-              				<a href="galerie.php" class="quit">Fermer</a>
+							<br><button class="btn" type="submit" value="OK">m'inscrire</button>
+              				<br><a href="galerie.php" class="quit">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>

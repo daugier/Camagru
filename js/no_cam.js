@@ -1,18 +1,55 @@
-(function()
-	{
 	var startbutton2  = document.querySelector('#startbutton2');
 	var photo2        = document.querySelector('#photo2');
 	var superpose2 = document.getElementById('superpose2');
 	var valide2 = document.getElementById('valide2');
 	var source = 0;
 	var name;
+	var poto = 0;
+	var x = 0;
+	var y = 0;
+   
+	
+	///////////////////////////////////////////
+	function allowDrop2(ev)
+	{
+	   ev.preventDefault();
+	}
+	function drag2(ev)
+	{
+	    ev.dataTransfer.setData("text", ev.target.id);
+	}
+	function drop2(ev)
+	{
+	    delete_wrong2();
+	    ev.preventDefault();
+	    poto = ev.dataTransfer.getData("text");
+	    if (poto != 'sup_img_2')
+	    {
+    		document.getElementById('sup_img_2').src = poto;
+    		source = poto;
+	    }
+    	var dat  = document.getElementById(poto);
+		x = event.clientX; 
+		y = event.clientY;
+
+		var scroll_x =document.body.scrollLeft || document.documentElement.scrollLeft;
+		var scroll_y =document.body.scrollTop || document.documentElement.scrollTop;
+
+		x += scroll_x;
+		y += scroll_y;
+	  	var x_div = document.getElementById("cheat2").offsetLeft;
+	   	var y_div = document.getElementById("cheat2").offsetTop;
+	   	x = x - x_div - 50;
+	   	y = y - y_div - 50;
+	   	dat.style.left = x + 'px';
+	   	dat.style.top = y + 'px';
+	}
 
 	function get_name()
 	{
 		name = document.getElementById('photo_up').src;
 		name = name.replace('http://localhost:8080/camagru/','');
 	}
-	///////////////////////////////////////////
 
 	function getXMLHttpRequest()
 	{
@@ -41,14 +78,14 @@
         }
         return xhr;
 	}
-	///////////////////////////////////////////////
+
 	upload_photo.addEventListener('click', function()
 	{
 		var el = document.getElementById('up_form');
 		el.style.visibility = "visible";
 		el.style.opacity = '1';
 	},false);
-////////////////////////////////////////////
+
 	function add_wrong()
 	{
 		var length = document.getElementById('wrong2').childNodes.length;
@@ -65,7 +102,8 @@
 		list.insertBefore(z, list.firstChild);
 
 	}
-	function delete_wrong()
+
+	function delete_wrong2()
 	{
 		var length = document.getElementById('wrong2').childNodes.length;
 		if (length > 0)
@@ -76,84 +114,6 @@
 
 		}
 	}
-	///////////////////////////////////////////
-	img1.addEventListener('click', function()
-	{
-		delete_wrong();
-		get_name();
-		if (name)
-		{
-			source = "../img/lapin.png";
-			superpose2.setAttribute('src', source);
-		}
-		else
-			add_wrong();
-
-	},false);
-	img2.addEventListener('click', function()
-	{
-		delete_wrong();
-		get_name();
-		if (name)
-		{
-			source = "../img/pomme.png";
-			superpose2.setAttribute('src', source);
-		}
-		else
-			add_wrong();
-	},false);
-
-	img3.addEventListener('click', function()
-	{
-		delete_wrong();
-		get_name();
-		if (name)
-		{
-			source = "../img/chat.png";
-			superpose2.setAttribute('src', source);
-		}
-		else
-			add_wrong();
-	},false);
-
-	img4.addEventListener('click', function()
-	{
-		delete_wrong();
-		get_name();
-		if (name)
-		{
-			source = "../img/singe.png";
-			superpose2.setAttribute('src', source);
-		}
-		else
-			add_wrong();
-	},false);
-	img5.addEventListener('click', function()
-	{
-		delete_wrong();
-		get_name();
-		if (name)
-		{
-			source = "../img/soleil.png";
-			superpose2.setAttribute('src', source);
-		}
-		else
-			add_wrong();
-	},false);
-	img6.addEventListener('click', function()
-	{
-		delete_wrong();
-		get_name();
-		if (name)
-		{
-			source = "../img/kangourou.png";
-			superpose2.setAttribute('src', source);
-		}
-		else
-			add_wrong();
-	},false);
-
-	/////////////////////////////////////////////
 
 	valide2.addEventListener('click', function()
 	{
@@ -181,11 +141,8 @@
 	},false);
 
 
-	//////////////////////////////////////////////////////////////////
-
-	function takepicture()
+	function takepicture2()
 	{
-		
 		if (name)
 		{
 			var xhr = getXMLHttpRequest();
@@ -213,16 +170,14 @@
 			var match;
 			/* creation url image */
 			
-			xhr.send('source='+source+'&value=0'+'&name='+name);
+			xhr.send('source='+source+'&value=0'+'&name='+name+'&x='+x+'&y='+y);
 	    /* fin requete ajax */
 	   	}
 	}
 
-	////////////////////////////////////////////////////////////////////////////
-
 	startbutton2.addEventListener('click', function(ev)
 	{	
-		
+		get_name();
 		if (name)
 			name = '../'+name;
 		if (source && name)
@@ -231,7 +186,7 @@
 			xhr.open("POST", "stock_photo.php", true); // true pour asynchrone
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.send('source='+source+'&value=3&name='+name);
-			takepicture();
+			takepicture2();
 			ev.preventDefault();
 		}
 		else if (!name)
@@ -252,5 +207,3 @@
 			list.insertBefore(z, list.firstChild);
 		}
 	}, false);
-
-})();

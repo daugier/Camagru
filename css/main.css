@@ -4,13 +4,39 @@ html
 }
 body
 {
-	/*background-image: url('../img/fond_5.jpg');
-	background-attachment: fixed;
-	background-size: cover;*/
 	background-color: rgb(87, 87, 106);
 	width : 100%;
 	padding : 0;
 	margin : 0;
+}
+.commenter
+{
+	cursor : pointer;
+}
+.ensemble_photo button
+{
+	cursor : pointer;
+}
+.pdp
+{
+	width : 100%;
+	font-size: 20px;
+	color : white;
+	background-color: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+#sup_img
+{
+	width : 100px;
+	position : absolute;
+	z-index: 2;
+}
+#sup_img_2
+{
+	width : 100px;
+	position : absolute;
+	z-index: 2;
 }
 #contenu
 {
@@ -39,19 +65,14 @@ body
 {
 	position : absolute;
 	z-index : 2;
-	top : 40px;
-	left : 20px;
-}
-#superpose2
-{
-	position : absolute;
-	z-index : 2;
-	top : 70px;
-	left : 45px;
+	width : 400px;
+	height : 300px;
+	overflow : visible;
 }
 #valide
 {
 	background-color: red;
+	cursor : pointer;
 }
 canvas
 {
@@ -90,7 +111,7 @@ canvas
 	border : 2px solid orange;
 	z-index : 1;
 	width: 400px;
-	height :  auto;
+	height :  300px;
 }
 .comentaire_photo
 {
@@ -101,6 +122,18 @@ canvas
 	color : white;
 	padding : 5px;
 }
+.comentaire_photo_2
+{
+	background-color: rgb(79, 11, 1  );
+	margin-top: 2px;
+	padding-left: 30px;
+	color : white;
+	font-size: 18px;
+	text-decoration: underline;
+	padding : 5px;
+	cursor: pointer;
+}
+
 #plus_de_com
 {
 	background-color: rgb(79, 11, 1  );
@@ -109,12 +142,6 @@ canvas
 	padding-left: 30px;
 	color : white;
 	padding : 5px;
-}
-#plus_de_photo
-{
-	width : 200px;
-	size : 18px;
-	background-color: white;
 }
 #comentaire-photo b
 {
@@ -162,13 +189,15 @@ canvas
 	border-radius : 5px;
 	width : 50px;
 	background-color: lightgreen;
+	cursor : pointer;
 }
 .dislike
 {
 	border : none;
 	border-radius : 5px;
-	width : 50px;
+	width : 64px;
 	background-color: red;
+	cursor : pointer;
 }
 textarea
 {
@@ -254,6 +283,7 @@ textarea
 	margin : 30px;
 	padding : 10px;
 	font-size : 20px;
+	cursor : pointer;
 }
 .connexion
 {
@@ -267,6 +297,10 @@ textarea
 	top : 50%;
 	left : 50%;
 	transform : translate(-50%, -50%);
+}
+.connexion a
+{
+	text-align: right;
 }
 #wrong2
 {
@@ -290,7 +324,11 @@ textarea
 	color : red;
 	width : 80%;
 	background-color: white;
-	font-size: 25px;
+	font-size: 20px;
+}
+.sup_img_cur
+{
+	cursor : pointer;
 }
 #need_connect a
 {
@@ -327,7 +365,9 @@ textarea
 }
 .photo_bouton img
 {
+	z-index: 2;
 	width : 100px;
+	cursor : pointer;
 }
 .code
 {
@@ -366,6 +406,10 @@ textarea
 	top : 50%;
 	left : 50%;
 	transform : translate(-50%, -50%);
+}
+.shadow2
+{
+	visibility : hidden;
 }
 .shadow
 {

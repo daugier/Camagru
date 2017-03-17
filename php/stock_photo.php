@@ -7,7 +7,8 @@ include '../function/user.php';
 $id = $_SESSION['logged_on_user'];
 if(isset($_POST['data']) && isset($_POST['source']) && isset($_POST['value']) && isset($_POST['name']))
 {
-
+	$x = $_POST['x'];
+	$y = $_POST['y'];
 	$data= $_POST["data"];
 	$source = $_POST['source'];
 	$valide = $_POST['value'];
@@ -26,7 +27,7 @@ if(isset($_POST['data']) && isset($_POST['source']) && isset($_POST['value']) &&
 		add_image($user, $url_img);
 	}
 	else
-		write_png_to_photo($source, $url_img);
+		write_png_to_photo($source, $url_img, $x, $y);
 	if ($valide == '3' && $data == 1)
 		unlink($url_img);
 	echo $url_img;

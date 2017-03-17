@@ -39,7 +39,7 @@
 			$extention = ".gif";
 		return ($extention);
  	}
- 	function write_png_to_photo($source, $photo)
+ 	function write_png_to_photo($source, $photo, $x, $y)
  	{
 		$source = imagecreatefrompng($source);
 		$largeur_source = imagesx($source);
@@ -53,11 +53,7 @@
 			$destination = imagecreatefromjpeg($photo);
 		if ($type == ".gif")
 			$destination = imagecreatefromgif($photo);
-		$largeur_destination = imagesx($destination);
-		$hauteur_destination = imagesy($destination);
-		$destination_x = ($largeur_destination - $largeur_source) / 10;
-		$destination_y =  ($hauteur_destination - $hauteur_source) / 3;
-		imagecopy($destination, $source, $destination_x, $destination_y, 0, 0, $largeur_source, $hauteur_source);
+		imagecopy($destination, $source, $x, $y, 0, 0, $largeur_source, $hauteur_source);
 		if ($type == ".png")
 			imagepng($destination, $photo);
 		if ($type == ".jpeg" || $type == '.jpg')	

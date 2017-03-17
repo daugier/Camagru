@@ -1,5 +1,3 @@
-(function()
-	{
 	var streaming = false;
 	var video  = document.querySelector('video');
 	var canvas     = document.querySelector('#canvas');
@@ -14,9 +12,47 @@
 	var name = 0;
 	var source = 0;
 	var data = 0;
+	var poto = 0;
+	var x = 0;
+	var y = 0;
+   
 	
 	///////////////////////////////////////////
+	function allowDrop(ev)
+	{
+	   ev.preventDefault();
+	}
+	function drag(ev)
+	{
+	    ev.dataTransfer.setData("text", ev.target.id);
+	}
+	function drop(ev)
+	{
+	    ev.preventDefault();
+	    poto = ev.dataTransfer.getData("text");
+	    if (poto != 'sup_img')
+	    {
+    		document.getElementById('sup_img').src = poto;
+    		source = poto;
+	    }
+	    delete_wrong();
+    	var dat  = document.getElementById(poto);
+    	x = event.clientX; 
+		y = event.clientY;
 
+		var scroll_x =document.body.scrollLeft || document.documentElement.scrollLeft;
+		var scroll_y =document.body.scrollTop || document.documentElement.scrollTop;
+
+		x += scroll_x;
+		y += scroll_y;
+	  	var x_div = document.getElementById("cheat").offsetLeft;
+	   	var y_div = document.getElementById("cheat").offsetTop;
+	   	x = x - x_div - 50;
+	   	y = y - y_div - 50;
+	   	dat.style.left = x + 'px';
+	   	dat.style.top = y + 'px';
+	   	
+	}
 	function delete_wrong()
 	{
 		var length = document.getElementById('wrong').childNodes.length;
@@ -28,56 +64,6 @@
 		}
 	}
 	///////////////////////////////////////////
-	img1.addEventListener('click', function()
-	{
-		delete_wrong();
-		source = "../img/lapin.png";
-		superpose.setAttribute('src', source);
-
-	},false);
-	img2.addEventListener('click', function()
-	{
-		delete_wrong();
-		source = "../img/pomme.png";
-		superpose.setAttribute('src', source);
-
-	},false);
-
-	img3.addEventListener('click', function()
-	{
-		delete_wrong();
-		source = "../img/chat.png";
-		superpose.setAttribute('src', source);
-
-	},false);
-
-	img4.addEventListener('click', function()
-	{
-		delete_wrong();
-
-		source = "../img/singe.png";
-		superpose.setAttribute('src', source);
-
-	},false);
-	img5.addEventListener('click', function()
-	{
-		delete_wrong();
-
-		source = "../img/soleil.png";
-		superpose.setAttribute('src', source);
-
-	},false);
-	img6.addEventListener('click', function()
-	{
-		delete_wrong();
-
-		source = "../img/kangourou.png";
-		superpose.setAttribute('src', source);
-
-	},false);
-
-///////////////////////////////////////////////////////////////////////
-
 	valide.addEventListener('click', function()
 	{
 		/* requete ajax*/
@@ -221,7 +207,7 @@
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		
 		/* creation url image */
-		xhr.send('data='+data+'&source='+source+'&value=0&name=1');
+		xhr.send('data='+data+'&source='+source+'&value=0&name=1&x='+x+'&y='+y);
 		data  = 1;
 	    /* fin requete ajax */
 	}
@@ -259,4 +245,3 @@
 		}
 	}, false);
 	getMedia(hconstraints);
-})();
