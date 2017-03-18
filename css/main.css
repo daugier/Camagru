@@ -4,7 +4,7 @@ html
 }
 body
 {
-	background-color: rgb(87, 87, 106);
+	background-color: rgb(212, 193, 172);
 	width : 100%;
 	padding : 0;
 	margin : 0;
@@ -115,28 +115,29 @@ canvas
 }
 .comentaire_photo
 {
-	background-color: rgb(79, 11, 1  );
 	margin-top: 2px;
 	text-align: left;
 	padding-left: 30px;
-	color : white;
+	color : black;
 	padding : 5px;
+	width : 400px;
+	 border-bottom:1px dashed rgb(122, 68, 8);
 }
 .comentaire_photo_2
 {
-	background-color: rgb(79, 11, 1  );
 	margin-top: 2px;
 	padding-left: 30px;
 	color : white;
 	font-size: 18px;
 	text-decoration: underline;
 	padding : 5px;
+	width : 400px;
 	cursor: pointer;
 }
 
 #plus_de_com
 {
-	background-color: rgb(79, 11, 1  );
+	background-color: rgb(144, 12, 63  );
 	margin-top: 2px;
 	text-align: left;
 	padding-left: 30px;
@@ -203,13 +204,12 @@ textarea
 {
 	outline: none;
 	padding: 8px;
-	color: #fff;
+	color : black;
 	text-align: center;
 	background-color: transparent;
     width: 80%;
     min-height : 30px;
     resize: none;
-    background-color: rgb(79, 11, 1  );
 }
 #page
 {
@@ -226,11 +226,8 @@ textarea
 .ensemble_photo
 {
 	margin-top: 0px;
-	width : 50%;
-	max-width: 500px;
-	min-width : 400px;
+	width : 400px;
 	margin-bottom: 70px;
-	background-color: rgb(227, 231, 235);
 	position:relative;-webkit-animation:animatebottom 0.4s;animation:animatebottom 0.4s}
 @-webkit-keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0px;opacity:1}}
 @keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}
@@ -255,9 +252,8 @@ textarea
 {
 	margin-top: 50px;
 	height : 200px;
-	width : 60%;
+	width : 800px;
 	overflow: auto;
-	background-color: rgba(87, 97, 116, 0.6);
 }
 .cheat
 {
@@ -451,7 +447,7 @@ textarea
 {
 	padding-top : 70px;
 	height : 150px;
-	background-color: rgb(79, 11, 1  );
+	background-color: rgba(0, 0, 0, 0.7);
 }
 .menu li
 {

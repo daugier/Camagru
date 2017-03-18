@@ -2,11 +2,32 @@ var sub = 0;
 var length = 0;
 var nbr2 = 0;
 var index = 0;
+var j_add = -1;
+var length_com = 0;
+var j_com = 6;
 function set_nbr(nbr)
 {
 	length = nbr;
 	nbr2 = length - (3 + (index * 2));
 	index++;
+}
+function sub_commentaire(i, j, uniq, user, text, id)
+{
+	var xhr = getXMLHttpRequest();
+	console.log("i = "+i+" j = "+j);
+	var list = document.getElementById('comentaire_photo'+i+j);
+	if (list)
+		list.parentNode.removeChild(list);
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+		{
+			alert(xhr.responseText);
+		}
+	}
+	xhr.open("POST", "delete_commentaire.php", true); // true pour asynchrone
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send('user='+user+'&text='+text+'&uniq='+uniq+'&id='+id);
 }
  function getXMLHttpRequest()
 {
@@ -39,44 +60,26 @@ function plus_de_photos(i)
 {
 	set_nbr(i);
 	var i = -1;
-	console.log('length = '+length);
-	console.log('i = '+i);
-	console.log('nbr2 = '+nbr2);
 	while (++i < 2 && nbr2 >= 0)
 	{
 		var pdc = document.getElementById('ensemble_photo'+nbr2).className = 'ensemble_photo';
 		nbr2--;
 	}
-	console.log('i = '+i+'\n\n');
 	if (nbr2 == -1)
-		document.getElementById('plus_de_photos').innerHTML = null;
+		document.getElementById('plus_de_photos').className = 'shadow';
 
 }
-function plus_de_com(nbr, img)
+function plus_de_com(i, j)
 {
-	var length2 = document.getElementById('comment'+nbr).childNodes.length;
-	var text = document.getElementById('text_com'+nbr).value;
-	var user = document.getElementById('user_com'+nbr).value;
-	var pdc = document.getElementById('comentaire_photo_plus'+nbr);
-	var j = length2 - 8;
-	var i = -1;
-	user = user.split(',');
-	text = text.split(',');
-	while (++i < 3)
+	var l = -1;
+	while (++l < 3 && j_com < j)
 	{
-		if (user[j] && text[j])
-		{	
-			var list = document.getElementById('comment'+nbr);
-			var new_div = document.createElement('div');
-			new_div.setAttribute('id', 'comentaire_photo'+nbr);
-			new_div.setAttribute('class', 'comentaire_photo');
-			new_div.innerHTML = '<b>'+user[j]+' :</b> '+text[j];
-			list.insertBefore(new_div, pdc);
-			j++;
-		}
+		console.log("j = "+j+" nbr_com = "+j_com)
+		var pdc = document.getElementById('comentaire_photo'+i+j_com).className = 'comentaire_photo';
+		j_com++;
 	}
-	if (!user[j] && !text[j])
-		pdc.className = 'shadow';
+	if (j_com == j)
+		document.getElementById('comentaire_photo_plus'+i).innerHTML = null;
 }
 function need_connect()
 {
@@ -98,22 +101,26 @@ function add_comment(nbr, user)
 		var texte = document.getElementById('texte'+nbr).value;
 		var user = document.getElementById('user'+nbr).value;
 		var img = document.getElementById('img'+nbr).value;
-		console.log(texte);
-		console.log(user);
-		if (texte)
+		var id = document.getElementById('id_img'+nbr).value;
+		if (texte != ' ' && texte && texte != '')
 		{
 			var xhr = getXMLHttpRequest();
 			xhr.onreadystatechange = function()
 			{
 				if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
 				{
-					var new_div = document.createElement('div');
-					var pdc = document.getElementById('comentaire_photo'+nbr);
-					new_div.setAttribute('id', 'comentaire_photo'+nbr);
-					new_div.setAttribute('class', 'comentaire_photo');
-					list = document.getElementById('comment'+nbr);
-					new_div.innerHTML = '<b>'+user+' :</b> '+texte;
-					list.insertBefore(new_div, list.firstChild);
+					if (xhr.responseText != 'no')
+					{
+						var uniq = xhr.responseText;
+						var new_div = document.createElement('div');
+						var pdc = document.getElementById('comentaire_photo'+nbr+0);
+						new_div.setAttribute('id', 'comentaire_photo'+nbr+j_add);
+						new_div.setAttribute('class', 'comentaire_photo');
+						list = document.getElementById('comment'+nbr);
+						new_div.innerHTML = '<b>'+user+' :</b> '+texte+'<button type="submit" align="right" onclick="sub_commentaire( \''+nbr+'\', \''+j_add+'\', \''+uniq+'\', \''+user+'\', \''+texte+'\',\''+id+'\')">X</button>';
+						list.insertBefore(new_div, list.firstChild);
+						j_add--;
+					}
 				}
 			}
 			xhr.open("POST", "stock_commentary.php", true); // true pour asynchrone

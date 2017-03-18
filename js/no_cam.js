@@ -2,48 +2,13 @@
 	var photo2        = document.querySelector('#photo2');
 	var superpose2 = document.getElementById('superpose2');
 	var valide2 = document.getElementById('valide2');
-	var source;
+	var source = 0;
 	var name;
 	var poto = 0;
 	var x = 0;
 	var y = 0;
   	var size = 100;
    
-
-	function replace_url2()
-	{
-		var good_img = document.getElementById('sup_img').src;
-		if (size == '100')
-		{
-			good_img = good_img.replace("2.png", ".png");
-			good_img = good_img.replace("3.png", ".png");
-		}
-		else if (size == '150')
-		{
-			good_img = good_img.replace("3.png", "2.png");
-			good_img = good_img.replace(".png", "2.png");
-		}
-		else if (size == '250')
-		{
-			good_img = good_img.replace(".png", "3.png");
-			good_img = good_img.replace("2.png", "3.png");
-		}
-		source = good_img;
-
-	} 
-	function get_size2(tail)
-	{
-		size = tail;
-		if (tail == '100')
-			document.getElementById('sup_img_2').style.width = "100px";
-		else if (tail == '150')
-			document.getElementById('sup_img_2').style.width = "150px";
-		else if (tail == '250')
-			document.getElementById('sup_img_2').style.width = "250px";
-		replace_url2()
-	}
-	
-	///////////////////////////////////////////
 	function allowDrop2(ev)
 	{
 	   ev.preventDefault();
@@ -57,11 +22,6 @@
 	    delete_wrong2();
 	    ev.preventDefault();
 	    poto = ev.dataTransfer.getData("text");
-	    if (poto != 'sup_img_2')
-	    {
-    		document.getElementById('sup_img_2').src = poto;
-    		source = poto;
-	    }
     	var dat  = document.getElementById(poto);
 		x = event.clientX; 
 		y = event.clientY;
@@ -80,7 +40,6 @@
 	   	var el = document.getElementById('radio');
 	   	el.style.visibility = "visible";
 		el.style.opacity = '1';
-		replace_url2();
 	}
 
 	function get_name()
@@ -149,13 +108,12 @@
 			var list = document.getElementById('wrong2');
 			var item = list.firstElementChild;
 	  		list.removeChild(item);
-
 		}
 	}
 
 	valide2.addEventListener('click', function()
 	{
-		if (source && name)
+		if (source && name != 0)
 		{
 			var xhr = getXMLHttpRequest();
 			xhr.open("POST", "stock_photo_upload.php", true); // true pour asynchrone
@@ -233,7 +191,6 @@
 			add_wrong();
 		else
 		{
-			console.log(source);
 			var length = document.getElementById('wrong2').childNodes.length;
 			if (length > 0)
 			{

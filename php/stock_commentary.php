@@ -13,19 +13,24 @@ if(isset($_POST['img']) && isset($_POST['user']) && isset($_POST['texte']))
 	$texte = str_replace(chr(10), '<br/>', $texte); 
 	while (preg_match('/<br\/><br\/>/', $texte))
 		$texte = str_replace('<br/><br/>', '<br/>', $texte);
-	if ($texte)
+	$texte_tmp = str_replace(' ', '', $texte);
+	if ($texte_tmp)
 	{
 		$query= $db->prepare('SELECT comment FROM image WHERE img=:img');
 		$query->execute(array('img' => $img));
 		$res = $query->fetch();
 		$comment = $res['comment'];
-		$comment = 'user='.$user.'&text='.$texte.'//'.$comment;
+		$uniq = uniqid();
+		$comment = 'user='.$user.'&text='.$texte.'&uniq='.$uniq.'//'.$comment;
 		$query= $db->prepare('UPDATE image set comment=:comment WHERE img=:img');
 		$query->execute(array(':comment' => $comment, 'img' => $img));
 		$mail = get_usermail_by_id($id);
 		$message = "une de vos photos vient d'etre commentee ! \n\nmessage : ".$texte;
 		$subject = "nouveau commentaire";
 		send_mail($mail, $message, $subject);
+		echo $uniq;
 	}
+	else
+		echo "no";
 }
 ?>

@@ -56,13 +56,34 @@
 		$user_img = $user_img['user'];
 		return ($user_img);
 	}
-	function get_comment_by_img($img)
+	function get_comment_by_img($image)
 	{
 		require 'connect_db.php';
 
-		$query= $db->prepare('SELECT comment FROM image WHERE img=:img');
-		$query->execute(array(':img' => $img));
-		$commentaires = $query->fetch();
+		try{
+			$query= $db->prepare('SELECT comment FROM image WHERE img=:img');
+			$query->execute(array(':img' => $image));
+			$commentaires = $query->fetch();
+		}
+		catch(PDOException $e){
+			echo("Erreur ! : ".$e->getMessage() );
+		}
+		$query->closeCursor();
+		return ($commentaires);
+	}
+	function get_comment_by_id($id)
+	{
+		require 'connect_db.php';
+
+		try{
+			$query= $db->prepare('SELECT comment FROM image WHERE id=:id');
+			$query->execute(array(':id' => $id));
+			$commentaires = $query->fetch();
+		}
+		catch(PDOException $e){
+			echo("Erreur ! : ".$e->getMessage() );
+		}
+		$query->closeCursor();
 		return ($commentaires);
 	}
 	function list_image()

@@ -83,6 +83,7 @@ $url = $_SERVER[REQUEST_URI];
 										<br><input class="commenter" type="submit" onclick="add_comment('.$i.',\''.$user.'\')" id="add_comment" value="commenter"/>
 										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
 										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>
+										<input style="display:none;" id="id_img'.$i.'" value="'.$id.'"/>
 										<div id="comment'.$i.'" >';
 							$j = -1;
 							$com = get_comment_by_img($img);
@@ -91,26 +92,28 @@ $url = $_SERVER[REQUEST_URI];
 							{
 								$comment = $com['comment'];
 								preg_match_all("/user=(.*?)&/", $comment, $person);
-								preg_match_all("/text=(.*?)\/\//", $comment, $text);
-								while ($person[1][++$j] && $j < $nbr_com)
+								preg_match_all("/text=(.*?)&/", $comment, $text);
+								preg_match_all("/uniq=(.*?)\/\//", $comment, $uniq);
+								while ($person[1][++$j])
 								{
-									echo '<div class="comentaire_photo" id="comentaire_photo'.$i.'"><b>'.$person[1][$j].' :</b> ',$text[1][$j].'</div>';
+									if ($j > 5)
+									{
+										echo '<div class="shadow" id="comentaire_photo'.$i.$j.'"><b>'.$person[1][$j].' :</b> ',$text[1][$j];
+										if ($user == $person[1][$j])
+											echo '<button type="submit" align="right" onclick="sub_commentaire('.$i.','.$j.',\''.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
+										echo '</div>';
+									}
+									else
+									{
+										echo '<div class="comentaire_photo" id="comentaire_photo'.$i.$j.'"><b>'.$person[1][$j].' :</b> ',$text[1][$j];
+										if ($user == $person[1][$j])
+											echo '<button type="submit" align="right" onclick="sub_commentaire('.$i.','.$j.',\' '.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
+										echo '</div>';
+									}
 								}
-								if ($person[1][$j])
+								if ($j > 5)
 								{
-									echo '<input style="display:none;" id="user_com'.$i.'" value=""/>
-										<input style="display:none;" id="text_com'.$i.'" value=""/>';
-									?>
-									<script>
-										var i = <?php echo json_encode($i);?>;
-										var text = <?php echo json_encode($text[1]);?>;
-										document.getElementById('text_com'+i).value = text;
-										var user = <?php echo json_encode($person[1]);?>;
-										document.getElementById('user_com'+i).value = user;
-									</script>
-									<?php
-									echo '<div class="comentaire_photo_2" id="comentaire_photo_plus'.$i.'"><a onclick="plus_de_com('.$i.',\' '.$img.'\')">plus de commentaires</a></div>';
-
+									echo '<div class="comentaire_photo_2" id="comentaire_photo_plus'.$i.'"><a onclick="plus_de_com('.$i.','.$j.')">plus de commentaires</a></div>';
 								}
 							}
 							echo '			</div></div>

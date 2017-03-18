@@ -34,28 +34,28 @@
 			<div class="all" id="all">
 				<div class="image_montage">
 					<div class="photo_bouton">
-						<img src="../img/lapin.png" id="../img/lapin.png" draggable="true" ondragstart="drag(event)">
+						<img src="../img/lapin.png" draggable="false" id="../img/lapin.png" onclick="define_source('../img/lapin.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/pomme.png" id="../img/pomme.png" draggable="true" ondragstart="drag(event)">
+						<img src="../img/pomme.png" draggable="false" id="../img/pomme.png" onclick="define_source('../img/pomme.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/chat.png" id="../img/chat.png" draggable="true" ondragstart="drag(event)">
+						<img src="../img/chat.png" draggable="false" id="../img/chat.png" onclick="define_source('../img/chat.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/singe.png" id="../img/singe.png" draggable="true" ondragstart="drag(event)">
+						<img src="../img/singe.png" draggable="false" id="../img/singe.png" onclick="define_source('../img/singe.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/soleil.png" id="../img/soleil.png" draggable="true" ondragstart="drag(event)">
+						<img src="../img/soleil.png" draggable="false" id="../img/soleil.png" onclick="define_source('../img/soleil.png')">
 					</div>
 					<div class="photo_bouton" >
-						<img src="../img/kangourou.png" id="../img/kangourou.png" draggable="true" ondragstart="drag(event)">
+						<img src="../img/kangourou.png" draggable="false" id="../img/kangourou.png" onclick="define_source('../img/kangourou.png')">
 					</div>
 				</div>
 				<div class="shadow2" id="radio">
-					<br><input  type="radio" name="tail" value="100" onclick="get_size('100')" onclick="get_size2('100')">small
-					<input  type="radio" name="tail" value="150" onclick="get_size('150')" onclick="get_size2('150')">medium
-					<input  type="radio" name="tail" value="250" onclick="get_size('250')" onclick="get_size2('1250')">large
+					<br><input  type="radio" name="tail" value="100" onclick="get_size('100')">small
+					<input  type="radio" name="tail" value="150" onclick="get_size('150')">medium
+					<input  type="radio" name="tail" value="250" onclick="get_size('250')">large
 				</div>
 				<div class="cametphoto" id="cametphoto">
 					<div class="montage" id="placehere">
