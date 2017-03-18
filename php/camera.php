@@ -31,7 +31,7 @@
 					<li><a  draggable="false" href="galerie.php">Galerie</a></li>
 				</ul>
 			</div>
-			<div class="all">
+			<div class="all" id="all">
 				<div class="image_montage">
 					<div class="photo_bouton">
 						<img src="../img/lapin.png" id="../img/lapin.png" draggable="true" ondragstart="drag(event)">
@@ -52,7 +52,12 @@
 						<img src="../img/kangourou.png" id="../img/kangourou.png" draggable="true" ondragstart="drag(event)">
 					</div>
 				</div>
-				<div class="cametphoto">
+				<div class="shadow2" id="radio">
+					<br><input  type="radio" name="tail" value="100" onclick="get_size('100')" onclick="get_size2('100')">small
+					<input  type="radio" name="tail" value="150" onclick="get_size('150')" onclick="get_size2('150')">medium
+					<input  type="radio" name="tail" value="250" onclick="get_size('250')" onclick="get_size2('1250')">large
+				</div>
+				<div class="cametphoto" id="cametphoto">
 					<div class="montage" id="placehere">
 					<?php 
 						require 'connect_db.php';

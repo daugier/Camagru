@@ -67,7 +67,7 @@ body
 	z-index : 2;
 	width : 400px;
 	height : 300px;
-	overflow : visible;
+	overflow : hidden;
 }
 #valide
 {
@@ -408,6 +408,10 @@ textarea
 	transform : translate(-50%, -50%);
 }
 .shadow2
+{
+	visibility : hidden;
+}
+.radio
 {
 	visibility : hidden;
 }

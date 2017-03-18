@@ -15,9 +15,41 @@
 	var poto = 0;
 	var x = 0;
 	var y = 0;
+	var size = 100;
    
-	
-	///////////////////////////////////////////
+
+	function replace_url()
+	{
+		var good_img = document.getElementById('sup_img').src;
+		if (size == '100')
+		{
+			good_img = good_img.replace("2.png", ".png");
+			good_img = good_img.replace("3.png", ".png");
+		}
+		else if (size == '150')
+		{
+			good_img = good_img.replace("3.png", "2.png");
+			good_img = good_img.replace(".png", "2.png");
+		}
+		else if (size == '250')
+		{
+			good_img = good_img.replace(".png", "3.png");
+			good_img = good_img.replace("2.png", "3.png");
+		}
+		source = good_img;
+
+	} 
+	function get_size(tail)
+	{
+		size = tail;
+		if (tail == '100')
+			document.getElementById('sup_img').style.width = "100px";
+		else if (tail == '150')
+			document.getElementById('sup_img').style.width = "150px";
+		else if (tail == '250')
+			document.getElementById('sup_img').style.width = "250px";
+		replace_url()
+	}
 	function allowDrop(ev)
 	{
 	   ev.preventDefault();
@@ -47,11 +79,15 @@
 		y += scroll_y;
 	  	var x_div = document.getElementById("cheat").offsetLeft;
 	   	var y_div = document.getElementById("cheat").offsetTop;
-	   	x = x - x_div - 50;
-	   	y = y - y_div - 50;
+	   	x = x - x_div - (2/4 * size);
+	   	y = y - y_div - (2/4 * size);
 	   	dat.style.left = x + 'px';
 	   	dat.style.top = y + 'px';
-	   	
+	   	var el = document.getElementById('radio');
+	   	el.style.visibility = "visible";
+		el.style.opacity = '1';
+		
+		replace_url();
 	}
 	function delete_wrong()
 	{
