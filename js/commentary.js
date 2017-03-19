@@ -1,4 +1,3 @@
-var sub = 0;
 var length = 0;
 var nbr2 = 0;
 var index = 0;
@@ -18,13 +17,6 @@ function sub_commentaire(i, j, uniq, user, text, id)
 	var list = document.getElementById('comentaire_photo'+i+j);
 	if (list)
 		list.parentNode.removeChild(list);
-	xhr.onreadystatechange = function()
-	{
-		if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
-		{
-			alert(xhr.responseText);
-		}
-	}
 	xhr.open("POST", "delete_commentaire.php", true); // true pour asynchrone
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.send('user='+user+'&text='+text+'&uniq='+uniq+'&id='+id);
@@ -117,7 +109,7 @@ function add_comment(nbr, user)
 						new_div.setAttribute('id', 'comentaire_photo'+nbr+j_add);
 						new_div.setAttribute('class', 'comentaire_photo');
 						list = document.getElementById('comment'+nbr);
-						new_div.innerHTML = '<b>'+user+' :</b> '+texte+'<button type="submit" align="right" onclick="sub_commentaire( \''+nbr+'\', \''+j_add+'\', \''+uniq+'\', \''+user+'\', \''+texte+'\',\''+id+'\')">X</button>';
+						new_div.innerHTML = '<button type="submit" align="right" onclick="sub_commentaire( \''+nbr+'\', \''+j_add+'\', \''+uniq+'\', \''+user+'\', \''+texte+'\',\''+id+'\')">X</button><b>'+user+' :</b>'+" "+texte;
 						list.insertBefore(new_div, list.firstChild);
 						j_add--;
 					}
@@ -135,23 +127,23 @@ function add_comment(nbr, user)
 		need_connect();
 	}
 }
-function add_like(id, nbr, user, user_likes, like_ref)
+function add_like(id, nbr, user, user_likes)
 {
 	if (user != ' ' && user != '' && user)
 	{
 		var like = parseInt(document.getElementById('like'+nbr).innerHTML);
-		var position = user_likes.indexOf(user);
-		if (position <=  0 && like_ref == like || sub == 1)
-		{
-			sub = 0;
-			like += 1;
-			document.getElementById('like'+nbr).innerHTML = like+' likes';
-			var add = 1;
-			var xhr = getXMLHttpRequest();
-			xhr.open("POST", "stock_like.php", true); // true pour asynchrone
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-		}
+		like += 1;
+		document.getElementById('like'+nbr).innerHTML = like+' likes';
+		var add = '1';
+		var xhr = getXMLHttpRequest();
+		xhr.open("POST", "stock_like.php", true); // true pour asynchrone
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
+		var change_like = document.getElementById('likee'+nbr);
+		change_like.value = 'j\'aime plus';
+		change_like.setAttribute('id', 'dislikee'+nbr);
+		change_like.setAttribute('class', 'dislike');
+		change_like.onclick = function(){sub_like(id, nbr, user, user_likes);};
 	}
 	else
 	{
@@ -159,23 +151,23 @@ function add_like(id, nbr, user, user_likes, like_ref)
 		need_connect();
 	}
 }
-function sub_like(id, nbr, user, user_likes, like_ref)
+function sub_like(id, nbr, user, user_likes)
 {
 	if (user != ' ' && user != '' && user)
 	{
 		var like = parseInt(document.getElementById('like'+nbr).innerHTML);
-		var position = user_likes.indexOf(user);
-		if (position > 0 && sub == 0 || like_ref < like && sub == 0)
-		{
-			sub = 1;
-			like -= 1;
-			var add = -1;
-			document.getElementById('like'+nbr).innerHTML = like+' likes';
-			var xhr = getXMLHttpRequest();
-			xhr.open("POST", "stock_like.php", true); // true pour asynchrone
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-		}
+		like -= 1;
+		var add = -1;
+		document.getElementById('like'+nbr).innerHTML = like+' likes';
+		var xhr = getXMLHttpRequest();
+		xhr.open("POST", "stock_like.php", true); // true pour asynchrone
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
+		var change_like = document.getElementById('dislikee'+nbr);
+		change_like.value = 'j\'aime';
+		change_like.setAttribute('id', 'likee'+nbr);
+		change_like.setAttribute('class', 'like');
+		change_like.onclick = function(){add_like(id, nbr, user, user_likes);};
 	}
 	else
 	{

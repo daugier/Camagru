@@ -34,22 +34,22 @@
 			<div class="all" id="all">
 				<div class="image_montage">
 					<div class="photo_bouton">
-						<img src="../img/lapin.png" draggable="false" id="../img/lapin.png" onclick="define_source('../img/lapin.png')">
+						<img src="../img/oiseau.png" draggable="false" id="../img/oiseau.png" onclick="define_source('../img/oiseau.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/pomme.png" draggable="false" id="../img/pomme.png" onclick="define_source('../img/pomme.png')">
+						<img src="../img/bulle.png" draggable="false" id="../img/bulle.png" onclick="define_source('../img/bulle.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/chat.png" draggable="false" id="../img/chat.png" onclick="define_source('../img/chat.png')">
+						<img src="../img/vache.png" draggable="false" id="../img/vache.png" onclick="define_source('../img/vache.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/singe.png" draggable="false" id="../img/singe.png" onclick="define_source('../img/singe.png')">
+						<img src="../img/yi.png" draggable="false" id="../img/yi.png" onclick="define_source('../img/yi.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/soleil.png" draggable="false" id="../img/soleil.png" onclick="define_source('../img/soleil.png')">
+						<img src="../img/guitare.png" draggable="false" id="../img/guitare.png" onclick="define_source('../img/guitare.png')">
 					</div>
 					<div class="photo_bouton" >
-						<img src="../img/kangourou.png" draggable="false" id="../img/kangourou.png" onclick="define_source('../img/kangourou.png')">
+						<img src="../img/no_filter.png" draggable="false" id="../img/no_filter.png" onclick="define_source('../img/no_filter.png')">
 					</div>
 				</div>
 				<div class="shadow2" id="radio">

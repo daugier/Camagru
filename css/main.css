@@ -4,14 +4,26 @@ html
 }
 body
 {
-	background-color: rgb(212, 193, 172);
+	background-color: rgb(249, 189, 121  );
 	width : 100%;
 	padding : 0;
 	margin : 0;
 }
+.button_supimg
+{
+	text-align: right;
+}
+.button_supimg button
+{
+	color : red;
+}
 .commenter
 {
 	cursor : pointer;
+	color : white;
+	background-color: rgba(40, 22, 1  , 1);
+	width : 150px;
+	font-size: 13px;
 }
 .ensemble_photo button
 {
@@ -31,12 +43,16 @@ body
 	width : 100px;
 	position : absolute;
 	z-index: 2;
+	left : 150px;
+	top : 100px;
 }
 #sup_img_2
 {
 	width : 100px;
 	position : absolute;
 	z-index: 2;
+	left : 150px;
+	top : 100px;
 }
 #contenu
 {
@@ -121,7 +137,8 @@ canvas
 	color : black;
 	padding : 5px;
 	width : 400px;
-	 border-bottom:1px dashed rgb(122, 68, 8);
+	word-wrap: break-word;
+	border-bottom:1px dashed rgb(255, 255, 255);
 }
 .comentaire_photo_2
 {
@@ -155,10 +172,6 @@ canvas
 	width : 400px;
 	height : 300px;
 }
-.galerie img
-{
-	width : 80%;
-}
 .b_com
 {
 	overflow : hidden;
@@ -175,6 +188,7 @@ canvas
 {
 	position : relative;
 	overflow : hidden;
+	width : 400px;
 	text-align: center;
 }
 .galerie
@@ -200,14 +214,13 @@ canvas
 	background-color: red;
 	cursor : pointer;
 }
-textarea
+.text_write
 {
-	outline: none;
 	padding: 8px;
 	color : black;
 	text-align: center;
-	background-color: transparent;
-    width: 80%;
+	opacity : 0.5;
+    width: 400px;
     min-height : 30px;
     resize: none;
 }
@@ -226,11 +239,17 @@ textarea
 .ensemble_photo
 {
 	margin-top: 0px;
-	width : 400px;
+	width : 500px;
 	margin-bottom: 70px;
+	border : 1px solid rgb(122, 68, 8);
 	position:relative;-webkit-animation:animatebottom 0.4s;animation:animatebottom 0.4s}
 @-webkit-keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0px;opacity:1}}
 @keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}
+.ensemble_photo img
+{
+	border : 2px solid orange;
+	border-radius: 10px;
+}
 .montage
 {
 	margin-right: 3%;
@@ -240,6 +259,7 @@ textarea
 	width : 25%;
 	min-width : 240px;
 	overflow : auto;
+	overflow-x: hidden;
 	height : 830px;
 }
 .montage img
@@ -247,6 +267,8 @@ textarea
 	width : 100%;
 	max-width: 400px;
 	margin-bottom: 30px;
+	border : 2px solid orange;
+	border-radius: 10px;
 }
 .image_montage
 {
@@ -273,11 +295,9 @@ textarea
 }
 #startbutton
 {
-	background : lightgreen;
-	border : none;
+	background : rgba(250, 150, 1  , 1);
 	color : white;
 	margin : 30px;
-	padding : 10px;
 	font-size : 20px;
 	cursor : pointer;
 }
@@ -447,7 +467,7 @@ textarea
 {
 	padding-top : 70px;
 	height : 150px;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(40, 22, 1  , 1);
 }
 .menu li
 {
@@ -479,9 +499,10 @@ footer
 	padding-bottom : 10px;
 	height : 50px;
 	line-height : 1.5;
-	background-color : orange;
+	background-color : rgba(40, 22, 1  , 1);
 	position : absolute;
 	overflow : hidden;
+	color : white;
 	bottom : 0;
 	width : 100%;
 }
@@ -500,8 +521,7 @@ footer
 	}
 	.ensemble_photo
 	{
-		max-width: 100%;
-		width : 100%;
+		width : 400px;
 	}
 	.menu
 	{

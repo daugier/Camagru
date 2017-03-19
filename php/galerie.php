@@ -66,20 +66,26 @@ $url = $_SERVER[REQUEST_URI];
 							}
 							else
 								echo '<div class="ensemble_photo" id="ensemble_photo'.$i.'">';
-							$date['img_date'] = get_date_by_img($img);
-							echo '<p>'.$date['img_date'][0].'</p>';
+							
 							if ($user == $user_img)
 							{
-								echo '<button type="submit" onclick="sub_img(\''.$img.'\', '.$i.')">supprimer</button>';
+								echo '<div class="button_supimg"><button type="submit" onclick="sub_img(\''.$img.'\', '.$i.')">X</button></div>';
 							}
+							$date['img_date'] = get_date_by_img($img);
+							echo $date['img_date'][0];
 									echo '<br><img src="'.$img.'">
 									<br/>
-									<div class="commentaire">
-									
-									<input class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\', '.$likes.' )" value="j\'aime"/>
-										<input class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \' '.$user.'\', \' '.$user_likes.'\', '.$likes.' )" value="j\'aime plus"/>
-										<div id="like'.$i.'">'.$likes.' likes</div>
-										<textarea maxlength="45" type="text" id="texte'.$i.'" name="texte"></textarea>
+									<div class="commentaire"><br>';
+									if (!strpos($user_likes, $user))
+									{
+										echo '<input id="likee'.$i.'" class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\')" value="j\'aime"/>';
+									}
+									else
+									{
+										echo '<input id="dislikee'.$i.'" class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \''.$user.'\', \''.$user_likes.'\')" value="j\'aime plus"/>';
+									}
+									echo '<br><div id="like'.$i.'">'.$likes.' likes</div>
+										<input class="text_write" type="text" id="texte'.$i.'" name="texte"/>
 										<br><input class="commenter" type="submit" onclick="add_comment('.$i.',\''.$user.'\')" id="add_comment" value="commenter"/>
 										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
 										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>
@@ -98,17 +104,17 @@ $url = $_SERVER[REQUEST_URI];
 								{
 									if ($j > 5)
 									{
-										echo '<div class="shadow" id="comentaire_photo'.$i.$j.'"><b>'.$person[1][$j].' :</b> ',$text[1][$j];
+										echo '<div class="shadow" id="comentaire_photo'.$i.$j.'">';
 										if ($user == $person[1][$j])
-											echo '<button type="submit" align="right" onclick="sub_commentaire('.$i.','.$j.',\''.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
-										echo '</div>';
+											echo '<button type="submit"  onclick="sub_commentaire('.$i.','.$j.',\''.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
+										echo '<b>'.$person[1][$j].' :</b> '.$text[1][$j].'</div>';
 									}
 									else
 									{
-										echo '<div class="comentaire_photo" id="comentaire_photo'.$i.$j.'"><b>'.$person[1][$j].' :</b> ',$text[1][$j];
+										echo '<div class="comentaire_photo" id="comentaire_photo'.$i.$j.'">';
 										if ($user == $person[1][$j])
-											echo '<button type="submit" align="right" onclick="sub_commentaire('.$i.','.$j.',\' '.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
-										echo '</div>';
+											echo '<button type="submit" onclick="sub_commentaire('.$i.','.$j.',\' '.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
+										echo '<b>'.$person[1][$j].' :</b> '.$text[1][$j].'</div>';
 									}
 								}
 								if ($j > 5)
@@ -117,7 +123,7 @@ $url = $_SERVER[REQUEST_URI];
 								}
 							}
 							echo '			</div></div>
-									</div>
+									<br></div>
 								</div>';
 						}
 						if ($pdf == 1)

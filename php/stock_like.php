@@ -1,21 +1,18 @@
 <?php
 require 'connect_db.php';
 
-session_start();
-extract($_POST);
-$id = $_POST['id'];
-$likes = $_POST['like'];
-$user = $_POST['user'];
-$user_likes = $_POST['user_likes'];
-$add = $_POST['add'];
-if ($id)
+if (isset($_POST['user']) && isset($_POST['user_likes']) && isset($_POST['like']) && isset($_POST['add']) && isset($_POST['id']))
 {
-	if ($add > 0)
-	{
+	$id = $_POST['id'];
+	$likes = $_POST['like'];
+	$user = $_POST['user'];
+	$user_likes = $_POST['user_likes'];
+	$add = $_POST['add'];
+	if ($add == '1')
 		$user_likes = $user_likes.';'.$user;
-	}
-	else if ($add < 0)
+	else
 	{
+		$user_likes = str_replace(' ', '', $user_likes);
 		$user_likes = str_replace(';'.$user, '', $user_likes);
 	}
 	$query= $db->prepare('UPDATE image set likes=:likes WHERE id=:id');

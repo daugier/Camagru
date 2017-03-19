@@ -5,8 +5,8 @@
 	var source = 0;
 	var name;
 	var poto = 0;
-	var x = 0;
-	var y = 0;
+	var x = 150;
+	var y = 100;
   	var size = 100;
    
 	function allowDrop2(ev)
