@@ -12,16 +12,19 @@ function set_nbr(nbr)
 }
 function sub_commentaire(i, j, uniq, user, text, id)
 {
-	var xhr = getXMLHttpRequest();
-	console.log("i = "+i+" j = "+j);
-	var list = document.getElementById('comentaire_photo'+i+j);
-	if (list)
-		list.parentNode.removeChild(list);
-	xhr.open("POST", "delete_commentaire.php", true); // true pour asynchrone
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send('user='+user+'&text='+text+'&uniq='+uniq+'&id='+id);
+	if (confirm("Voulez-vous vraiment supprimer ce commentaire ??"))
+    {
+		var xhr = getXMLHttpRequest();
+		console.log("i = "+i+" j = "+j);
+		var list = document.getElementById('comentaire_photo'+i+j);
+		if (list)
+			list.parentNode.removeChild(list);
+		xhr.open("POST", "delete_commentaire.php", true); // true pour asynchrone
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send('user='+user+'&text='+text+'&uniq='+uniq+'&id='+id);
+	}
 }
- function getXMLHttpRequest()
+function getXMLHttpRequest()
 {
     var xhr = null;
  
@@ -78,12 +81,15 @@ function need_connect()
 }
 function sub_img(img, nbr)
 {
-	var xhr = getXMLHttpRequest();
-	xhr.open("POST", "delete_img.php", true); // true pour asynchrone
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send('img='+img);
-	var list = document.getElementById('ensemble_photo'+nbr);
-	list.parentNode.removeChild(list);
+	if (confirm("Voulez-vous vraiment supprimer cette photo ??"))
+    {
+		var xhr = getXMLHttpRequest();
+		xhr.open("POST", "delete_img.php", true); // true pour asynchrone
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send('img='+img);
+		var list = document.getElementById('ensemble_photo'+nbr);
+		list.parentNode.removeChild(list);
+	}
 }
 function add_comment(nbr, user)
 {

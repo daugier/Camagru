@@ -149,9 +149,9 @@ $url = $_SERVER[REQUEST_URI];
 								if ($_SESSION['error'] == 5)
 									echo '<label id="wrong_login">Mauvais mot de passe ou identifiant</label><br>';
 							?>
-							<label>Identidiant</label>
+							<label>Identidiant : </label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<label>Mot de passe</label>
+							<br><br><label>Mot de passe : </label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<br><br><button class="btn" type="submit" value="OK">Me connecter</button>
 							<br><br><a href="#code">Mot de passe oublie ?</a>

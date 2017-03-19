@@ -2,6 +2,8 @@
 session_start();
 $url = $_SERVER[REQUEST_URI];
 $mail = $_SESSION['mail'];
+if (!$_SESSION['user'])
+	header('location:../index.php');
 ?>
 <html>
 	<head>
@@ -26,7 +28,7 @@ $mail = $_SESSION['mail'];
 							echo '<li><a href="#register">Inscription</a></li>';
 						}
 					?>
-					<li><a href="#">Galerie</a></li>
+					<li><a href="galerie.php">Galerie</a></li>
 				</ul>
 			</div>
 			<div class="moncompte" id="moncompte">
@@ -35,7 +37,7 @@ $mail = $_SESSION['mail'];
 				echo '<h1>Bienvenue '.$user.'</h1><br>';
 			?>
 				<h2>Changer mon mot de passe</h2>
-				<form  action="moncompte_new_pass.php" method="post" target="_self">
+				<form  action="moncompte_new_pass.php" method="post" target="_self" onsubmit="return confirm('Etes-vous sur de vouloir changer votre mot de passe ?');">
 					<div class="nouveau_pass">
 						<?php
 							if ($_SESSION['error_np'] == 1)
@@ -61,7 +63,7 @@ $mail = $_SESSION['mail'];
 					</div>
 				</form>
 				<br><h2>Changer mon identifiant</h2>
-				<form  action="moncompte_new_ident.php" method="post" target="_self">
+				<form  action="moncompte_new_ident.php" method="post" target="_self" onsubmit="return confirm('Etes-vous sur de vouloir changer votre identifiant ?');">
 					<div class="nouveau_pass">
 					<?php
 							if ($_SESSION['error_ni'] == 1)
@@ -85,7 +87,7 @@ $mail = $_SESSION['mail'];
 					</div>
 				</form>
 				<br><h2>Changer mon adresse mail</h2>
-				<form  action="moncompte_new_mail.php" method="post" target="_self">
+				<form  action="moncompte_new_mail.php" method="post" target="_self" onsubmit="return confirm('Etes-vous sur de vouloir changer votre mail ?');">
 					<div class="nouveau_pass">
 					<?php
 							if ($_SESSION['error_nm'] == 1)
@@ -108,10 +110,31 @@ $mail = $_SESSION['mail'];
 				</form>
 				<br><h2>Supprimer mon compte</h2>
 				<div class="nouveau_pass">
-					<form  action="moncompte_delete.php" method="post" target="_self">
+					<form  action="moncompte_delete.php" method="post" target="_self" onsubmit="return confirm('Etes-vous sur de vouloir supprimer votre compte ?');">
 						<button class="btn" type="submit" value="OK">Supprimer mon compte</button>
 					</form>
+				</div>
+				<?php
+					if ($user == 'root')
+					{?>
+						<br><h2>Supprimer un compte</h2>
+						<div class="nouveau_pass">
+						<?php
+						if ($_SESSION['error_ad'] == 1)
+							echo '<div class="error_mc" >Vous ne pouvez pas supprimer le compte ADMIN</div><br>';
+						if ($_SESSION['error_ad'] == 2)
+							echo '<div class="error_mc" >Le compte que vous voulez supprimer n\'existe pas</div><br>';
+						if ($_SESSION['succes_ad'] == 1)
+							echo '<div class="good_mc" >Le compte vient d\'etre supprime, felicitation</div><br>';
+						$_SESSION['error_ad'] = 0;
+						$_SESSION['succes_ad'] = 0;
+						?>
+						<form  action="moncompte_admin.php" method="post" target="_self" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce compte ?');">
+							<input type="identifiant" placeholder="compte a Supprimer" name="compte" required>
+							<button class="btn" type="submit" value="OK">Supprimer un compte</button>
+						</form>
 					</div>
+					<?}?>
 			</div>
 			<div id="main">
 				<footer>

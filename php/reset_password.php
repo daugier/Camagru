@@ -1,4 +1,8 @@
-<?php session_start()?>
+<?php
+session_start();
+if (!$_GET['code'])
+	header('location:../index.php');
+?>
 <html>
 	<head>
 		<meta charset="UTF-8">

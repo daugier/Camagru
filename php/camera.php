@@ -1,9 +1,8 @@
 <?php
 	session_start(); 
-	
-	if (!$_SESSION['logged_on_user'])
-		header('location:http://localhost:8080/camagru/index.php');
 
+	if (!$_SESSION['logged_on_user'])
+		header('location:../index.php');
 ?>
 <html>
 	<head>
