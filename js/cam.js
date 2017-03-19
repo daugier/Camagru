@@ -43,7 +43,7 @@
 		}
 		source = good_img;
 		document.getElementById('sup_img').src = source;
-		console.log(source);
+		document.getElementById('sup_img_2').src = source;
 	} 
 	function get_size(tail)
 	{

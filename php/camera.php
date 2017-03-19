@@ -49,7 +49,7 @@
 						<img src="../img/guitare.png" draggable="false" id="../img/guitare.png" onclick="define_source('../img/guitare.png')">
 					</div>
 					<div class="photo_bouton" >
-						<img src="../img/no_filter.png" draggable="false" id="../img/no_filter.png" onclick="define_source('../img/no_filter.png')">
+						<img src="../img/no_filter.png" draggable="false" id="../img/no_filter.png" onclick="define_source('../img/no_filter.png')">nofilter
 					</div>
 				</div>
 				<div class="shadow2" id="radio">
