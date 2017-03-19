@@ -27,6 +27,11 @@ $url = $_SERVER[REQUEST_URI];
 					?>
 					<li><a href="#">Galerie</a></li>
 				</ul>
+				<p><i><?php 
+					$user = $_SESSION['user'];
+					if ($user)
+						echo '<a href="moncompte.php">user : '.$user.'</a>';
+				?></i></p>
 			</div>
 			<?php
 				if ($_SESSION['valid'] == 1)
@@ -66,13 +71,12 @@ $url = $_SERVER[REQUEST_URI];
 							}
 							else
 								echo '<div class="ensemble_photo" id="ensemble_photo'.$i.'">';
-							
-							if ($user == $user_img)
+							if ($user == $user_img || $user == 'root')
 							{
 								echo '<div class="button_supimg"><button type="submit" onclick="sub_img(\''.$img.'\', '.$i.')">X</button></div>';
 							}
 							$date['img_date'] = get_date_by_img($img);
-							echo $date['img_date'][0];
+							echo '<div class=date>publie par <b>'.$user_img.'</b> le '.$date['img_date'][0].'</div>';
 									echo '<br><img src="'.$img.'">
 									<br/>
 									<div class="commentaire"><br>';
@@ -105,14 +109,14 @@ $url = $_SERVER[REQUEST_URI];
 									if ($j > 5)
 									{
 										echo '<div class="shadow" id="comentaire_photo'.$i.$j.'">';
-										if ($user == $person[1][$j])
+										if ($user == $person[1][$j] || $user == 'root')
 											echo '<button type="submit"  onclick="sub_commentaire('.$i.','.$j.',\''.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
 										echo '<b>'.$person[1][$j].' :</b> '.$text[1][$j].'</div>';
 									}
 									else
 									{
 										echo '<div class="comentaire_photo" id="comentaire_photo'.$i.$j.'">';
-										if ($user == $person[1][$j])
+										if ($user == $person[1][$j] || $user == 'root')
 											echo '<button type="submit" onclick="sub_commentaire('.$i.','.$j.',\' '.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
 										echo '<b>'.$person[1][$j].' :</b> '.$text[1][$j].'</div>';
 									}
@@ -166,13 +170,19 @@ $url = $_SERVER[REQUEST_URI];
 						<div>
 						<?php
 							if ($_SESSION['error'] == 1)
-								echo '<label id="wrong_login">Mot de passe trop court</label><br>';
+								echo '<label id="wrong_login">Mot de passe trop court, 6 caracteres minimum</label><br>';
 							if ($_SESSION['error'] == 2)
 								echo '<label id="wrong_login">identifiant deja utilise</label><br>';
 							if ($_SESSION['error'] == 3)
 								echo '<label id="wrong_login">Mail deja existant</label><br>';
 							if ($_SESSION['error'] == 4)
 								echo '<label id="wrong_login">Mail invalide</label><br>';
+							if ($_SESSION['error'] == 5)
+								echo '<label id="wrong_login">votre identifiant doit contenir que des lettres</label><br>';
+							if ($_SESSION['error'] == 6)
+								echo '<label id="wrong_login">votre identifiant doit contenir 10 caracteres maximum</label><br>';
+							if ($_SESSION['error'] == 7)
+								echo '<label id="wrong_login">Votre mot de passe doit contenir que des lettres et des chiffres</label><br>';
 							$_SESSION['error'] = 0;
 						?>
 							<label>Adresse Mail</label>

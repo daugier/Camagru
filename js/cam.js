@@ -105,23 +105,12 @@
 	///////////////////////////////////////////
 	valide.addEventListener('click', function()
 	{
-		/* requete ajax*/
-		 /* pause le temps de la requete ajax, sinon erreur */
 		if (data && source && name)
 		{
 			var xhr = getXMLHttpRequest();
 			xhr.open("POST", "stock_photo.php", true); // true pour asynchrone
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			/* creation url image */
 			xhr.send('data='+data+'&name='+name+'&source='+source+'&value=1');
-			var length = document.getElementById('placehere').childNodes.length;
-			if (length > 4)
-			{
-				var list = document.getElementById('placehere');
-				var item = list.lastElementChild;
-				list.removeChild(item);
-			}
-				/* j'ajoute la derniere photo prise */
 			var list = document.getElementById('placehere');
 			var new_img = document.createElement("img");
 			new_img.setAttribute("src", name);

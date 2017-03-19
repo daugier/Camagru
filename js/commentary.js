@@ -66,7 +66,6 @@ function plus_de_com(i, j)
 	var l = -1;
 	while (++l < 3 && j_com < j)
 	{
-		console.log("j = "+j+" nbr_com = "+j_com)
 		var pdc = document.getElementById('comentaire_photo'+i+j_com).className = 'comentaire_photo';
 		j_com++;
 	}

@@ -9,6 +9,36 @@ body
 	padding : 0;
 	margin : 0;
 }
+.good_mc
+{
+	color : green;
+}
+.error_mc
+{
+	color : red;
+}
+.nouveau_pass
+{
+	padding : 20px;
+	border : 1px solid black;
+}
+.menu p
+{
+	color : white;
+	font-size: 25px;
+	position : absolute;
+	top : 0px;
+	right : 25px;
+}
+.date
+{
+	color : white;
+	font-size: 18px;
+}
+.date b
+{
+	color : black;
+}
 .button_supimg
 {
 	text-align: right;

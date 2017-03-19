@@ -120,14 +120,6 @@
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			/* creation url image */
 			xhr.send('source='+source+'&value=1&name='+name);
-			var length = document.getElementById('placehere').childNodes.length;
-			if (length > 4)
-			{
-				var list = document.getElementById('placehere');
-				var item = list.lastElementChild;
-				list.removeChild(item);
-			}
-				/* j'ajoute la derniere photo prise */
 			var list = document.getElementById('placehere');
 			var new_img = document.createElement("img");
 			new_img.setAttribute("src", name);

@@ -1,12 +1,10 @@
 <?php
 	session_start();
-	require 'connect_db.php';
+	include '../function/user.php';
 
 	$mail = $_GET['mail'];
 	$code = $_GET['code'];
-	$query = $db->prepare("SELECT id FROM user WHERE mail=:mail AND code=:code");
-	$query->execute(array(':mail' => $mail, ':code' => $code));
-	$res = $query->fetch();
+	$res = select_id_user_from_mailandcode($mail, $code);
 	if ($res && $code != NULL)
 		header('location:http://localhost:8080/camagru/php/reset_password.php?code='.$code);
 	else

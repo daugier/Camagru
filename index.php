@@ -34,6 +34,11 @@
 					?>
 					<li><a href="php/galerie.php">Galerie</a></li>
 				</ul>
+				<p><i><?php 
+					$user = $_SESSION['user'];
+					if ($user)
+						echo '<a href="php/moncompte.php">user : '.$user.'</a>';
+				?></i></p>
 			</div>
 			<div id="login" class="shadow">
 				<div class="form">
@@ -89,6 +94,12 @@
 								echo '<label id="wrong_login">Mail deja existant</label><br>';
 							if ($_SESSION['error'] == 4)
 								echo '<label id="wrong_login">Mail invalide</label><br>';
+							if ($_SESSION['error'] == 5)
+								echo '<label id="wrong_login">votre identifiant doit contenir que des lettres</label><br>';
+							if ($_SESSION['error'] == 6)
+								echo '<label id="wrong_login">votre identifiant doit contenir 10 caracteres maximum</label><br>';
+							if ($_SESSION['error'] == 7)
+								echo '<label id="wrong_login">Votre mot de passe doit contenir que des lettres et des chiffres</label><br>';
 							$_SESSION['error'] = 0;
 						?>
 							<label>Adresse Mail</label>

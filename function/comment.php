@@ -3,7 +3,13 @@
 	{
 		require 'connect_db.php';
 
-		$query= $db->prepare('UPDATE image set comment=:comment WHERE id=:id');
-		$query->execute(array(':comment' => $comment, ':id' => $id));
+		try{
+			$query= $db->prepare('UPDATE image set comment=:comment WHERE id=:id');
+			$query->execute(array(':comment' => $comment, ':id' => $id));
+		}
+		catch(PDOException $e)
+		{
+			die("Erreur ! : ".$e->getMessage() );
+		}
 	}
 ?>

@@ -30,23 +30,28 @@
 					?>
 					<li><a  draggable="false" href="galerie.php">Galerie</a></li>
 				</ul>
+				<p><i><?php 
+					$user = $_SESSION['user'];
+					if ($user)
+						echo '<a href="moncompte.php">user : '.$user.'</a>';
+				?></i></p>
 			</div>
 			<div class="all" id="all">
 				<div class="image_montage">
 					<div class="photo_bouton">
-						<img src="../img/oiseau.png" draggable="false" id="../img/oiseau.png" onclick="define_source('../img/oiseau.png')">
+						<img src="../img/ours.png" draggable="false" id="../img/ours.png" onclick="define_source('../img/ours.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/bulle.png" draggable="false" id="../img/bulle.png" onclick="define_source('../img/bulle.png')">
+						<img src="../img/smiley.png" draggable="false" id="../img/smiley.png" onclick="define_source('../img/smiley.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/vache.png" draggable="false" id="../img/vache.png" onclick="define_source('../img/vache.png')">
+						<img src="../img/moustache.png" draggable="false" id="../img/moustache.png" onclick="define_source('../img/moustache.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/yi.png" draggable="false" id="../img/yi.png" onclick="define_source('../img/yi.png')">
+						<img src="../img/glace.png" draggable="false" id="../img/glace.png" onclick="define_source('../img/glace.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/guitare.png" draggable="false" id="../img/guitare.png" onclick="define_source('../img/guitare.png')">
+						<img src="../img/rose.png" draggable="false" id="../img/rose.png" onclick="define_source('../img/rose.png')">
 					</div>
 					<div class="photo_bouton" >
 						<img src="../img/no_filter.png" draggable="false" id="../img/no_filter.png" onclick="define_source('../img/no_filter.png')">nofilter
@@ -60,16 +65,12 @@
 				<div class="cametphoto" id="cametphoto">
 					<div class="montage" id="placehere">
 					<?php 
-						require 'connect_db.php';
+						include '../function/image.php';
+						include '../function/user.php';
 
 						$id = $_SESSION['logged_on_user'];
-						$query= $db->prepare('SELECT user FROM user WHERE id=:id');
-						$query->execute(array(':id' => $id));
-						if ($res = $query->fetch())
-							$user = $res['user'];
-						$query= $db->prepare('SELECT img FROM image WHERE user=:user');
-						$query->execute(array(':user' => $user));
-						$res = $query->fetchall();
+						$user = get_user_by_id($id);
+						$res = get_img_by_user($user);
 						$i = 0;
 						while ($res[$i]['img'])
 						{

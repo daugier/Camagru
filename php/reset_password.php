@@ -24,6 +24,11 @@
 					?>
 					<li><a href="galrie.php">Galerie</a></li>
 				</ul>
+				<p><i><?php 
+					$user = $_SESSION['user'];
+					if ($user)
+						echo '<a href="moncompte.php">user : '.$user.'</a>';
+				?></i></p>
 			</div>
 			<div>
 				<div>
@@ -38,8 +43,7 @@
 								$code = $_GET['code'];
 								echo '<input style="display:none;" name="code" value="'.$code.'">';
 							?>
-							<button class="btn" type="submit" value="OK">Go</button>
-              				<a href="#" class="quit">Fermer</a>
+							<button class="btn" type="submit" value="OK">Changer le mot de passe</button>
 						</div>
 					</form>
 				</div>

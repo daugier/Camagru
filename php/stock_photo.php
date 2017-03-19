@@ -4,6 +4,7 @@ include '../function/photo.php';
 include '../function/image.php';
 include '../function/user.php';
 
+session_start();
 $id = $_SESSION['logged_on_user'];
 if(isset($_POST['data']) && isset($_POST['source']) && isset($_POST['value']) && isset($_POST['name']))
 {
