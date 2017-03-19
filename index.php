@@ -14,12 +14,18 @@
 		<title>Camagru</title>
 			<link type="text/css" href="css/main.css" media="all" rel="stylesheet"/>
 	</head>
-	<body>
-		<body onload="document.getElementById('login').focus()"> 
+	<body onload="setTimeout(cacherDiv,2000);">
+	<script>
+		function cacherDiv()
+		{
+			if (document.getElementById('connec_ok'))
+    			document.getElementById("connec_ok").style.visibility = "hidden";
+		}
+	</script>
 		<center>
 			<div class="menu">
 				<ul>
-					<li><a href="">Accueil</a></li>
+					<li><a id="on" href="">Accueil</a></li>
 					<?php
 						if ($_SESSION["logged_on_user"])
 						{
@@ -49,12 +55,12 @@
 								if ($_SESSION['error'] == 5)
 									echo '<label id="wrong_login">Mauvais mot de passe ou identifiant</label><br>';
 							?>
-							<label>Identidiant</label>
+							<label>Identidiant : </label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<label>Mot de passe</label>
+							<br><label>Mot de passe : </label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
-							<br><br><button class="btn" type="submit" value="OK">Me connecter</button>
-							<br><br><a href="#code">Mot de passe oublie ?</a>
+							<br><button class="btn" type="submit" value="OK">Me connecter</button>
+							<br><a href="#code">Mot de passe oublie ?</a>
 							<br><a href="" class="quit" align="right">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
@@ -102,11 +108,11 @@
 								echo '<label id="wrong_login">Votre mot de passe doit contenir que des lettres et des chiffres</label><br>';
 							$_SESSION['error'] = 0;
 						?>
-							<label>Adresse Mail</label>
+							<label>Adresse Mail : </label>
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
-							<label>Identidiant</label>
+							<br><label>Identidiant : </label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<br><br><label>Mot de passe</label>
+							<br><label>Mot de passe : </label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<br><button class="btn" type="submit" value="OK">m'inscrire</button>
               				<br><a href="" class="quit">Fermer</a>
@@ -122,7 +128,7 @@
 					<form class="code" action="php/forget_password.php" method="post" target="_self">
 						<h3>Mot de passe oublie ?</h3>
 						<div>
-							<label>Adresse Mail</label>
+							<label>Adresse Mail : </label>
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
               				<a href="index.php" class="quit">Fermer</a>

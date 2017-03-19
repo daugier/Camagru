@@ -19,7 +19,7 @@
 						if ($_SESSION["logged_on_user"])
 						{
 							echo '<li><a  draggable="false" href="disconnect.php">Deconnexion</a></li>';
-							echo '<li><a  draggable="false" href="">Photomaton</a></li>';
+							echo '<li><a  id="on" draggable="false" href="">Photomaton</a></li>';
 						}
 						else
 						{
@@ -53,7 +53,7 @@
 						<img src="../img/rose.png" draggable="false" id="../img/rose.png" onclick="define_source('../img/rose.png')">
 					</div>
 					<div class="photo_bouton" >
-						<img src="../img/no_filter.png" draggable="false" id="../img/no_filter.png" onclick="define_source('../img/no_filter.png')">nofilter
+						<img src="../img/nof.jpeg" draggable="false" id="../img/no_filter.png" onclick="define_source('../img/no_filter.png')">
 					</div>
 				</div>
 				<div class="shadow2" id="radio">

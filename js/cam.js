@@ -58,9 +58,18 @@
 		source = here;
 		document.getElementById('sup_img').src = source;
 		document.getElementById('sup_img_2').src = source;
-		var el = document.getElementById('radio');
-	   	el.style.visibility = "visible";
-		el.style.opacity = '1';
+		if (source != '../img/no_filter.png')
+		{
+			var el = document.getElementById('radio');
+	   		el.style.visibility = "visible";
+			el.style.opacity = '1';
+		}
+		if (source == '../img/no_filter.png')
+		{
+			var el = document.getElementById('radio');
+	   		el.style.visibility = "hidden";
+			el.style.opacity = '0';
+		}
 		delete_wrong();
 		replace_url();
 	}
@@ -118,7 +127,6 @@
 			list.insertBefore(new_img, list.firstChild);
 			photo.setAttribute('src', "");
 			data = 0;
-			window.scrollTo(0,425);
 		}
 	},false);
 

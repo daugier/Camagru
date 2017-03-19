@@ -4,6 +4,7 @@ html
 }
 body
 {
+	font-family: Jazz LET, fantasy;
 	background-color: rgb(249, 189, 121  );
 	width : 100%;
 	padding : 0;
@@ -84,6 +85,10 @@ body
 	left : 150px;
 	top : 100px;
 }
+h3
+{
+	text-decoration: underline;
+}
 #contenu
 {
 	padding : 20px;
@@ -93,6 +98,10 @@ body
 	margin-top: 150px;
 	font-size : 25px;
 }
+.moncompte h1
+{
+	text-decoration: underline;
+}
 #connec_ok
 {
 	background-color: lightgreen;
@@ -100,12 +109,17 @@ body
 	height : auto;
 	color : black;
 	font-size: 30px;
-	-webkit-animation:animatezoom 0.6s;animation:animatezoom 0.6s}
+	-webkit-animation:animatezoom 1s;animation:animatezoom 1s}
 @-webkit-keyframes animatezoom{from{-webkit-transform:scale(0)} to{-webkit-transform:scale(1)}}
 @keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}
 #wrong_login
 {
 	color : red;
+}
+.form a
+{
+	text-decoration: none;
+	color : rgb(206, 136, 67);
 }
 #superpose
 {
@@ -331,6 +345,10 @@ canvas
 	font-size : 20px;
 	cursor : pointer;
 }
+#on
+{
+	color : orange;
+}
 .connexion
 {
 	display : block;
@@ -344,10 +362,6 @@ canvas
 	left : 50%;
 	transform : translate(-50%, -50%);
 	border-radius: 10px;
-}
-.connexion a
-{
-	text-align: right;
 }
 #wrong2
 {
@@ -370,8 +384,11 @@ canvas
 {
 	color : red;
 	width : 80%;
-	background-color: white;
 	font-size: 20px;
+}
+#need_connect a
+{
+
 }
 .sup_img_cur
 {
@@ -379,7 +396,7 @@ canvas
 }
 #need_connect a
 {
-	color : blue;
+	color : rgb(178, 114, 51);
 }
 #container
 {
@@ -559,7 +576,15 @@ footer
 	{
 		padding-top: 30px;
 		padding-bottom: 10px;
-		height : 200px;
+		height : 240px;
+	}
+	.menu p
+	{
+		color : white;
+		font-size: 25px;
+		position : absolute;
+		top : 200px;
+		right : 0px;
 	}
 	.menu a
 	{

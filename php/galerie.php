@@ -8,7 +8,14 @@ $url = $_SERVER[REQUEST_URI];
 		<title>Camagru</title>
 			<link type="text/css" href="../css/main.css" media="all" rel="stylesheet"/>
 	</head>
-	<body>
+	<body onload="setTimeout(cacherDiv,2000);">
+	<script>
+	function cacherDiv()
+	{
+		if(document.getElementById("connec_ok"))
+    		document.getElementById("connec_ok").style.visibility = "hidden";
+	}
+	</script>
 		<center>
 			<div class="menu">
 				<ul>
@@ -25,7 +32,7 @@ $url = $_SERVER[REQUEST_URI];
 							echo '<li><a href="#register">Inscription</a></li>';
 						}
 					?>
-					<li><a href="#">Galerie</a></li>
+					<li><a id="on" href="#">Galerie</a></li>
 				</ul>
 				<p><i><?php 
 					$user = $_SESSION['user'];
@@ -41,7 +48,7 @@ $url = $_SERVER[REQUEST_URI];
 				$_SESSION['valid'] = 0;
 			?>
 			<div class="galerie" id="galerie">
-				<div id="need_connect"></div>
+				<div id="need_connect"></div><br>
 				<?php
 					include '../function/image.php';
 					include '../function/user.php';
@@ -77,7 +84,7 @@ $url = $_SERVER[REQUEST_URI];
 							}
 							$date['img_date'] = get_date_by_img($img);
 							echo '<div class=date>publie par <b>'.$user_img.'</b> le '.$date['img_date'][0].'</div>';
-									echo '<br><img src="'.$img.'">
+									echo '<img src="'.$img.'">
 									<br/>
 									<div class="commentaire"><br>';
 									if (!strpos($user_likes, $user))
@@ -151,11 +158,11 @@ $url = $_SERVER[REQUEST_URI];
 							?>
 							<label>Identidiant : </label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<br><br><label>Mot de passe : </label>
+							<br><label>Mot de passe : </label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
-							<br><br><button class="btn" type="submit" value="OK">Me connecter</button>
-							<br><br><a href="#code">Mot de passe oublie ?</a>
-							<br><a href="galerie.php" class="quit" align="right">Fermer</a>
+							<br><button class="btn" type="submit" value="OK">Me connecter</button>
+							<br><a href="#code">Mot de passe oublie ?</a>
+							<br><a href="" class="quit" align="right">Fermer</a>
               				<?php
               				echo '<input style="display:none;" name="url" value="'.$url.'"/>';
               				?>
@@ -185,11 +192,11 @@ $url = $_SERVER[REQUEST_URI];
 								echo '<label id="wrong_login">Votre mot de passe doit contenir que des lettres et des chiffres</label><br>';
 							$_SESSION['error'] = 0;
 						?>
-							<label>Adresse Mail</label>
+							<label>Adresse Mail : </label>
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
-							<label>Identidiant</label>
+							<br><label>Identidiant : </label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<br><br><label>Mot de passe</label>
+							<br><label>Mot de passe : </label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<br><button class="btn" type="submit" value="OK">m'inscrire</button>
               				<br><a href="galerie.php" class="quit">Fermer</a>
@@ -205,7 +212,7 @@ $url = $_SERVER[REQUEST_URI];
 					<form class="code" action="forget_password.php" method="post" target="_self">
 						<h3>Mot de passe oublie ?</h3>
 						<div>
-							<label>Adresse Mail</label>
+							<label>Adresse Mail : </label>
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
 							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
               				<a href="galerie.php" class="quit">Fermer</a>
