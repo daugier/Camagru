@@ -2,14 +2,21 @@
 session_start();
 $url = $_SERVER[REQUEST_URI];
 $mail = $_SESSION['mail'];
+$url_2 = explode('/', $_SERVER[REQUEST_URI]);
 if (!$_SESSION['user'])
 	header('location:../index.php');
+$t_url = $url_2[3].$url_2[4];
+if (!file_exists($t_url))
+{
+	header('location:'.$_SESSION['url']);
+}
 ?>
 <html>
 	<head>
 		<meta charset="UTF-8" http-equiv="refresh" content="600" />
 		<title>Camagru</title>
-			<link type="text/css" href="../css/main.css" media="all" rel="stylesheet"/>
+		<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+		<link type="text/css" href="../css/main.css" media="all" rel="stylesheet"/>
 	</head>
 	<body>
 		<center>
@@ -53,11 +60,11 @@ if (!$_SESSION['user'])
 							$_SESSION['error_np'] = 0;
 							$_SESSION['succes'] = 0;
 						?>
-						<label>Ancien mot de passe</label>
+						<label>Ancien mot de passe : </label>
 						<input type="password" placeholder="Ancien mot de passe" name="ancien_pass" required/>
-						<br><br><label>Nouveau Mot de passe</label>
+						<br><br><label>Nouveau Mot de passe : </label>
 						<input type="password" placeholder="Nouveau  mot de passe" name="new_pass" required/>
-						<br><br><label>Repetez le nouveau mot de passe</label>
+						<br><br><label>Repetez le nouveau mot de passe : </label>
 						<input type="password" placeholder="Repetez mot de passe" name="new_pass_2" required/>
 						<br><br><button class="btn" type="submit" value="OK">Changer le mot de passe</button>
 					</div>
@@ -77,11 +84,11 @@ if (!$_SESSION['user'])
 							$_SESSION['error_ni'] = 0;
 							$_SESSION['succes_ni'] = 0;
 						?>
-						<label>Ancien identifiant</label>
+						<label>Ancien identifiant : </label>
 						<?php 
 							echo '<input type="identifiant" name="ancien_ident" value="'.$user.'"readonly>';
 						?>
-						<br><br><label>Nouvel identifiant</label>
+						<br><br><label>Nouvel identifiant : </label>
 						<input type="identifiant" placeholder="Nouvel identifiant" name="new_ident" required>
 						<br><br><button class="btn" type="submit" value="OK">Changer mon identifiant</button>
 					</div>
@@ -99,11 +106,11 @@ if (!$_SESSION['user'])
 							$_SESSION['error_nm'] = 0;
 							$_SESSION['succes_nm'] = 0;
 						?>
-						<label>Ancienne adresse mail</label>
+						<label>Ancienne adresse mail : </label>
 						<?php 
 							echo '<input type="mail" name="ancien_ident" value="'.$mail.'"readonly>';
 						?>
-						<br><br><label>Nouvelle adresse mail</label>
+						<br><br><label>Nouvelle adresse mail : </label>
 						<input type="mail" placeholder="Nouvelle adresse mail" name="new_mail" required>
 						<br><br><button class="btn" type="submit" value="OK">Changer mon adresse mail</button>
 					</div>

@@ -2,12 +2,19 @@
 session_start();
 if (!$_GET['code'])
 	header('location:../index.php');
+$url_2 = explode('/', $_SERVER[REQUEST_URI]);
+$t_url = $url_2[3].$url_2[4];
+if (!file_exists($t_url))
+{
+	header('location:'.$_SESSION['url']);
+}
 ?>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Camagru</title>
-			<link type="text/css" href="../css/main.css" media="all" rel="stylesheet"/>
+		<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+		<link type="text/css" href="../css/main.css" media="all" rel="stylesheet"/>
 	</head>
 	<body>
 		<center>

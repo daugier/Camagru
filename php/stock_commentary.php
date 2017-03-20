@@ -4,12 +4,13 @@ include '../function/user.php';
 include 'mail.php';
 
 session_start();
-if(isset($_POST['img']) && isset($_POST['user']) && isset($_POST['texte']))
+if(isset($_POST['img']) && isset($_POST['user']) && isset($_POST['texte']) && isset($_POST['user_img']))
 {
 	$img = $_POST["img"];
 	$user = $_POST['user'];
 	$texte  = $_POST['texte'];
 	$id = $_SESSION['logged_on_user'];
+	$user_img = $_POST['user_img'];
 	$texte = str_replace(chr(10), '<br/>', $texte); 
 	while (preg_match('/<br\/><br\/>/', $texte))
 		$texte = str_replace('<br/><br/>', '<br/>', $texte);
@@ -36,8 +37,8 @@ if(isset($_POST['img']) && isset($_POST['user']) && isset($_POST['texte']))
 		{
 			die("Erreur ! : ".$e->getMessage() );
 		}
-		$mail = get_usermail_by_id($id);
-		$message = "une de vos photos vient d'etre commentee ! \n\nmessage : ".$texte;
+		$mail = get_mail_by_user($user_img);
+		$message = 'Une de vos photos vient d\'etre commentee par '.$user.'!'." Message : ".$texte;
 		$subject = "nouveau commentaire";
 		send_mail($mail, $message, $subject);
 		echo $uniq;

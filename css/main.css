@@ -4,11 +4,18 @@ html
 }
 body
 {
-	font-family: Jazz LET, fantasy;
+	font-family: 'Cinzel', serif;
 	background-color: rgb(249, 189, 121  );
 	width : 100%;
 	padding : 0;
 	margin : 0;
+}
+.no_public
+{
+	margin-top: 150px;
+	margin-bottom: 150px;
+	font-size : 21px;
+	color : rgb(40, 22, 1);
 }
 .good_mc
 {
@@ -98,7 +105,7 @@ h3
 	margin-top: 150px;
 	font-size : 25px;
 }
-.moncompte h1
+.moncompte h1 ,h2
 {
 	text-decoration: underline;
 }
@@ -560,7 +567,7 @@ footer
 		padding: 0; 
 	}
 }
-@media all and (max-width: 650px)
+@media all and (max-width: 790px)
 {
 	.galerie
 	{

@@ -1,11 +1,19 @@
 <?php 
 session_start();
 $url = $_SERVER[REQUEST_URI];
+$url_2 = explode('/', $_SERVER[REQUEST_URI]);
+$_SESSION['url'] = 'http://localhost:8080/'.$url_2[1];
+$t_url = $url_2[3].$url_2[4];
+if (!file_exists($t_url))
+{
+	header('location:'.$_SESSION['url']);
+}
 ?>
 <html>
 	<head>
 		<meta charset="UTF-8" http-equiv="refresh" content="600" />
 		<title>Camagru</title>
+			<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
 			<link type="text/css" href="../css/main.css" media="all" rel="stylesheet"/>
 	</head>
 	<body onload="setTimeout(cacherDiv,2000);">
@@ -64,6 +72,7 @@ $url = $_SERVER[REQUEST_URI];
 							$i++;
 						$nbr = 0;
 						$tmp = $i;
+
 						while ($res[--$i]['img'] && ++$nbr)
 						{
 							$img = $res[$i]['img'];
@@ -96,8 +105,8 @@ $url = $_SERVER[REQUEST_URI];
 										echo '<input id="dislikee'.$i.'" class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \''.$user.'\', \''.$user_likes.'\')" value="j\'aime plus"/>';
 									}
 									echo '<br><div id="like'.$i.'">'.$likes.' likes</div>
-										<input class="text_write" type="text" id="texte'.$i.'" name="texte"/>
-										<br><input class="commenter" type="submit" onclick="add_comment('.$i.',\''.$user.'\')" id="add_comment" value="commenter"/>
+										<input class="text_write" type="text" id="texte'.$i.'" name="texte" onKeyPress="if(event.keyCode == 13) add_comment('.$i.',\''.$user.'\',\''.$user_img.'\')";"/>
+										<br><input class="commenter" type="submit" onclick="add_comment('.$i.',\''.$user.'\',\''.$user_img.'\')" id="add_comment" value="commenter"/>
 										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
 										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>
 										<input style="display:none;" id="id_img'.$i.'" value="'.$id.'"/>
@@ -142,6 +151,8 @@ $url = $_SERVER[REQUEST_URI];
 							echo '<a class="pdp" id="plus_de_photos" onclick="plus_de_photos('.$tmp.')">Plus de photos</a>';
 						}
 					}
+					else
+						echo '<div class="no_public" >Aucune photo publiee pour le moment</div>';
 				?>
 			</div>
 			<script src="../js/commentary.js"></script>

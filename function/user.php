@@ -15,6 +15,22 @@
 		}
 		return ($user);
 	}
+	function get_mail_by_user($user)
+	{
+		require 'connect_db.php';
+
+		try{
+			$query= $db->prepare('SELECT mail FROM user WHERE user=:user');
+			$query->execute(array(':user' => $user));
+			$res = $query->fetch();
+			$mail = $res['mail'];
+		}
+		catch(PDOException $e)
+		{
+			die("Erreur ! : ".$e->getMessage() );
+		}
+		return ($mail);
+	}
 	function get_usermail_by_id($id)
 	{
 		require 'connect_db.php';

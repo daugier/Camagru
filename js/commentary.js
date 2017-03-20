@@ -3,7 +3,7 @@ var nbr2 = 0;
 var index = 0;
 var j_add = -1;
 var length_com = 0;
-var j_com = 6;
+var j_com = new Array();
 function set_nbr(nbr)
 {
 	length = nbr;
@@ -66,13 +66,15 @@ function plus_de_photos(i)
 }
 function plus_de_com(i, j)
 {
+	if (!j_com[i])
+		j_com[i] = 6;
 	var l = -1;
-	while (++l < 3 && j_com < j)
+	while (++l < 3 && j_com[i] < j)
 	{
-		var pdc = document.getElementById('comentaire_photo'+i+j_com).className = 'comentaire_photo';
-		j_com++;
+		var pdc = document.getElementById('comentaire_photo'+i+j_com[i]).className = 'comentaire_photo';
+		j_com[i]++;
 	}
-	if (j_com == j)
+	if (j_com[i] == j)
 		document.getElementById('comentaire_photo_plus'+i).innerHTML = null;
 }
 function need_connect()
@@ -91,7 +93,7 @@ function sub_img(img, nbr)
 		list.parentNode.removeChild(list);
 	}
 }
-function add_comment(nbr, user)
+function add_comment(nbr, user, user_img)
 {
 	if (user != ' ' && user != '' && user)
 	{
@@ -122,7 +124,7 @@ function add_comment(nbr, user)
 			}
 			xhr.open("POST", "stock_commentary.php", true); // true pour asynchrone
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.send('user='+user+'&texte='+texte+'&img='+img);
+			xhr.send('user='+user+'&texte='+texte+'&img='+img+'&user_img='+user_img);
 			document.getElementById('texte'+nbr).value = "";
 		}
 	}

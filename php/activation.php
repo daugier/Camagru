@@ -9,7 +9,7 @@
 	{
 		update_ok_user($user);
 		update_code_user($user);
+		$_SESSION['valid'] = 9;
 	}
-	$_SESSION['valid'] = 9;
 	header('Location:../index.php');
 ?>

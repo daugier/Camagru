@@ -9,11 +9,18 @@
 	$url = $_SERVER[REQUEST_URI];
 	$url_2 = explode('/', $_SERVER[REQUEST_URI]);
 	$_SESSION['url'] = 'http://localhost:8080/'.$url_2[1];
+	if ($_GET['erreur'] == "404")
+	{
+		echo ("Une erreur est survenue, vous avez ete rediriger vers la page d'acceuil"); 
+	}
+	if ($url_2[2] == 'index.php' && $url_2[3])
+		header('location:'.$_SESSION['url']);
 ?>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Camagru</title>
+			<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
 			<link type="text/css" href="css/main.css" media="all" rel="stylesheet"/>
 	</head>
 	<body onload="setTimeout(cacherDiv,2000);">

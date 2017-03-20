@@ -12,7 +12,6 @@
 	var name = 0;
 	var source = 0;
 	var data = 0;
-	var poto = 0;
 	var x = 150;
 	var y = 100;
 	var size = 100;
@@ -20,21 +19,21 @@
 	function replace_url()
 	{
 		var good_img = document.getElementById('sup_img').src;
-		if (size == '100')
+		if (size == '100' && (good_img.indexOf("3.png") || good_img.indexOf("2.png")))
 		{
 			if (good_img.indexOf("2.png") > 0)
 				good_img = good_img.replace("2.png", ".png");
 			else if (good_img.indexOf("3.png"))
 				good_img = good_img.replace("3.png", ".png");
 		}
-		else if (size == '150')
+		else if (size == '150' && good_img.indexOf("2.png") == -1)
 		{
 			if (good_img.indexOf("3.png") > 0)
 				good_img = good_img.replace("3.png", "2.png");
 			else if (good_img.indexOf(".png"))
 				good_img = good_img.replace(".png", "2.png");
 		}
-		else if (size == '250')
+		else if (size == '250' && good_img.indexOf("3.png") == -1)
 		{
 			if (good_img.indexOf("2.png") > 0)
 				good_img = good_img.replace("2.png", "3.png");
@@ -70,36 +69,35 @@
 	   		el.style.visibility = "hidden";
 			el.style.opacity = '0';
 		}
+		delete_wrong2();
 		delete_wrong();
 		replace_url();
 	}
-	function allowDrop(ev)
+	function allowDrop(e)
 	{
-	   ev.preventDefault();
+	   e.preventDefault();
 	}
-	function drag(ev)
+	function drop(e)
 	{
-	    ev.dataTransfer.setData("text", ev.target.id);
-	}
-	function drop(ev)
-	{
-	    ev.preventDefault();
-	    poto = ev.dataTransfer.getData("text");
-    	var dat  = document.getElementById(poto);
-    	x = event.clientX; 
-		y = event.clientY;
+		if (source)
+		{
+	    	e.preventDefault();
+    		var dat  = document.getElementById('sup_img');
+    		x = e.clientX; 
+			y = e.clientY;
 
-		var scroll_x =document.body.scrollLeft || document.documentElement.scrollLeft;
-		var scroll_y =document.body.scrollTop || document.documentElement.scrollTop;
+			var scroll_x =document.body.scrollLeft || document.documentElement.scrollLeft;
+			var scroll_y =document.body.scrollTop || document.documentElement.scrollTop;
 
-		x += scroll_x;
-		y += scroll_y;
-	  	var x_div = document.getElementById("cheat").offsetLeft;
-	   	var y_div = document.getElementById("cheat").offsetTop;
-	   	x = x - x_div - (2/4 * size);
-	   	y = y - y_div - (2/4 * size);
-	   	dat.style.left = x + 'px';
-	   	dat.style.top = y + 'px';
+			x += scroll_x;
+			y += scroll_y;
+	  		var x_div = document.getElementById("cheat").offsetLeft;
+	   		var y_div = document.getElementById("cheat").offsetTop;
+	   		x = x - x_div - (2/4 * size);
+	   		y = y - y_div - (2/4 * size);
+	   		dat.style.left = x + 'px';
+	   		dat.style.top = y + 'px';
+	   	}
 	}
 	function delete_wrong()
 	{
@@ -139,7 +137,7 @@
 	function successCallback(stream)
 	{
 		window.stream = stream;
-		contain.style.display = 'display';
+		contain.style.display = 'block';
 		no_cam.style.display = "none";
 		video.src = window.URL.createObjectURL(stream);
 	}
@@ -148,9 +146,8 @@
 
 	function errorCallback(error)
 	{
-		console.log("pas d'acces a votre camera");
 		contain.style.display = "none";
-		no_cam.style.display = "display";
+		no_cam.style.display = "block";
 	}
 
 	/////////////////////////////////////////////////////////

@@ -3,11 +3,19 @@
 
 	if (!$_SESSION['logged_on_user'])
 		header('location:../index.php');
+	$url = $_SERVER[REQUEST_URI];
+	$url_2 = explode('/', $_SERVER[REQUEST_URI]);
+$t_url = $url_2[3].$url_2[4];
+if (!file_exists($t_url))
+{
+	header('location:'.$_SESSION['url']);
+}
 ?>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Camagru</title>
+			<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
 			<link type="text/css" href="../css/main.css" media="all" rel="stylesheet"/>
 	</head>
 	<body>
@@ -38,7 +46,7 @@
 			<div class="all" id="all">
 				<div class="image_montage">
 					<div class="photo_bouton">
-						<img src="../img/ours.png" draggable="false" id="../img/ours.png" onclick="define_source('../img/ours.png')">
+						<img src="../img/masque.png" draggable="false" id="../img/masque.png" onclick="define_source('../img/masque.png')">
 					</div>
 					<div class="photo_bouton">
 						<img src="../img/smiley.png" draggable="false" id="../img/smiley.png" onclick="define_source('../img/smiley.png')">
@@ -47,10 +55,10 @@
 						<img src="../img/moustache.png" draggable="false" id="../img/moustache.png" onclick="define_source('../img/moustache.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/glace.png" draggable="false" id="../img/glace.png" onclick="define_source('../img/glace.png')">
+						<img src="../img/ano.png" draggable="false" id="../img/ano.png" onclick="define_source('../img/ano.png')">
 					</div>
 					<div class="photo_bouton">
-						<img src="../img/rose.png" draggable="false" id="../img/rose.png" onclick="define_source('../img/rose.png')">
+						<img src="../img/lunette.png" draggable="false" id="../img/lunette.png" onclick="define_source('../img/lunette.png')">
 					</div>
 					<div class="photo_bouton" >
 						<img src="../img/nof.jpeg" draggable="false" id="../img/no_filter.png" onclick="define_source('../img/no_filter.png')">
@@ -80,12 +88,17 @@
 					?>
 					</div>
 					<!-- s'il y a une camera -->
-					<div id="container" class="container">
+					<div id="container" class="container" style="display:none;">
 						<div id="wrong">
 						</div>
-						<div class="cheat" id='cheat' ondrop="drop(event)" ondragover="allowDrop(event)">
+						<?php
+							if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") || strpos($_SERVER['HTTP_USER_AGENT'], "iPod") || strpos($_SERVER['HTTP_USER_AGENT'], "iPhone") )
+								echo '<div class="cheat" id="cheat" onmousedown="drop(event)">';
+							else
+								echo '<div class="cheat" id="cheat" ondrop="drop(event)" ondragover="allowDrop(event)">';
+						?>
 							<div id="superpose">
-								<img id="sup_img" class="sup_img_cur" draggable="true" ondragstart="drag(event)">
+								<img id="sup_img" class="sup_img_cur" draggable="true">
 							</div>
 							<video  autoplay ></video>
 						</div>
@@ -99,9 +112,14 @@
 					<!-- s'il n'y a pas de camera -->
 					<div id="pas_de_cam">
 						<div id="wrong2"></div>
-						<div class="cheat2" id="cheat2" ondrop="drop2(event)" ondragover="allowDrop2(event)">
+						<?php
+							if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") || strpos($_SERVER['HTTP_USER_AGENT'], "iPod") || strpos($_SERVER['HTTP_USER_AGENT'], "iPhone") )
+								echo '<div class="cheat2" id="cheat2" onmousedown="drop2(event)">';
+							else
+								echo '<div class="cheat2" id="cheat2" ondrop="drop2(event)" ondragover="allowDrop2(event)">';
+						?>
 							<div id="superpose">
-								<img class="sup_img_cur" id="sup_img_2"  draggable="true" ondragstart="drag2(event)">
+								<img class="sup_img_cur" id="sup_img_2">
 							</div>
 							<?php
 								if ($_GET['fichier'])
@@ -141,52 +159,6 @@
 				</div>
 				<script src="../js/no_cam.js"></script>
 				<script src="../js/cam.js"></script>
-			</div>
-			<div id="login" class="shadow">
-				<div class="form">
-					<form class="connexion" action="register.php" method="post" target="_self">
-						<h3>Connexion</h3>
-						<div>
-							<label>Identidiant</label>
-							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<label>Mot de passe</label>
-							<input type="password" placeholder="Entrez mot de passe" name="password" required>
-							<button class="btn" type="submit" value="OK">Go</button>
-							<a href="#code">Mot de passe oublie ?</a>
-              				<a href="#" class="quit">Fermer</a>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div id="register" class="shadow">
-				<div class="form">
-					<form class="Inscription" action="register.php" method="post" target="_self">
-						<h3>Inscription</h3>
-						<div>
-							<label>Adresse Mail</label>
-							<input type="text" placeholder="Entrez votre mail" name="mail" required>
-							<label>Identidiant</label>
-							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<label>Mot de passe</label>
-							<input type="password" placeholder="Entrez mot de passe" name="password" required>
-							<button class="btn" type="submit" value="OK">Go</button>
-              				<a href="#" class="quit">Fermer</a>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div id="code" class="shadow">
-				<div class="form">
-					<form class="code" action="forget_password.php" method="post" target="_self">
-						<h3>Mot de passe oublie ?</h3>
-						<div>
-							<label>Adresse Mail</label>
-							<input type="text" placeholder="Entrez votre mail" name="mail" required>
-							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
-              				<a href="#" class="quit">Fermer</a>
-						</div>
-					</form>
-				</div>
 			</div>
 			<div id="main">
 				<footer>
