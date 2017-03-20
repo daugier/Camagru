@@ -25,7 +25,7 @@ if ($user && $password && $mail)
 		{
 			die("Erreur ! : ".$e->getMessage() );
 		}
-		$lien = 'http://localhost:8080/camagru/php/activation.php?code='.$code.'&user='.$user;
+		$lien = $_SESSION['url'].'/php/activation.php?code='.$code.'&user='.$user;
 		$message = 'Bonjour, veuillez cliquez sur ce lien ci-dessous pour activer votre compte '.PHP_EOL.$lien.PHP_EOL.'    Cordialement Camagru_staff.';
 		$subject = "activation compte camagru";
 		send_mail($mail, $message, $subject);

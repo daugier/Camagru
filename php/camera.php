@@ -57,9 +57,9 @@
 					</div>
 				</div>
 				<div class="shadow2" id="radio">
-					<br><input  type="radio" name="tail" value="100" onclick="get_size('100')">small
-					<input  type="radio" name="tail" value="150" onclick="get_size('150')">medium
-					<input  type="radio" name="tail" value="250" onclick="get_size('250')">large
+					<br><input type="radio" name="tail" value="100" onclick="get_size('100')">small
+					<input type="radio" name="tail" value="150" onclick="get_size('150')">medium
+					<input type="radio" name="tail" value="250" onclick="get_size('250')">large
 				</div>
 				<div class="cametphoto" id="cametphoto">
 					<div class="montage" id="placehere">

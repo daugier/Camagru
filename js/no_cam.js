@@ -45,7 +45,8 @@
 	function get_name()
 	{
 		name = document.getElementById('photo_up').src;
-		name = name.replace('http://localhost:8080/camagru/','');
+		var res = name.split("/");
+		name = '/'+res[4]+'/'+res[5];
 	}
 
 	function getXMLHttpRequest()

@@ -28,26 +28,30 @@ if (!$_GET['code'])
 					?>
 					<li><a href="galrie.php">Galerie</a></li>
 				</ul>
-				<p><i><?php 
-					$user = $_SESSION['user'];
-					if ($user)
-						echo '<a href="moncompte.php">user : '.$user.'</a>';
-				?></i></p>
 			</div>
 			<div>
+			<?php
+				if ($_SESSION['error_new_p'] == 1)
+					echo '<br><div id="need_connect">Les deux mots de passes ne sont pas identiques</div>';
+				if ($_SESSION['error_new_p'] == 2)
+					echo '<br><div id="need_connect">Le mot de passe est trop court, minimum 6 caracteres</div>';
+				if ($_SESSION['error_new_p'] == 3)
+					echo '<br><div id="need_connect">Le mot de passe doit contenir que des chiffres et des lettres</div>';
+				$_SESSION['error_new_p'] = 0;
+			?>
 				<div>
 					<form class="reset_pass" action="reset_pass.php" method="post" target="_self">
-						<h3>Reinitialiser mon mot de passe</h3>
+						<h2>Reinitialiser mon mot de passe</h2>
 						<div>
-							<label>Mot de passe</label>
+							<label>Mot de passe : </label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
-							<label>Repetez mot de passe</label>
+							<br><br><label>Repetez mot de passe : </label>
 							<input type="password" placeholder="Entrez mot de passe" name="password2" required>
 							<?php 
 								$code = $_GET['code'];
 								echo '<input style="display:none;" name="code" value="'.$code.'">';
 							?>
-							<button class="btn" type="submit" value="OK">Changer le mot de passe</button>
+							<br><br><button class="btn" type="submit" value="OK">Changer le mot de passe</button>
 						</div>
 					</form>
 				</div>

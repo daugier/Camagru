@@ -11,5 +11,5 @@
 		update_code_user($user);
 	}
 	$_SESSION['valid'] = 9;
-	header('Location:http://localhost:8080/camagru/index.php');
+	header('Location:../index.php');
 ?>

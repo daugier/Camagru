@@ -19,8 +19,8 @@ if(isset($_FILES['up_photo']))
            'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
           $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
           if(move_uploaded_file($_FILES['up_photo']['tmp_name'], $dossier.$fichier))
-                header('location:http://localhost:8080/camagru/php/camera.php?fichier='.$fichier);
+                header('location:camera.php?fichier='.$fichier);
      }
-     header('location:http://localhost:8080/camagru/php/camera.php?fichier='.$fichier);
+     header('location:camera.php?fichier='.$fichier);
 }
 ?>

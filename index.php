@@ -4,9 +4,11 @@
 	{
 		include("config/setup.php");
 		unlink('config/first_connection');
-		header('location:localhost:8080/camagru/index.php');
+		header('location:index.php');
 	}
 	$url = $_SERVER[REQUEST_URI];
+	$url_2 = explode('/', $_SERVER[REQUEST_URI]);
+	$_SESSION['url'] = 'http://localhost:8080/'.$url_2[1];
 ?>
 <html>
 	<head>
@@ -70,6 +72,12 @@
 				</div>
 			</div>
 			<?php
+				if ($_SESSION['succes_new_p'] == 1)
+					echo '<br><div id="mail_envoye">Votre mot de passe a ete reinitialiser</div>';
+				if ($_SESSION['error_mail'] == 1)
+					echo '<br><div id="need_connect">Ce mail n\'existe pas !</div>';
+				if ($_SESSION['succes_mail'] == 1)
+					echo '<br><div id="mail_envoye">Un mail de reinitialisaton de mot de passe viens de vous etre envoye !</div>';
 				if ($_SESSION['valid'] == 1)
 					echo '<div id="connec_ok">inscription enregistrer !<br> Allez voir vos mails pour confirmer l\'inscription</div>';
 				if ($_SESSION['valid'] == 2)
@@ -77,6 +85,9 @@
 				if ($_SESSION['valid'] == 9)
 					echo '<div id="connec_ok">Compte Camagru confirmer, felicitation !</div>';
 				$_SESSION['valid'] = 0;
+				$_SESSION['error_mail'] = 0;
+				$_SESSION['succes_mail'] = 0;
+				$_SESSION['succes_new_p'] = 0;
 			?>
 			<div id="contenu">
 				<h1>Bienvenue sur CAMAGRU</h1>
@@ -93,7 +104,7 @@
 						<div>
 						<?php
 							if ($_SESSION['error'] == 1)
-								echo '<label id="wrong_login">Mot de passe trop court</label><br>';
+								echo '<label id="wrong_login">Mot de passe trop court 6 caracteres minimum</label><br>';
 							if ($_SESSION['error'] == 2)
 								echo '<label id="wrong_login">identifiant deja utilise</label><br>';
 							if ($_SESSION['error'] == 3)

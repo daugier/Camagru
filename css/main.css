@@ -349,6 +349,11 @@ canvas
 {
 	color : orange;
 }
+#mail_envoye
+{
+	color : green;
+	font-size: 20px;
+}
 .connexion
 {
 	display : block;
@@ -385,10 +390,6 @@ canvas
 	color : red;
 	width : 80%;
 	font-size: 20px;
-}
-#need_connect a
-{
-
 }
 .sup_img_cur
 {
@@ -453,10 +454,7 @@ canvas
 .reset_pass
 {
 	margin : 0 auto;
-	width : 500px;
-	background-color : white;
 	padding : 30px;
-	border : 2px solid #ddd;
 }
 .inscription
 {
