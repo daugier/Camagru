@@ -5,11 +5,13 @@
 		header('location:../index.php');
 	$url = $_SERVER[REQUEST_URI];
 	$url_2 = explode('/', $_SERVER[REQUEST_URI]);
-$t_url = $url_2[3].$url_2[4];
-if (!file_exists($t_url))
-{
-	header('location:'.$_SESSION['url']);
-}
+
+	$t_url = $url_2[3].$url_2[4];
+	$t_url = explode('?', $t_url);
+	if (!file_exists($t_url[0]))
+	{
+		header('location:'.$_SESSION['url']);
+	}
 ?>
 <html>
 	<head>

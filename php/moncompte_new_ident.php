@@ -36,10 +36,15 @@ $user = $_SESSION['user'];
 $_SESSION['error_ni'] = 0;
 $_SESSION['succes_ni'] = 0;
 $id = $_SESSION['logged_on_user'];
+$_SESSION['error_ni_ad'] = 0;
 if (isset($_POST['new_ident']) && $user)
 {
 	$new_ident = $_POST['new_ident'];
-	if (wrong_user($new_ident))
+	if ($_SESSION['user'] == 'root')
+	{
+		$_SESSION['error_ni_ad'] = 1;
+	}
+	else if (wrong_user($new_ident))
 	{
 		try{
 			$query= $db->prepare("UPDATE user SET user=:user WHERE id=:id");

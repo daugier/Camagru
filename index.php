@@ -64,9 +64,9 @@
 								if ($_SESSION['error'] == 5)
 									echo '<label id="wrong_login">Mauvais mot de passe ou identifiant</label><br>';
 							?>
-							<label>Identidiant : </label>
+							<label>Identidiant : &nbsp;</label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<br><label>Mot de passe : </label>
+							<br><label>Mot de passe :&nbsp; </label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<br><button class="btn" type="submit" value="OK">Me connecter</button>
 							<br><a href="#code">Mot de passe oublie ?</a>
@@ -126,11 +126,11 @@
 								echo '<label id="wrong_login">Votre mot de passe doit contenir que des lettres et des chiffres</label><br>';
 							$_SESSION['error'] = 0;
 						?>
-							<label>Adresse Mail : </label>
+							<label>Adresse Mail :</label>
 							<input type="text" placeholder="Entrez votre mail" name="mail" required>
-							<br><label>Identidiant : </label>
+							<br><label>Identidiant : &nbsp;</label>
 							<input type="text" placeholder="Entrez identifiant" name="user" required>
-							<br><label>Mot de passe : </label>
+							<br><label>Mot de passe :&nbsp;</label>
 							<input type="password" placeholder="Entrez mot de passe" name="password" required>
 							<br><button class="btn" type="submit" value="OK">m'inscrire</button>
               				<br><a href="" class="quit">Fermer</a>

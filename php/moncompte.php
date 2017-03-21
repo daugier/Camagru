@@ -81,6 +81,9 @@ if (!file_exists($t_url))
 								echo '<div class="error_mc" >L\'identifiant doit faire 10 caracteres au maximum</div><br>';
 							if ($_SESSION['succes_ni'] == 1)
 								echo '<div class="good_mc" >L\'identifiant a ete change, felicitation</div><br>';
+							if ($_SESSION['error_ni_ad'] == 1)
+								echo '<div class="error_mc" >Le compte root ne peut pas etre modifier</div><br>';
+							$_SESSION['error_ni_ad'] = 0;
 							$_SESSION['error_ni'] = 0;
 							$_SESSION['succes_ni'] = 0;
 						?>
@@ -117,6 +120,11 @@ if (!file_exists($t_url))
 				</form>
 				<br><h2>Supprimer mon compte</h2>
 				<div class="nouveau_pass">
+				<?php
+						if ($_SESSION['error_su'] == 1)
+							echo '<div class="error_mc" >Vous ne pouvez pas supprimer le compte ADMIN</div><br>';
+						$_SESSION['error_su'] = 0;
+						?>
 					<form  action="moncompte_delete.php" method="post" target="_self" onsubmit="return confirm('Etes-vous sur de vouloir supprimer votre compte ?');">
 						<button class="btn" type="submit" value="OK">Supprimer mon compte</button>
 					</form>
