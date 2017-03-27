@@ -19,7 +19,7 @@ function wrong_password($password)
 }
 $password = $_POST['password'];
 $password2 = $_POST['password2'];
-$code = $_POST['code'];
+$code = $_SESSION['code'];
 $url = $_POST['url'];
 $_SESSION['error_new_p'] = 0;
 $_SESSION['succes_new_p'] = 0;
@@ -28,11 +28,11 @@ if ($password && $password2 && $code)
 	if ($password != $password2)
 	{
 		$_SESSION['error_new_p'] = 1;
-		header('Location:reset_password.php?code='.$code);
+		header('Location:reset_password.php');
 	}
 	else if (!wrong_password($password))
 	{
-		header('Location:reset_password.php?code='.$code);
+		header('Location:reset_password.php');
 	}
 	else
 	{
@@ -40,20 +40,26 @@ if ($password && $password2 && $code)
 		try{
 			$query= $db->prepare('UPDATE user set password=:password WHERE code=:code');
 			$query->execute(array(':password' => $password, ':code' => $code));
+			$res = $query->rowCount();
 		}
 		catch(PDOException $e)
 		{
 			die("Erreur ! : ".$e->getMessage());
 		}
-		try{
-			$query= $db->prepare('UPDATE user set code=:code WHERE password=:password');
-			$query->execute(array(':code' => NULL, ':password' => $password));
-		}
-		catch(PDOException $e)
+		if ($res)
 		{
-			die("Erreur ! : ".$e->getMessage());
+			$_SESSION['code'] = 0;
+			try{
+				$query= $db->prepare('UPDATE user set code=:code WHERE password=:password');
+				$query->execute(array(':code' => NULL, ':password' => $password));
+			}
+			catch(PDOException $e)
+			{
+				die("Erreur ! : ".$e->getMessage());
+			}
+			$_SESSION['succes_new_p'] = 1;
+			header('Location:../index.php');
 		}
-		$_SESSION['succes_new_p'] = 1;
 		header('Location:../index.php');
 	}
 }

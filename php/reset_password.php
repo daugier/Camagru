@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!$_GET['code'])
+if (!$_SESSION['code'])
 	header('location:../index.php');
 $url_2 = explode('/', $_SERVER[REQUEST_URI]);
 $t_url = $url_2[3].$url_2[4];
