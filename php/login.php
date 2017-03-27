@@ -28,7 +28,7 @@ if ($user && $password)
 		$_SESSION['mail'] = $res['mail'];
 		$_SESSION['url'] = $url;
 		$_SESSION['id'] = $res['id'];
-		header('location:'.$url);
+ 		header('location:'.$url);
 	}
 	else
 	{

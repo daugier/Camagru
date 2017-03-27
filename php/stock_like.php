@@ -1,35 +1,49 @@
 <?php
 require '../function/connect_db.php';
+include '../function/image.php';
+session_start();
 
-if (isset($_POST['user']) && isset($_POST['user_likes']) && isset($_POST['like']) && isset($_POST['add']) && isset($_POST['id']))
+if (isset($_POST['img']) && isset($_POST['add']))
 {
-	$id = $_POST['id'];
-	$likes = $_POST['like'];
-	$user = $_POST['user'];
-	$user_likes = $_POST['user_likes'];
+	$user = $_SESSION['user'];
 	$add = $_POST['add'];
-	if ($add == '1')
-		$user_likes = $user_likes.';'.$user;
+	$img = $_POST['img'];
+	$user_likes = get_user_likes_by_img($img);
+	$likes = get_likes_by_img($img);
+	$id = get_id_img_by_img($img);
+	if ($user)
+	{
+		if (!preg_match('/;'.$user.';/', $user_likes) && $add == '1')
+		{
+			$user_likes = ';'.$user.';'.$user_likes;
+			$likes += 1;
+			try{
+			$query= $db->prepare('UPDATE image set likes=:likes, user_likes=:user_likes WHERE id=:id');
+			$query->execute(array(':likes' => $likes, ':user_likes' => $user_likes, ':id' => $id));
+			}
+			catch(PDOException $e)
+			{
+				die("Erreur ! : ".$e->getMessage() );
+			}
+			echo "$likes";
+		}
+		else if (preg_match('/;'.$user.';/', $user_likes) && $add == '0')
+		{
+			$user_likes = str_replace(' ', '', $user_likes);
+			$user_likes = str_replace(';'.$user.';', '', $user_likes);
+			$likes -= 1;
+			try{
+			$query= $db->prepare('UPDATE image set likes=:likes, user_likes=:user_likes WHERE id=:id');
+			$query->execute(array(':likes' => $likes, ':user_likes' => $user_likes, ':id' => $id));
+			}
+			catch(PDOException $e)
+			{
+				die("Erreur ! : ".$e->getMessage() );
+			}
+			echo "$likes";
+		}
+	}
 	else
-	{
-		$user_likes = str_replace(' ', '', $user_likes);
-		$user_likes = str_replace(';'.$user, '', $user_likes);
-	}
-	try{
-		$query= $db->prepare('UPDATE image set likes=:likes WHERE id=:id');
-		$query->execute(array(':likes' => $likes, ':id' => $id));
-	}
-	catch(PDOException $e)
-	{
-		die("Erreur ! : ".$e->getMessage() );
-	}
-	try{
-		$query= $db->prepare('UPDATE image set user_likes=:user_likes WHERE id=:id');
-		$query->execute(array(':user_likes' => $user_likes, ':id' => $id));
-	}
-	catch(PDOException $e)
-	{
-		die("Erreur ! : ".$e->getMessage() );
-	}
+		echo "no";
 }
 ?>

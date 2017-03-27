@@ -1,0 +1,104 @@
+
+<!-- saved from url=(0040)http://localhost:8080/tt/php/galerie.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>Camagru</title>
+			<link href="./Camagru_files/css" rel="stylesheet">
+			<link type="text/css" href="./Camagru_files/main.css" media="all" rel="stylesheet">
+	</head>
+	<body onload="setTimeout(cacherDiv,2000);">
+	<script>
+	function cacherDiv()
+	{
+		if(document.getElementById("connec_ok"))
+    		document.getElementById("connec_ok").style.visibility = "hidden";
+	}
+	</script>
+		<center>
+			<div class="menu">
+				<ul>
+					<li><a href="http://localhost:8080/tt/index.php">Accueil</a></li>
+					<li><a href="http://localhost:8080/tt/php/disconnect.php">Deconnexion</a></li><li><a href="http://localhost:8080/tt/php/camera.php">Photomaton</a></li>					<li><a id="on" href="http://localhost:8080/tt/php/galerie.php#">Galerie</a></li>
+				</ul>
+				<p><i><a href="http://localhost:8080/tt/php/moncompte.php">user : daugier</a></i></p>
+			</div>
+						<div class="galerie" id="galerie">
+				<div id="need_connect"></div><br>
+				<div class="ensemble_photo" id="ensemble_photo1"><div class="button_supimg"><button type="submit" onclick="sub_img(&#39;../montage/58d2f36777a21.png&#39;, 1)">X</button></div><div class="date">publie par <b>daugier</b> le 2017-03-22 21:58:00</div><img src="./Camagru_files/58d2f36777a21.png">
+									<br>
+									<div class="commentaire"><br><input id="likee1" class="like" type="submit" onclick="add_like(2, 1,&#39; daugier&#39;, &#39; &#39;)" value="j&#39;aime"><br><div id="like1">0 likes</div>
+										<input class="text_write" type="text" id="texte1" name="texte" onkeypress="if(event.keyCode == 13) add_comment(1,&#39;daugier&#39;,&#39;daugier&#39;)" ;"="">
+										<br><input class="commenter" type="submit" onclick="add_comment(1,&#39;daugier&#39;,&#39;daugier&#39;)" id="add_comment" value="commenter">
+										<input style="display:none;" id="user1" value="daugier">
+										<input style="display:none;" id="img1" value="../montage/58d2f36777a21.png">
+										<input style="display:none;" id="id_img1" value="2">
+										<div id="comment1">			</div></div>
+									<br></div>
+								</div><div class="ensemble_photo" id="ensemble_photo0"><div class="date">publie par <b>root</b> le 2017-03-22 21:45:27</div><img src="./Camagru_files/58d2f0764e039.png">
+									<br>
+									<div class="commentaire"><br><input id="likee0" class="like" type="submit" onclick="add_like(2, 0,&#39; daugier&#39;, &#39; &#39;)" value="j&#39;aime"><br><div id="like0">0 likes</div>
+										<input class="text_write" type="text" id="texte0" name="texte" onkeypress="if(event.keyCode == 13) add_comment(0,&#39;daugier&#39;,&#39;root&#39;)" ;"="">
+										<br><input class="commenter" type="submit" onclick="add_comment(0,&#39;daugier&#39;,&#39;root&#39;)" id="add_comment" value="commenter">
+										<input style="display:none;" id="user0" value="daugier">
+										<input style="display:none;" id="img0" value="../montage/58d2f0764e039.png">
+										<input style="display:none;" id="id_img0" value="1">
+										<div id="comment0"><div class="comentaire_photo" id="comentaire_photo00"><button type="submit" onclick="sub_commentaire(0,0,&#39; 58d2f59c351ab&#39;,&#39; daugier&#39;,&#39; &#39;, 1)">X</button><b>daugier :</b> </div><div class="comentaire_photo" id="comentaire_photo01"><button type="submit" onclick="sub_commentaire(0,1,&#39; 58d2f59308613&#39;,&#39; daugier&#39;,&#39; &#39;, 1)">X</button><b>daugier :</b> </div><div class="comentaire_photo" id="comentaire_photo02"><button type="submit" onclick="sub_commentaire(0,2,&#39; 58d2f541e05d4&#39;,&#39; daugier&#39;,&#39; &#39;, 1)">X</button><b>daugier :</b> </div><div class="comentaire_photo" id="comentaire_photo03"><button type="submit" onclick="sub_commentaire(0,3,&#39; 58d2f524d2d9a&#39;,&#39; daugier&#39;,&#39; coucou&#39;, 1)">X</button><b>daugier :</b> coucou</div><div class="comentaire_photo" id="comentaire_photo04"><button type="submit" onclick="sub_commentaire(0,4,&#39; 58d2f522adbff&#39;,&#39; daugier&#39;,&#39; &#39;, 1)">X</button><b>daugier :</b> </div><div class="comentaire_photo" id="comentaire_photo05"><button type="submit" onclick="sub_commentaire(0,5,&#39; 58d2f5202af3d&#39;,&#39; daugier&#39;,&#39; &#39;, 1)">X</button><b>daugier :</b> </div><div class="shadow" id="comentaire_photo06"><button type="submit" onclick="sub_commentaire(0,6,&#39;58d2f51b2d083&#39;,&#39; daugier&#39;,&#39; htmlentities(htmlspecialchars(&#39;, 1)">X</button><b>daugier :</b> htmlentities(htmlspecialchars(</div><div class="shadow" id="comentaire_photo07"><button type="submit" onclick="sub_commentaire(0,7,&#39;58d2f51903f44&#39;,&#39; daugier&#39;,&#39; .&#39;, 1)">X</button><b>daugier :</b> .</div><div class="shadow" id="comentaire_photo08"><button type="submit" onclick="sub_commentaire(0,8,&#39;58d2f5180faab&#39;,&#39; daugier&#39;,&#39; /&#39;, 1)">X</button><b>daugier :</b> /</div><div class="shadow" id="comentaire_photo09"><button type="submit" onclick="sub_commentaire(0,9,&#39;58d2f51788e02&#39;,&#39; daugier&#39;,&#39; 56&#39;, 1)">X</button><b>daugier :</b> 56</div><div class="shadow" id="comentaire_photo010"><button type="submit" onclick="sub_commentaire(0,10,&#39;58d2f517659fd&#39;,&#39; daugier&#39;,&#39; 4&#39;, 1)">X</button><b>daugier :</b> 4</div><div class="shadow" id="comentaire_photo011"><button type="submit" onclick="sub_commentaire(0,11,&#39;58d2f51732e3f&#39;,&#39; daugier&#39;,&#39; 1&#39;, 1)">X</button><b>daugier :</b> 1</div><div class="shadow" id="comentaire_photo012"><button type="submit" onclick="sub_commentaire(0,12,&#39;58d2f5170bd4d&#39;,&#39; daugier&#39;,&#39; 123&#39;, 1)">X</button><b>daugier :</b> 123</div><div class="shadow" id="comentaire_photo013"><button type="submit" onclick="sub_commentaire(0,13,&#39;58d2f516bb92f&#39;,&#39; daugier&#39;,&#39; 1&#39;, 1)">X</button><b>daugier :</b> 1</div><div class="shadow" id="comentaire_photo014"><button type="submit" onclick="sub_commentaire(0,14,&#39;58d2f5165de55&#39;,&#39; daugier&#39;,&#39; fsef&#39;, 1)">X</button><b>daugier :</b> fsef</div><div class="shadow" id="comentaire_photo015"><button type="submit" onclick="sub_commentaire(0,15,&#39;58d2f514a28e7&#39;,&#39; daugier&#39;,&#39; salut&#39;, 1)">X</button><b>daugier :</b> salut</div><div class="shadow" id="comentaire_photo016"><button type="submit" onclick="sub_commentaire(0,16,&#39;58d2f5027a001&#39;,&#39; daugier&#39;,&#39; &#39;, 1)">X</button><b>daugier :</b> </div><div class="shadow" id="comentaire_photo017"><button type="submit" onclick="sub_commentaire(0,17,&#39;58d2f4f0a7150&#39;,&#39; daugier&#39;,&#39; &#39;, 1)">X</button><b>daugier :</b> </div><div class="shadow" id="comentaire_photo018"><b>root :</b> <script>alert("coucou");</script></div><div class="shadow" id="comentaire_photo019"><b>root :</b> rt</div><div class="shadow" id="comentaire_photo020"><b>root :</b> rty</div><div class="shadow" id="comentaire_photo021"><b>root :</b> rty</div><div class="shadow" id="comentaire_photo022"><b>root :</b> rtyrty</div><div class="comentaire_photo_2" id="comentaire_photo_plus0"><a onclick="plus_de_com(0,23)">plus de commentaires</a></div>			</div></div>
+									<br></div>
+											
+			<script src="./Camagru_files/commentary.js"></script>
+
+			<div id="login" class="shadow">
+				<div class="form">
+					<form class="connexion" action="http://localhost:8080/tt/php/login.php" method="post" target="_self">
+					
+						<h3>Connexion</h3>
+						<div>
+														<label>Identidiant :&nbsp;</label>
+							<input type="text" placeholder="Entrez identifiant" name="user" required="">
+							<br><label>Mot de passe : </label>
+							<input type="password" placeholder="Entrez mot de passe" name="password" required="">
+							<br><button class="btn" type="submit" value="OK">Me connecter</button>
+							<br><a href="http://localhost:8080/tt/php/galerie.php#code">Mot de passe oublie ?</a>
+							<br><a href="http://localhost:8080/tt/php/galerie.php" class="quit" align="right">Fermer</a>
+              				<input style="display:none;" name="url" value="/tt/php/galerie.php">						</div>
+					</form>
+				</div>
+			</div>
+			<div id="register" class="shadow">
+				<div class="form">
+					<form class="Inscription" action="http://localhost:8080/tt/php/register.php" method="post" target="_self">
+						<h3>Inscription</h3>
+						<div>
+													<label>Adresse Mail : </label>
+							<input type="text" placeholder="Entrez votre mail" name="mail" required="">
+							<br><label>Identidiant : &nbsp;</label>
+							<input type="text" placeholder="Entrez identifiant" name="user" required="">
+							<br><label>Mot de passe :&nbsp;</label>
+							<input type="password" placeholder="Entrez mot de passe" name="password" required="">
+							<br><button class="btn" type="submit" value="OK">m'inscrire</button>
+              				<br><a href="http://localhost:8080/tt/php/galerie.php" class="quit">Fermer</a>
+              				<input style="display:none;" name="url" value="/tt/php/galerie.php">						</div>
+					</form>
+				</div>
+			</div>
+			<div id="code" class="shadow">
+				<div class="form">
+					<form class="code" action="http://localhost:8080/tt/php/forget_password.php" method="post" target="_self">
+						<h3>Mot de passe oublie ?</h3>
+						<div>
+							<label>Adresse Mail : </label>
+							<input type="text" placeholder="Entrez votre mail" name="mail" required="">
+							<button class="btn" type="submit" value="OK">Envoyer un mail</button>
+              				<a href="http://localhost:8080/tt/php/galerie.php" class="quit">Fermer</a>
+              				<input style="display:none;" name="url" value="/tt/php/galerie.php">						</div>
+					</form>
+				</div>
+			</div>
+			<div id="main">
+				<footer>
+	                <p>© Copyright daugier 2017</p>
+				</footer>
+           	</div>
+		</center>
+	
+</body></html>

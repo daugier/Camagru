@@ -3,27 +3,34 @@ var nbr2 = 0;
 var index = 0;
 var j_add = -1;
 var length_com = 0;
+var pdf = 0;
 var j_com = new Array();
-function set_nbr(nbr)
+
+function sub_commentaire(objet)
 {
-	length = nbr;
-	nbr2 = length - (3 + (index * 2));
-	index++;
-}
-function sub_commentaire(i, j, uniq, user, text, id)
-{
-	if (confirm("Voulez-vous vraiment supprimer ce commentaire ??"))
-    {
-		var xhr = getXMLHttpRequest();
-		console.log("i = "+i+" j = "+j);
-		var list = document.getElementById('comentaire_photo'+i+j);
-		if (list)
-			list.parentNode.removeChild(list);
-		xhr.open("POST", "delete_commentaire.php", true); // true pour asynchrone
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send('user='+user+'&text='+text+'&uniq='+uniq+'&id='+id);
+	var id = objet.id;
+	var parent = objet.parentNode;
+	var xhr = getXMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+		{
+			if (xhr.responseText == 'yes')
+			{
+				parent.parentNode.removeChild(parent);
+			}
+			else if (xhr.responseText == 'no')
+			{
+				window.scrollTo(0,0);
+				need_connect();
+			}
+		}
 	}
+	xhr.open("POST", "delete_commentaire.php", true); // true pour asynchrone
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send('id='+id);
 }
+
 function getXMLHttpRequest()
 {
     var xhr = null;
@@ -51,134 +58,177 @@ function getXMLHttpRequest()
     }
     return xhr;
 }
-function plus_de_photos(i)
+
+
+function plus_de_photos(objet)
 {
-	set_nbr(i);
+	var len = objet.parentNode.childNodes.length;
+	if (!pdf)
+		pdf = 6;
 	var i = -1;
-	while (++i < 2 && nbr2 >= 0)
+	while (++i < 2 && pdf <= len - 2)
 	{
-		var pdc = document.getElementById('ensemble_photo'+nbr2).className = 'ensemble_photo';
-		nbr2--;
+		objet.parentNode.childNodes[pdf++].className = 'ensemble_photo';
 	}
-	if (nbr2 == -1)
+	if (pdf >= len - 2)
 		document.getElementById('plus_de_photos').className = 'shadow';
 
 }
-function plus_de_com(i, j)
+
+function plus_de_com(objet)
 {
-	if (!j_com[i])
-		j_com[i] = 6;
+	var len = objet.parentNode.parentNode.childNodes.length;
+	if (!j_com[objet.id])
+		j_com[objet.id] = 5;
 	var l = -1;
-	while (++l < 3 && j_com[i] < j)
+	while (++l < 5 && j_com[objet.id] < len - 2)
 	{
-		var pdc = document.getElementById('comentaire_photo'+i+j_com[i]).className = 'comentaire_photo';
-		j_com[i]++;
+		objet.parentNode.parentNode.childNodes[j_com[objet.id]].className = 'comentaire_photo';
+		j_com[objet.id]++;
 	}
-	if (j_com[i] == j)
-		document.getElementById('comentaire_photo_plus'+i).innerHTML = null;
+	if (j_com[objet.id] == len - 2)
+	{
+		objet.parentNode.parentNode.childNodes[j_com[objet.id]].innerHTML = '';
+	}
 }
+
 function need_connect()
 {
 	document.getElementById('need_connect').innerHTML = "Vous devez etre connecte pour liker et commenter les photos <br><a href='#login'>Me connecter</a>";
 }
-function sub_img(img, nbr)
+
+function sub_img(objet)
 {
 	if (confirm("Voulez-vous vraiment supprimer cette photo ??"))
     {
+    	var parent = objet.parentNode.parentNode;
+    	var img = parent.childNodes[2].src;
+    	img = img.split("/");
+    	img = '/'+img[4]+'/'+img[5];
+		img = '..'+img;
 		var xhr = getXMLHttpRequest();
-		xhr.open("POST", "delete_img.php", true); // true pour asynchrone
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send('img='+img);
-		var list = document.getElementById('ensemble_photo'+nbr);
-		list.parentNode.removeChild(list);
-	}
-}
-function add_comment(nbr, user, user_img)
-{
-	if (user != ' ' && user != '' && user)
-	{
-		var texte = document.getElementById('texte'+nbr).value;
-		var user = document.getElementById('user'+nbr).value;
-		var img = document.getElementById('img'+nbr).value;
-		var id = document.getElementById('id_img'+nbr).value;
-		if (texte != ' ' && texte && texte != '')
+		xhr.onreadystatechange = function()
 		{
-			var xhr = getXMLHttpRequest();
-			xhr.onreadystatechange = function()
+			if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
 			{
-				if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+				if (xhr.responseText == 'yes')
 				{
-					if (xhr.responseText != 'no')
-					{
-						var uniq = xhr.responseText;
-						var new_div = document.createElement('div');
-						var pdc = document.getElementById('comentaire_photo'+nbr+0);
-						new_div.setAttribute('id', 'comentaire_photo'+nbr+j_add);
-						new_div.setAttribute('class', 'comentaire_photo');
-						list = document.getElementById('comment'+nbr);
-						new_div.innerHTML = '<button type="submit" align="right" onclick="sub_commentaire( \''+nbr+'\', \''+j_add+'\', \''+uniq+'\', \''+user+'\', \''+texte+'\',\''+id+'\')">X</button><b>'+user+' :</b>'+" "+texte;
-						list.insertBefore(new_div, list.firstChild);
-						j_add--;
-					}
+					parent.parentNode.removeChild(parent);
 				}
 			}
-			xhr.open("POST", "stock_commentary.php", true); // true pour asynchrone
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.send('user='+user+'&texte='+texte+'&img='+img+'&user_img='+user_img);
-			document.getElementById('texte'+nbr).value = "";
+		}
+		xhr.open("POST", "delete_img.php", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send('img='+img);
+	}
+}
+
+function add_comment(objet)
+{
+	var xhr = getXMLHttpRequest();
+	var parent = objet.parentNode.parentNode;
+	if (!parent.childNodes[1].src)
+		var img = parent.childNodes[2].src;
+	else
+    	var img = parent.childNodes[1].src;
+    img = img.split("/");
+    img = '/'+img[4]+'/'+img[5];
+	img = '..'+img;
+	var text = objet.value;
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+		{
+			if (xhr.responseText && xhr.responseText != 'no')
+			{
+				var res = xhr.response.split('"');
+				objet.value = "";
+				var new_div = document.createElement('div');
+				new_div.setAttribute('id', 'commentaire_photo');
+				new_div.setAttribute('class', 'comentaire_photo');
+				list = objet.parentNode;
+				new_div.innerHTML = '<button id='+res[3]+' type="submit" align="right" onclick="sub_commentaire(this)">X</button><b>'+res[1];
+				list.insertBefore(new_div, list.childNodes[7]);
+			}
+			else if (xhr.responseText == 'no')
+			{
+				window.scrollTo(0,0);
+				need_connect();
+			}
+
 		}
 	}
-	else
-	{
-		window.scrollTo(0,0);
-		need_connect();
-	}
+	xhr.open("POST", "stock_commentary.php", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send('text='+text+'&img='+img);
 }
-function add_like(id, nbr, user, user_likes)
+
+function add_like(objet)
 {
-	if (user != ' ' && user != '' && user)
-	{
-		var like = parseInt(document.getElementById('like'+nbr).innerHTML);
-		like += 1;
-		document.getElementById('like'+nbr).innerHTML = like+' likes';
-		var add = '1';
-		var xhr = getXMLHttpRequest();
-		xhr.open("POST", "stock_like.php", true); // true pour asynchrone
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-		var change_like = document.getElementById('likee'+nbr);
-		change_like.value = 'j\'aime plus';
-		change_like.setAttribute('id', 'dislikee'+nbr);
-		change_like.setAttribute('class', 'dislike');
-		change_like.onclick = function(){sub_like(id, nbr, user, user_likes);};
-	}
+	var parent = objet.parentNode.parentNode;
+	if (!parent.childNodes[1].src)
+		var img = parent.childNodes[2].src;
 	else
+    	var img = parent.childNodes[1].src;
+    img = img.split("/");
+    img = '/'+img[4]+'/'+img[5];
+	img = '..'+img;
+	var xhr = getXMLHttpRequest();
+	xhr.onreadystatechange = function()
 	{
-		window.scrollTo(0,0);
-		need_connect();
+		if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+		{
+			if (xhr.responseText > 0)
+			{
+				objet.value = 'j\'aime plus';
+				objet.setAttribute('id', 'dislikee');
+				objet.setAttribute('class', 'dislike');
+				objet.onclick = function(){sub_like(this);};
+				objet.parentNode.childNodes[3].innerHTML = xhr.responseText+" Likes";
+			}
+			else if (xhr.responseText === 'no')
+			{
+				window.scrollTo(0,0);
+				need_connect();
+			}
+		}
 	}
+	xhr.open("POST", "stock_like.php", true); // true pour asynchrone
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send('img='+img+'&add=1');
 }
-function sub_like(id, nbr, user, user_likes)
+
+function sub_like(objet)
 {
-	if (user != ' ' && user != '' && user)
-	{
-		var like = parseInt(document.getElementById('like'+nbr).innerHTML);
-		like -= 1;
-		var add = -1;
-		document.getElementById('like'+nbr).innerHTML = like+' likes';
-		var xhr = getXMLHttpRequest();
-		xhr.open("POST", "stock_like.php", true); // true pour asynchrone
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send('id='+id+'&like='+like+'&user='+user+'&user_likes='+user_likes+'&add='+add);
-		var change_like = document.getElementById('dislikee'+nbr);
-		change_like.value = 'j\'aime';
-		change_like.setAttribute('id', 'likee'+nbr);
-		change_like.setAttribute('class', 'like');
-		change_like.onclick = function(){add_like(id, nbr, user, user_likes);};
-	}
+	var parent = objet.parentNode.parentNode;
+	if (!parent.childNodes[1].src)
+		var img = parent.childNodes[2].src;
 	else
+    	var img = parent.childNodes[1].src;
+    img = img.split("/");
+    img = '/'+img[4]+'/'+img[5];
+	img = '..'+img;
+	var xhr = getXMLHttpRequest();
+	xhr.onreadystatechange = function()
 	{
-		window.scrollTo(0,0);
-		need_connect();
+		if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+		{
+			if (xhr.responseText >= 0)
+			{
+				objet.value = 'j\'aime';
+				objet.setAttribute('id', 'likee');
+				objet.setAttribute('class', 'like');
+				objet.onclick = function(){add_like(this);};
+				objet.parentNode.childNodes[3].innerHTML = xhr.responseText+" Likes";
+			}
+			else if (xhr.responseText === 'no')
+			{
+				window.scrollTo(0,0);
+				need_connect();
+			}
+		}
 	}
+	xhr.open("POST", "stock_like.php", true); // true pour asynchrone
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send('img='+img+'&add=0');
 }

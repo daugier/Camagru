@@ -2,24 +2,23 @@
 include "../function/image.php";
 include "../function/comment.php";
 
-if(isset($_POST['user']) && isset($_POST['text']) && isset($_POST['uniq']) && isset($_POST['id']))
+session_start();
+
+if(isset($_POST['id']))
 {
-	$user = $_POST['user'];
-	$text = $_POST['text'];
-	$uniq = $_POST['uniq'];
+	$user = $_SESSION['user'];
 	$id = $_POST['id'];
 
-	$com = get_comment_by_id($id);
-	$comment = 'user='.$user.'&text='.$text.'&uniq='.$uniq.'//';
-	echo $comment;
-
-
-	$comment = str_replace("user= ", 'user=', $comment);
-	$comment = str_replace("text= ", 'text=', $comment);
-	$comment = str_replace("uniq= ", 'uniq=', $comment);
-	echo $comment;
-	$comment = str_replace($comment, '', $com['comment']);
-	sub_commentaire($comment, $id);
-
+	if (!$user)
+		echo 'no';
+	$user_comment = get_user_by_id_com($id);
+	if ($user === $user_comment || $user === 'root')
+	{
+		$res = sub_commentaire($id);
+		if ($res)
+		{
+			echo "yes";
+		}
+	}
 }
 ?>

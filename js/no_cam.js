@@ -8,6 +8,31 @@
 	var y = 100;
   	var size = 100;
    
+   function sub_img(objet)
+	{
+		if (confirm("Voulez-vous vraiment supprimer cette photo ??"))
+	    {
+	    	var parent = objet.parentNode;
+	    	var img = parent.childNodes[1].src;
+	    	img = img.split("/");
+	    	img = '/'+img[4]+'/'+img[5];
+			img = '..'+img;
+			var xhr = getXMLHttpRequest();
+			xhr.onreadystatechange = function()
+			{
+				if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0))
+				{
+					if (xhr.responseText == 'yes')
+					{
+						parent.parentNode.removeChild(parent);
+					}
+				}
+			}
+			xhr.open("POST", "delete_img.php", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send('img='+img);
+		}
+	}
    	function allowDrop2(e)
 	{
 	   e.preventDefault();
@@ -92,9 +117,13 @@
 			xhr.send('source='+source+'&value=1&name='+name2);
 			var list = document.getElementById('placehere');
 			var new_img = document.createElement("img");
+			var new_div = document.createElement('div');
+			new_div.setAttribute('class', 'button_supimg');
+			new_div.innerHTML = '<button type="submit" onclick="sub_img(this)">X</button>';
 			new_img.setAttribute("src", name2);
 			new_img.setAttribute('draggable', false);
-			list.insertBefore(new_img, list.firstChild);
+			list.insertBefore(new_div, list.firstChild);
+			new_div.appendChild(new_img, new_div.firstChild);
 			photo2.setAttribute('src', "");
 		}
 	},false);

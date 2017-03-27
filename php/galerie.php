@@ -73,23 +73,23 @@ if (!file_exists($t_url))
 						$nbr = 0;
 						$tmp = $i;
 
-						while ($res[--$i]['img'] && ++$nbr)
+						while ($res[--$i]['img'] && ++$nbr && $i >= 0)
 						{
 							$img = $res[$i]['img'];
 							$likes = get_likes_by_img($img);
 							$user_likes = get_user_likes_by_img($img);
-							$id = get_id_img_by_img($img);
 							$user_img = get_user_by_img($img);
+							$id_img = get_id_img_by_img($img);
 							if ($nbr > 2)
 							{
 								$pdf = 1;
-								echo '<div class="shadow" id="ensemble_photo'.$i.'">';
+								echo '<div class="shadow" id="ensemble_photo">';
 							}
 							else
-								echo '<div class="ensemble_photo" id="ensemble_photo'.$i.'">';
-							if ($user == $user_img || $user == 'root')
+								echo '<div class="ensemble_photo" id="ensemble_photo">';
+							if ($user == 'root')
 							{
-								echo '<div class="button_supimg"><button type="submit" onclick="sub_img(\''.$img.'\', '.$i.')">X</button></div>';
+								echo '<div class="button_supimg"><button type="submit" onclick="sub_img(this)">X</button></div>';
 							}
 							$date['img_date'] = get_date_by_img($img);
 							echo '<div class=date>publie par <b>'.$user_img.'</b> le '.$date['img_date'][0].'</div>';
@@ -98,57 +98,52 @@ if (!file_exists($t_url))
 									<div class="commentaire"><br>';
 									if (!strpos($user_likes, $user))
 									{
-										echo '<input id="likee'.$i.'" class="like" type="submit" onclick="add_like('.$id.', '.$i.',\' '.$user.'\', \' '.$user_likes.'\')" value="j\'aime"/>';
+										echo '<input id="likee" class="like" type="submit" onclick="add_like(this)" value="j\'aime"/>';
 									}
 									else
 									{
-										echo '<input id="dislikee'.$i.'" class="dislike" type="submit" onclick="sub_like('.$id.', '.$i.', \''.$user.'\', \''.$user_likes.'\')" value="j\'aime plus"/>';
+										echo '<input id="dislikee" class="dislike" type="submit" onclick="sub_like(this)" value="j\'aime plus"/>';
 									}
-									echo '<br><div id="like'.$i.'">'.$likes.' likes</div>
-										<input class="text_write" type="text" id="texte'.$i.'" name="texte" onKeyPress="if(event.keyCode == 13) add_comment('.$i.',\''.$user.'\',\''.$user_img.'\')";"/>
-										<br><input class="commenter" type="submit" onclick="add_comment('.$i.',\''.$user.'\',\''.$user_img.'\')" id="add_comment" value="commenter"/>
-										<input style="display:none;" id="user'.$i.'" value="'.$user.'"/>
-										<input style="display:none;" id="img'.$i.'" value="'.$img.'"/>
-										<input style="display:none;" id="id_img'.$i.'" value="'.$id.'"/>
-										<div id="comment'.$i.'" >';
-							$j = -1;
-							$com = get_comment_by_img($img);
-							$nbr_com = 6;
-							if ($com)
+									echo '<br><div id="like">'.$likes.' Likes</div>
+										<input class="text_write" type="text" id="texte" name="texte" onKeyPress="if(event.keyCode == 13) add_comment(this)";"/>
+										<div id="comment" >';
+							$j = 0;
+							$nbr_com = 0;
+							$comment = get_comment_by_id_img($id_img);
+							if ($comment)
 							{
-								$comment = $com['comment'];
-								preg_match_all("/user=(.*?)&/", $comment, $person);
-								preg_match_all("/text=(.*?)&/", $comment, $text);
-								preg_match_all("/uniq=(.*?)\/\//", $comment, $uniq);
-								while ($person[1][++$j])
+								while ($comment[$j])
+									$j++;
+								while ($comment[--$j] && ++$nbr_com)
 								{
-									if ($j > 5)
+									if ($nbr_com > 5)
 									{
-										echo '<div class="shadow" id="comentaire_photo'.$i.$j.'">';
-										if ($user == $person[1][$j] || $user == 'root')
-											echo '<button type="submit"  onclick="sub_commentaire('.$i.','.$j.',\''.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
-										echo '<b>'.$person[1][$j].' :</b> '.$text[1][$j].'</div>';
+										echo '<div class="shadow" id="comentaire_photo">';
+										if ($user == $comment[$j]['user'] || $user == 'root')
+										{
+											echo '<button id="'.$comment[$j]['id'].'" type="submit"  onclick="sub_commentaire(this)">X</button>';
+										}
+										echo '<b>'.$comment[$j]['user'].' :</b> '.$comment[$j]['comments'].'</div>';
 									}
 									else
 									{
-										echo '<div class="comentaire_photo" id="comentaire_photo'.$i.$j.'">';
-										if ($user == $person[1][$j] || $user == 'root')
-											echo '<button type="submit" onclick="sub_commentaire('.$i.','.$j.',\' '.$uniq[1][$j].'\',\' '.$person[1][$j].'\',\' '.$text[1][$j].'\', '.$id.')">X</button>';
-										echo '<b>'.$person[1][$j].' :</b> '.$text[1][$j].'</div>';
+										echo '<div class="comentaire_photo" id="comentaire_photo">';
+										if ($user == $comment[$j]['user'] || $user == 'root')
+											echo '<button id="'.$comment[$j]['id'].'" type="submit" onclick="sub_commentaire(this)">X</button>';
+										echo '<b>'.$comment[$j]['user'].' :</b> '.$comment[$j]['comments'].'</div>';
 									}
 								}
-								if ($j > 5)
+								if ($nbr_com > 5)
 								{
-									echo '<div class="comentaire_photo_2" id="comentaire_photo_plus'.$i.'"><a onclick="plus_de_com('.$i.','.$j.')">plus de commentaires</a></div>';
+									echo '<div class="comentaire_photo_2" ><a id="'.$i.'" onclick="plus_de_com(this)">plus de commentaires</a></div>';
 								}
 							}
 							echo '			</div></div>
-									<br></div>
-								</div>';
+									<br></div>';
 						}
 						if ($pdf == 1)
 						{
-							echo '<a class="pdp" id="plus_de_photos" onclick="plus_de_photos('.$tmp.')">Plus de photos</a>';
+							echo '<a class="pdp" id="plus_de_photos" onclick="plus_de_photos(this)">Plus de photos</a>';
 						}
 					}
 					else

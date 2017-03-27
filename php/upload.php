@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION['photo'] = 0;
 if(isset($_FILES['up_photo']))
 {
      if (!file_exists('../upload'))
@@ -19,8 +21,13 @@ if(isset($_FILES['up_photo']))
            'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
           $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
           if(move_uploaded_file($_FILES['up_photo']['tmp_name'], $dossier.$fichier))
-                header('location:camera.php?fichier='.$fichier);
+          {
+               $_SESSION['photo'] = $dossier.$fichier;
+               header('location:camera.php');
+          }
      }
-     header('location:camera.php?fichier='.$fichier);
+     header('location:camera.php');
 }
+else
+     header('location:camera.php');
 ?>

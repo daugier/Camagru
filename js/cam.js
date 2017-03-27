@@ -122,7 +122,11 @@
 			var new_img = document.createElement("img");
 			new_img.setAttribute("src", name);
 			new_img.setAttribute('draggable', false);
-			list.insertBefore(new_img, list.firstChild);
+			var new_div = document.createElement('div');
+			new_div.setAttribute('class', 'button_supimg');
+			new_div.innerHTML = '<button type="submit" onclick="sub_img(this)">X</button>';
+			list.insertBefore(new_div, list.firstChild);
+			new_div.appendChild(new_img, new_div.firstChild);
 			photo.setAttribute('src', "");
 			data = 0;
 		}

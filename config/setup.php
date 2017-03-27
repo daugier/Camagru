@@ -75,8 +75,22 @@ $sql = 'CREATE TABLE image
 			user VARCHAR(255),
 			likes INT(255),
 			user_likes TEXT,
-			comment TEXT,
 			img_date TEXT)';
+try
+{
+	$pdo->exec($sql);
+}
+catch(PDOException $e)
+{
+	die("Erreur ! : ".$e->getMessage() );
+}
+
+$sql = 'CREATE TABLE comment
+		(
+			id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+			id_img INT,
+			user VARCHAR(255),
+			comments TEXT)';
 try
 {
 	$pdo->exec($sql);

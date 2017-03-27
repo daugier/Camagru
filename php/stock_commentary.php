@@ -1,49 +1,51 @@
 <?php
 require '../function/connect_db.php';
 include '../function/user.php';
+include '../function/image.php';
 include 'mail.php';
 
 session_start();
-if(isset($_POST['img']) && isset($_POST['user']) && isset($_POST['texte']) && isset($_POST['user_img']))
+
+if(isset($_POST['img']) && isset($_POST['text']))
 {
 	$img = $_POST["img"];
-	$user = $_POST['user'];
-	$texte  = $_POST['texte'];
-	$id = $_SESSION['logged_on_user'];
-	$user_img = $_POST['user_img'];
-	$texte = str_replace(chr(10), '<br/>', $texte); 
-	while (preg_match('/<br\/><br\/>/', $texte))
-		$texte = str_replace('<br/><br/>', '<br/>', $texte);
-	$texte_tmp = str_replace(' ', '', $texte);
-	if ($texte_tmp)
+	$text  = $_POST['text'];
+
+	$user = $_SESSION['user'];
+	$id_img = get_id_img_by_img($img);
+	$user_img = get_user_by_img($img);
+	$comments = htmlspecialchars($text);
+	if (!$user)
+		echo 'no';
+	else if ($comments && $user)
 	{
 		try{
-			$query= $db->prepare('SELECT comment FROM image WHERE img=:img');
-			$query->execute(array('img' => $img));
-			$res = $query->fetch();
+			$query = $db->prepare("INSERT INTO comment (id_img, user, comments) VALUES (:id_img, :user, :comments)");
+			$query->execute(array(':id_img' => $id_img, ':user' => $user, ':comments' => $comments));
 		}
 		catch(PDOException $e)
 		{
 			die("Erreur ! : ".$e->getMessage() );
 		}
-		$comment = $res['comment'];
-		$uniq = uniqid();
-		$comment = 'user='.$user.'&text='.$texte.'&uniq='.$uniq.'//'.$comment;
 		try{
-			$query= $db->prepare('UPDATE image set comment=:comment WHERE img=:img');
-			$query->execute(array(':comment' => $comment, 'img' => $img));
+			$query = $db->prepare("SELECT MAX(id) AS max FROM comment");
+			$query->execute();
+			$id = $query->fetch();
+			$id = $id['max'];
 		}
 		catch(PDOException $e)
 		{
 			die("Erreur ! : ".$e->getMessage() );
 		}
-		$mail = get_mail_by_user($user_img);
-		$message = 'Une de vos photos vient d\'etre commentee par '.$user.'!'." Message : ".$texte;
-		$subject = "nouveau commentaire";
-		send_mail($mail, $message, $subject);
-		echo $uniq;
+		if ($user != $user_img)
+		{
+			$mail = get_mail_by_user($user_img);
+			$message = 'Une de vos photos vient d\'etre commentee par '.$user.'!'." Message : ".$comments;
+			$subject = "nouveau commentaire";
+			send_mail($mail, $message, $subject);
+		}
+		$response = ["$user :  $comments","$id"];
+		echo json_encode($response);
 	}
-	else
-		echo "no";
 }
 ?>

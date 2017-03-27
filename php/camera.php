@@ -5,10 +5,8 @@
 		header('location:../index.php');
 	$url = $_SERVER[REQUEST_URI];
 	$url_2 = explode('/', $_SERVER[REQUEST_URI]);
-
 	$t_url = $url_2[3].$url_2[4];
-	$t_url = explode('?', $t_url);
-	if (!file_exists($t_url[0]))
+	if (!file_exists($t_url))
 	{
 		header('location:'.$_SESSION['url']);
 	}
@@ -86,7 +84,10 @@
 							$i++;
 						}
 						while ($res[--$i]['img'])
-							echo '<img draggable="false" src="'.$res[$i]['img'].'">';
+						{
+							echo '<div class="button_supimg"><button type="submit" onclick="sub_img(this)">X</button>';
+							echo '<img draggable="false" src="'.$res[$i]['img'].'"></div>';
+						}
 					?>
 					</div>
 					<!-- s'il y a une camera -->
@@ -124,10 +125,11 @@
 								<img class="sup_img_cur" id="sup_img_2">
 							</div>
 							<?php
-								if ($_GET['fichier'])
+								if ($_SESSION['photo'])
 								{
-									$file = $_GET['fichier'];
-									if (file_exists('../upload/'.$file))
+									$file = $_SESSION['photo'];
+									$fileData = file_get_contents($file);
+									if (file_exists('../upload/'.$file) && $fileData && strlen($fileData) != 0)
 									{
 										echo '<img id="photo_up" src="../upload/'.$file.'">';
 										chmod('../upload/'.$file, 0755);
@@ -136,7 +138,9 @@
 									echo '<img id="photo_up" alt="votre photo">';
 								}
 								else
+								{
 									echo '<img id="photo_up" alt="votre photo">';
+								}
 							?>
 						</div>
 						<div class="valide_photo2">
