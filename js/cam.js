@@ -57,17 +57,18 @@
 		source = here;
 		document.getElementById('sup_img').src = source;
 		document.getElementById('sup_img_2').src = source;
-		if (source != '../img/no_filter.png')
+		if (source != '../img/nof.jpeg')
 		{
 			var el = document.getElementById('radio');
 	   		el.style.visibility = "visible";
 			el.style.opacity = '1';
 		}
-		if (source == '../img/no_filter.png')
+		if (source == '../img/nof.jpeg')
 		{
 			var el = document.getElementById('radio');
 	   		el.style.visibility = "hidden";
 			el.style.opacity = '0';
+			source = 0;
 		}
 		delete_wrong2();
 		delete_wrong();

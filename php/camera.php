@@ -45,24 +45,17 @@
 			</div>
 			<div class="all" id="all">
 				<div class="image_montage">
-					<div class="photo_bouton">
-						<img src="../img/masque.png" draggable="false" id="../img/masque.png" onclick="define_source('../img/masque.png')">
-					</div>
-					<div class="photo_bouton">
-						<img src="../img/smiley.png" draggable="false" id="../img/smiley.png" onclick="define_source('../img/smiley.png')">
-					</div>
-					<div class="photo_bouton">
-						<img src="../img/moustache.png" draggable="false" id="../img/moustache.png" onclick="define_source('../img/moustache.png')">
-					</div>
-					<div class="photo_bouton">
-						<img src="../img/ano.png" draggable="false" id="../img/ano.png" onclick="define_source('../img/ano.png')">
-					</div>
-					<div class="photo_bouton">
-						<img src="../img/lunette.png" draggable="false" id="../img/lunette.png" onclick="define_source('../img/lunette.png')">
-					</div>
-					<div class="photo_bouton" >
-						<img src="../img/nof.jpeg" draggable="false" id="../img/no_filter.png" onclick="define_source('../img/no_filter.png')">
-					</div>
+				<?php 
+					$all_file = scandir('../img');
+					$i = 3;
+					while ($all_file[$i])
+					{
+						echo '<div class="photo_bouton">
+						<img src="../img/'.$all_file[$i].'" draggable="false" id="../img/'.$all_file[$i].'" onclick="define_source(\'../img/'.$all_file[$i].'\')">
+					</div>';
+					$i += 3;
+					}
+				?>
 				</div>
 				<div class="shadow2" id="radio">
 					<br><input type="radio" name="tail" value="100" onclick="get_size('100')">small

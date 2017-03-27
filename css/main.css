@@ -5,7 +5,7 @@ html
 body
 {
 	font-family: 'Cinzel', serif;
-	background-color: rgb(249, 189, 121  );
+	background-color: rgb(245, 245 ,220);
 	width : 100%;
 	padding : 0;
 	margin : 0;
@@ -40,7 +40,7 @@ body
 }
 .date
 {
-	color : white;
+	color : rgb(200, 173, 127);
 	font-size: 18px;
 }
 .date b
@@ -71,8 +71,7 @@ body
 {
 	width : 100%;
 	font-size: 20px;
-	color : white;
-	background-color: none;
+	color : black;
 	text-decoration: underline;
 	cursor: pointer;
 }
@@ -188,14 +187,15 @@ canvas
 	color : black;
 	padding : 5px;
 	width : 400px;
+	font-size : 14px;
 	word-wrap: break-word;
-	border-bottom:1px dashed rgb(255, 255, 255);
+	border-bottom:1px dashed rgb(206, 181, 139);
 }
 .comentaire_photo_2
 {
 	margin-top: 2px;
 	padding-left: 30px;
-	color : white;
+	color : black;
 	font-size: 18px;
 	text-decoration: underline;
 	padding : 5px;
@@ -269,8 +269,9 @@ canvas
 {
 	padding: 8px;
 	color : black;
+	background-color: rgb(200, 173, 127);
 	text-align: center;
-	opacity : 0.5;
+	opacity : 0.9;
     width: 400px;
     min-height : 30px;
     resize: none;
@@ -289,6 +290,7 @@ canvas
 }
 .ensemble_photo
 {
+	background-color: rgb(252, 252, 245); 
 	margin-top: 0px;
 	width : 500px;
 	margin-bottom: 70px;
@@ -324,9 +326,11 @@ canvas
 .image_montage
 {
 	margin-top: 50px;
-	height : 200px;
+	height : 150px;
 	width : 800px;
 	overflow: auto;
+	border-radius: 20px;
+	background-color: rgb(2452, 252, 245);
 }
 .cheat
 {
@@ -521,7 +525,7 @@ canvas
 {
 	padding-top : 70px;
 	height : 150px;
-	background-color: rgba(40, 22, 1  , 1);
+	background-color: rgba(63, 34, 4, 1);
 }
 .menu li
 {
