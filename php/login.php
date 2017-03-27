@@ -33,9 +33,9 @@ if ($user && $password)
 	else
 	{
 		$_SESSION['error'] = 5;
-		header('location:'.$url.'#login');
+		header('location:../index.php#login');
 	}
 }
 else
-	header('location:'.$url.'#login');
+	header('location:../index.php#login');
 ?>

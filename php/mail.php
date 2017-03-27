@@ -7,5 +7,4 @@ function send_mail($mail, $message, $subject)
 				'X-Mailer: PHP/' . phpversion();
 	mail($to, $subject, $message, $headers);
 }
-
 ?>

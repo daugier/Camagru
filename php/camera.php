@@ -121,8 +121,8 @@
 								if ($_SESSION['photo'])
 								{
 									$file = $_SESSION['photo'];
-									$fileData = file_get_contents($file);
-									if (file_exists('../upload/'.$file) && $fileData && strlen($fileData) != 0)
+									$img = getimagesize($file);
+									if (file_exists('../upload/'.$file) && !empty($img[2]))
 									{
 										echo '<img id="photo_up" src="../upload/'.$file.'">';
 										chmod('../upload/'.$file, 0755);

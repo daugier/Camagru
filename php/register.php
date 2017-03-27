@@ -11,6 +11,8 @@ $mail = $_POST['mail'];
 $_SESSION['error'] = 0;
 $_SESSION['valid'] = 0;
 $url = $_POST['url'];
+if (!$url)
+	header('location:../index.php');
 if ($user && $password && $mail)
 {
 	if (wrong_mail($mail) && wrong_user($user) && wrong_pass($password))
@@ -33,8 +35,12 @@ if ($user && $password && $mail)
 		header('location:'.$url);
 	}
 	else
-		header('location:'.$url.'#register');
+	{
+		header('location:../index.php#register');
+	}
 }
 else
-	header('location:'.$url.'#register');
+{
+	header('location:../index.php#register');
+}
 ?>
